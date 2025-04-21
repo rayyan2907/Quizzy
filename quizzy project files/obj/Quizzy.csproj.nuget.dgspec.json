@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\Quizzy\\Quizzy.csproj": {}
+    "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Quizzy.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\Quizzy\\Quizzy.csproj": {
+    "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Quizzy.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\Quizzy\\Quizzy.csproj",
+        "projectUniqueName": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Quizzy.csproj",
         "projectName": "Quizzy",
-        "projectPath": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\Quizzy\\Quizzy.csproj",
+        "projectPath": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Quizzy.csproj",
         "packagesPath": "C:\\Users\\Rayya\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\Quizzy\\obj\\",
+        "outputPath": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Rayya\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -44,6 +44,12 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[9.3.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
