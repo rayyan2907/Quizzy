@@ -1,0 +1,18 @@
+alter table enrollments 
+drop foreign key enrollments_ibfk_2;
+
+alter table quiz_lookup
+drop foreign key quiz_lookup_ibfk_2;
+
+alter table subjects 
+modify subjectID int auto_increment;
+
+alter table enrollments
+add constraint subject_id_key
+foreign key (subjectID) references subjects(subjectID);
+
+alter table quiz_lookup
+add constraint subject_id_key_quiz
+foreign key (subjectID) references subjects(subjectID);
+
+-- this is schema update script. we have forgotten to make some of the primary key auto increament so that issue has been solved in this script
