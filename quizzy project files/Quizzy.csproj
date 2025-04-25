@@ -14,4 +14,8 @@
     <Folder Include="Models\DataLayer_Models\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\background.jpg" />
+  </ItemGroup>
+
 </Project>
