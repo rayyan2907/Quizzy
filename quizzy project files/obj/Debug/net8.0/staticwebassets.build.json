@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "dqMonhQLWeoBO4v4kOfR7VvRMV5ukqkUXSbrB7SoD4A=",
+  "Hash": "XXvES8o2pEf6/WV970wO6zrB3InII3qwMnlfDOwCuTA=",
   "Source": "Quizzy",
   "BasePath": "_content/Quizzy",
   "Mode": "Default",
@@ -53,6 +53,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Quizzy.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\css\\login_page.css",
+      "SourceId": "Quizzy",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\",
+      "BasePath": "_content/Quizzy",
+      "RelativePath": "css/login_page.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\login_page.css"
     },
     {
       "Identity": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\css\\site.css",

@@ -8,5 +8,10 @@ namespace Quizzy.Controllers
         {
             return View("login_page");
         }
+
+        public IActionResult register()
+        {
+            return View("register_page");
+        }
     }
 }
