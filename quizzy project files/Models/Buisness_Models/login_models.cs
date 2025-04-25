@@ -2,7 +2,7 @@
 {
     public class login_models
     {
-        private string user_name {  get; set; }
-        private string password { get; set; }
+        public string user_name {  get; set; }
+        public string password { get; set; }
     }
 }
