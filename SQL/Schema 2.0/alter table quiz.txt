@@ -1,0 +1,9 @@
+alter table quiz
+drop constraint sub_key;
+alter table quiz
+add constraint sub_key
+foreign key (subjectID) references subjects(subjectID)
+on delete cascade
+on update cascade;
+
+-- constraint updated. added cascade with subject id in quiz
