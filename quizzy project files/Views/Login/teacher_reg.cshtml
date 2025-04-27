@@ -1,0 +1,63 @@
+﻿@model Quizzy.Models.Buisness_Models.Teacher
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher - Quizzy</title>
+    <link rel="stylesheet" href="~/css/login_page.css">
+    <script type="text/javascript" src="~/js/login.js" defer></script>
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Teacher</h1>
+        <p id="error-message"></p>
+        <form id="form" method="post">
+
+            <div>
+                <label for="first_name-input">
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                        <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
+                    </svg>
+                </label>
+                <input type="text" id="first_name-input" placeholder="First Name" asp-for="first_name">
+            </div>
+
+            <div>
+                <label for="last_name-input">
+                   
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                        <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
+                    </svg>
+                </label>
+                <input type="text" id="last_name-input" placeholder="Last Name" asp-for="last_name">
+            </div>
+
+            <div>
+                <label for="dept-input">
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                        <path d="M12 2 1 7l11 5 9-4.09V17h2V7L12 2zm0 7.4L4.24 7 12 4l7.76 3-7.76 3.4zM4 19h16v2H4v-2z" />
+                    </svg>
+                </label>
+                <input type="text" id="dept-input" placeholder="Department">
+            </div>
+
+            <div>
+                <label for="Date-input">
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                        <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v15c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 17H5V8h14v12z" />
+                    </svg>
+                </label>
+                <input type="date" id="date-input" placeholder="Date of Graduation">
+            </div>
+
+            <button type="submit">Register As A Teacher</button>
+        </form>
+        <p>Already have an Account? <a href="/login/index">login</a> </p>
+    </div>
+</body>
+</html>

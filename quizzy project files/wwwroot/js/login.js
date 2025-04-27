@@ -31,6 +31,10 @@ function getSignupFormErrors(firstname, email, password, repeatPassword) {
         errors.push('Firstname is required')
         firstname_input.parentElement.classList.add('incorrect')
     }
+    if (repeatPassword === '' || repeatPassword == null) {
+        errors.push('Please fill in required password')
+        firstname_input.parentElement.classList.add('incorrect')
+    }
     if (email === '' || email == null) {
         errors.push('Email is required')
         email_input.parentElement.classList.add('incorrect')
