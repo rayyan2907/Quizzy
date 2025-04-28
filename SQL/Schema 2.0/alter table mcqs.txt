@@ -1,0 +1,1 @@
+alter table mcqs add column description varchar(200) not null;

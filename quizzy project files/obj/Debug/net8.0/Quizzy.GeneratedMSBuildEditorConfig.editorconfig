@@ -9,16 +9,18 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Quizzy
 build_property.RootNamespace = Quizzy
-build_property.ProjectDir = C:\Users\Rayya\Pictures\Quizzy\DBS25006\quizzy project files\
+build_property.ProjectDir = F:\DBS25006\quizzy project files\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Rayya\Pictures\Quizzy\DBS25006\quizzy project files
+build_property.MSBuildProjectDirectory = F:\DBS25006\quizzy project files
 build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/Rayya/Pictures/Quizzy/DBS25006/quizzy project files/Views/Home/Index.cshtml]
+[F:/DBS25006/quizzy project files/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
@@ -30,34 +32,34 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cbG9naW5fcGFnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Rayya/Pictures/Quizzy/DBS25006/quizzy project files/Views/Login/register_page.cshtml]
+[F:/DBS25006/quizzy project files/Views/Login/register_page.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5ccmVnaXN0ZXJfcGFnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Rayya/Pictures/Quizzy/DBS25006/quizzy project files/Views/Login/student_reg.cshtml]
+[F:/DBS25006/quizzy project files/Views/Login/student_reg.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cc3R1ZGVudF9yZWcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Rayya/Pictures/Quizzy/DBS25006/quizzy project files/Views/Login/teacher_reg.cshtml]
+[F:/DBS25006/quizzy project files/Views/Login/teacher_reg.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cdGVhY2hlcl9yZWcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Rayya/Pictures/Quizzy/DBS25006/quizzy project files/Views/Shared/Error.cshtml]
+[F:/DBS25006/quizzy project files/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Rayya/Pictures/Quizzy/DBS25006/quizzy project files/Views/Shared/_ValidationScriptsPartial.cshtml]
+[F:/DBS25006/quizzy project files/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Rayya/Pictures/Quizzy/DBS25006/quizzy project files/Views/_ViewImports.cshtml]
+[F:/DBS25006/quizzy project files/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Rayya/Pictures/Quizzy/DBS25006/quizzy project files/Views/_ViewStart.cshtml]
+[F:/DBS25006/quizzy project files/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Rayya/Pictures/Quizzy/DBS25006/quizzy project files/Views/Shared/_Layout.cshtml]
+[F:/DBS25006/quizzy project files/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-i8vhye4e3d
