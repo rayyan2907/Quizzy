@@ -158,3 +158,61 @@ form div.incorrect input {
 #error-message {
     color: #f06272;
 }
+/* Add styling for OTP input boxes */
+.otp-container {
+    display: flex;
+    justify-content: space-between; /* Ensure even spacing between the inputs */
+    gap: 10px;
+    margin-top: 20px;
+    max-width: 400px; /* Prevent the input fields from stretching too wide */
+    margin: 0 auto;
+}
+
+.otp-input {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    text-align: center;
+    border: 2px solid var(--input-color);
+    border-radius: 10px;
+    background-color: var(--input-color);
+    transition: 150ms ease;
+    margin: 0 5px;
+}
+
+    .otp-input:focus {
+        outline: none;
+        border-color: var(--accent-color);
+        background-color: #fff;
+    }
+
+    .otp-input:valid {
+        background-color: #fff;
+    }
+
+    .otp-input:hover {
+        border-color: var(--accent-color);
+    }
+
+button {
+    margin-top: 20px;
+    border: none;
+    border-radius: 1000px;
+    padding: .85em 4em;
+    background-color: var(--accent-color);
+    color: var(--base-color);
+    font: inherit;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 150ms ease;
+}
+
+    button:hover {
+        background-color: var(--text-color);
+    }
+
+    button:focus {
+        outline: none;
+        background-color: var(--text-color);
+    }

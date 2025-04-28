@@ -1,5 +1,10 @@
 ﻿@model Quizzy.Models.Buisness_Models.Student
 
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,9 +15,16 @@
     <script type="text/javascript" src="~/js/login.js" defer></script>
 </head>
 <body>
+  
     <div class="wrapper">
         <h1>Student</h1>
         <p id="error-message"></p>
+        @if (TempData["Success"] != null)
+        {
+            <div style="color: #07fc03; font-size: 16px; text-align: center;">
+                @TempData["Success"]
+            </div>
+        }
         <form id="form" method="post">
 
             <div>

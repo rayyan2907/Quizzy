@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Verify OTP";
+}
+
+
+<head>
+    <link href="~/css/login_page.css" rel="stylesheet" />
+</head>
+
+<div class="wrapper">
+    <h1>Enter OTP</h1>
+    <h6>Please enter the otp sent to your email</h6>
+    @if (ViewBag.Error != null)
+    {
+        <div id="error-message" style="color: red; font-size: 14px; margin-bottom: 10px;">
+            @ViewBag.Error
+        </div>
+    }
+
+    <form method="post" asp-action="EnterOtp" onsubmit="return collectOtp()">
+        <div class="otp-container">
+            <!-- Create individual OTP input fields for each digit -->
+            @for (int i = 0; i < 6; i++)
+            {
+                <input type="text" id="otpInput_@i" maxlength="1" class="otp-input" pattern="\d" required oninput="moveToNext(this, @i)" />
+            }
+        </div>
+
+        <!-- Hidden field to store full OTP -->
+        <input type="hidden" id="fullOtp" name="otpInput" />
+
+        <button type="submit">Verify</button>
+    </form>
+</div>
+
+<script>
+    function moveToNext(currentInput, index) {
+        if (currentInput.value.length === 1 && index < 5) {
+            document.getElementById(`otpInput_${index + 1}`).focus();
+        }
+    }
+
+    function collectOtp() {
+        var fullOtp = "";
+        for (var i = 0; i < 6; i++) {
+            fullOtp += document.getElementById("otpInput_" + i).value;
+        }
+        document.getElementById("fullOtp").value = fullOtp;
+        return true; // Allow form submission
+    }
+</script>

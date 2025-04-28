@@ -13,6 +13,12 @@
     <div class="wrapper">
         <h1>Teacher</h1>
         <p id="error-message"></p>
+        @if (TempData["Success"] != null)
+        {
+            <div style="color: #07fc03; font-size: 16px; text-align: center;">
+                @TempData["Success"]
+            </div>
+        }
         <form id="form" method="post">
 
             <div>

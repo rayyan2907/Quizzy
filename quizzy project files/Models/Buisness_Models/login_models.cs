@@ -31,5 +31,10 @@ namespace Quizzy.Models.Buisness_Models
         public string last_name { get; set; }
     }
 
+    public class verify_otp
+    {
+        public string Otp { get; set; }
+        public bool isVerified { get; set; }
+    }
 
 }

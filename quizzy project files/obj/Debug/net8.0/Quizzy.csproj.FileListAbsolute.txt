@@ -83,3 +83,7 @@ C:\Users\Rayya\Pictures\Quizzy\DBS25006\quizzy project files\obj\Debug\net8.0\re
 C:\Users\Rayya\Pictures\Quizzy\DBS25006\quizzy project files\obj\Debug\net8.0\Quizzy.pdb
 C:\Users\Rayya\Pictures\Quizzy\DBS25006\quizzy project files\obj\Debug\net8.0\Quizzy.genruntimeconfig.cache
 C:\Users\Rayya\Pictures\Quizzy\DBS25006\quizzy project files\obj\Debug\net8.0\ref\Quizzy.dll
+C:\Users\Rayya\Pictures\Quizzy\DBS25006\quizzy project files\bin\Debug\net8.0\MailKit.dll
+C:\Users\Rayya\Pictures\Quizzy\DBS25006\quizzy project files\bin\Debug\net8.0\MimeKit.dll
+C:\Users\Rayya\Pictures\Quizzy\DBS25006\quizzy project files\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\Rayya\Pictures\Quizzy\DBS25006\quizzy project files\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
