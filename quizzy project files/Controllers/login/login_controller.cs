@@ -53,25 +53,29 @@ namespace Quizzy.Controllers.login
             Console.WriteLine($"user with email {reg.email} and role {reg.role} is trying to sign up");
 
 
-            string generatedOtp = new Random().Next(100000, 999999).ToString();
-
-            // Save OTP in session (or a static/global variable temporarily)
-            HttpContext.Session.SetString("EmailOTP", generatedOtp);
-
-            HttpContext.Session.SetString("UserRole", reg.role);
-            HttpContext.Session.SetString("UserEmail", reg.email);
-            HttpContext.Session.SetString("UserPassword", reg.password);
-
-
-            Console.WriteLine($"Otp {generatedOtp} has been sent to email {reg.email}");
-            // Send email
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Quizzy - Modern Quiz System", "mrayyan403@gmail.com"));
-            message.To.Add(new MailboxAddress(reg.role, reg.email));
-            message.Subject = "Your OTP Verification Code";
-            message.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            if (reg.password == reg.cnfrm_pwd)
             {
-                Text = $@"
+
+
+                string generatedOtp = new Random().Next(100000, 999999).ToString();
+
+                // Save OTP in session (or a static/global variable temporarily)
+                HttpContext.Session.SetString("EmailOTP", generatedOtp);
+
+                HttpContext.Session.SetString("UserRole", reg.role);
+                HttpContext.Session.SetString("UserEmail", reg.email);
+                HttpContext.Session.SetString("UserPassword", reg.password);
+
+
+                Console.WriteLine($"Otp {generatedOtp} has been sent to email {reg.email}");
+                // Send email
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("Quizzy - Modern Quiz System", "mrayyan403@gmail.com"));
+                message.To.Add(new MailboxAddress(reg.role, reg.email));
+                message.Subject = "Your OTP Verification Code";
+                message.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+                {
+                    Text = $@"
                         <html>
                             <body style='font-family: Arial, sans-serif; text-align:center; padding:20px; background-color: #f7f7f7;'>
                                 <h2 style='color: #007bff;'>Verify Your Email</h2>
@@ -84,20 +88,27 @@ namespace Quizzy.Controllers.login
                             </body>
                         </html>"
 
-            };
+                };
 
-            // (Then use SMTP to send the message)
-            using (var client = new MailKit.Net.Smtp.SmtpClient())
-            {
-                client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                client.Authenticate("mrayyan403@gmail.com", "yuax ekty ofav lkvj"); // NOT your email password! Use Gmail App Password
-                client.Send(message);
-                client.Disconnect(true);
+                // (Then use SMTP to send the message)
+                using (var client = new MailKit.Net.Smtp.SmtpClient())
+                {
+                    client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+                    client.Authenticate("mrayyan403@gmail.com", "yuax ekty ofav lkvj"); // NOT your email password! Use Gmail App Password
+                    client.Send(message);
+                    client.Disconnect(true);
+                }
+
+
+
+                return RedirectToAction("EnterOtp");
             }
+            else
+            {
+                TempData["ErrorMessage"] = "Passwords does not match!";
+                return RedirectToAction("register");
 
-
-
-            return RedirectToAction("EnterOtp");
+            }
         }
 
 

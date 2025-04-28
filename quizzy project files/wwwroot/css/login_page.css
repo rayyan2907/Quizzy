@@ -171,7 +171,7 @@ form div.incorrect input {
 .otp-input {
     width: 60px;
     height: 60px;
-    font-size: 24px;
+    font-size: 12px;
     text-align: center;
     border: 2px solid var(--input-color);
     border-radius: 10px;

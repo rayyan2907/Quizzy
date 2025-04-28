@@ -11,10 +11,5 @@
         public string corr_opt { get; set; }
         public string? img_path { get; set;}
     }
-    public class short_model
-    {
-        public string question { get; set; }
-        public string? image_path { get; set; }
-    }
 
 }

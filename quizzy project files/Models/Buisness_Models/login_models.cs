@@ -12,6 +12,8 @@ namespace Quizzy.Models.Buisness_Models
     {
         public string email { get; set; }
         public string password { get; set; }
+
+        public string cnfrm_pwd { get; set; }
         public string role { get; set; }
     }
     public class Student : Registraton_models 
