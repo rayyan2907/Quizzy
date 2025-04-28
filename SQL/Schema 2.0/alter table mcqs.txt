@@ -1,1 +1,3 @@
 alter table mcqs add column description varchar(200) not null;
+
+-- a new cololumn names as description has been added
