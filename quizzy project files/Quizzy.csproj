@@ -15,4 +15,11 @@
     <None Include="wwwroot\background.jpg" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Buisness_Layer\student\" />
+    <Folder Include="Models\Buisness_Layer\teacher\" />
+    <Folder Include="Models\Data_Layer\student\" />
+    <Folder Include="Models\Data_Layer\teacher\" />
+  </ItemGroup>
+
 </Project>

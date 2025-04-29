@@ -44,6 +44,11 @@ namespace Quizzy.Models.Buisness_Layer.registration
             }
             return user;
         }
+        public string getUserRole(login_models model)
+        {
+            DataTable dt = log.user_get(model);
+            return dt.Rows[0]["role"].ToString();
+        }
 
 
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using MimeKit;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Ocsp;
@@ -69,6 +70,13 @@ namespace Quizzy.Controllers.login
                     string first_name = user.Rows[0]["first_name"].ToString();
                     string last_name = user.Rows[0]["last_name"].ToString();
                     string email = user.Rows[0]["email"].ToString();
+                    string role = login.getUserRole(model);
+                    
+
+                    
+
+                    Console.WriteLine($"User with email {model.email} and name {first_name} {last_name} and role {role} has just log in to the system");
+
 
                     var message = new MimeMessage();
                     message.From.Add(new MailboxAddress("Quizzy - Modern Quiz System", "mrayyan403@gmail.com"));
@@ -102,10 +110,30 @@ namespace Quizzy.Controllers.login
                         client.Disconnect(true);
                     }
 
+                    if (role == "student")
+                    {
+                        
 
-                    return RedirectToAction("index");
+                        HttpContext.Session.SetString("UserId", user.Rows[0]["studentID"].ToString());
+
+                        return RedirectToAction("mainPage", "student");
+
+                    }
+                    else if (role == "teacher")
+                    {
+
+                        HttpContext.Session.SetString("UserId", user.Rows[0]["teacherID"].ToString());
+
+
+
+                        return RedirectToAction("mainPage", "teacher");
+
+                    }
+                   
 
                 }
+                return RedirectToAction("index");
+
             }
 
 

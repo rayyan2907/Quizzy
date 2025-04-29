@@ -18,6 +18,7 @@ namespace Quizzy.Models.Buisness_Models
     }
     public class Student : Registraton_models 
     {
+        public string stuID  { get; set; }
         public string first_name { get; set; }
         public string last_name { get; set; }
         public string roll_num { get; set; }
@@ -29,6 +30,7 @@ namespace Quizzy.Models.Buisness_Models
 
     public class Teacher : Registraton_models
     {
+        public string teachID { get; set; }
         public string first_name { get; set; }
         public string last_name { get; set; }
     }
