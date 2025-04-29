@@ -53,10 +53,15 @@ namespace Quizzy.Controllers.login
             Console.WriteLine($"user with email {reg.email} and role {reg.role} is trying to sign up");
 
 
-            if (reg.password == reg.cnfrm_pwd)
-            {
+            //if (reg.password != reg.cnfrm_pwd)
+            //{
+            //    TempData["ErrorMessage"] = "Passwords does not match!";
+            //    return RedirectToAction("register");
 
-
+                
+            //}
+            //else
+           // {
                 string generatedOtp = new Random().Next(100000, 999999).ToString();
 
                 // Save OTP in session (or a static/global variable temporarily)
@@ -102,13 +107,8 @@ namespace Quizzy.Controllers.login
 
 
                 return RedirectToAction("EnterOtp");
-            }
-            else
-            {
-                TempData["ErrorMessage"] = "Passwords does not match!";
-                return RedirectToAction("register");
 
-            }
+           // }
         }
 
 
