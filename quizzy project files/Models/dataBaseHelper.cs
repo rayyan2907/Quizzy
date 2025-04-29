@@ -2,7 +2,7 @@
 using System;
 using System.Data;
 
-namespace Itec_Mangement
+namespace DBHelper
 {
     public class DatabaseHelper
     {

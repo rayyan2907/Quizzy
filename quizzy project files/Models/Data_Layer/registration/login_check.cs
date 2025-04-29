@@ -1,4 +1,4 @@
-﻿using Itec_Mangement;
+﻿using DBHelper;
 using System.Data;
 
 namespace Quizzy.Models.Data_Layer

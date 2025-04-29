@@ -2,7 +2,7 @@
 
 namespace Quizzy.Controllers.quiz
 {
-    public class quizController : Controller
+    public class mcqController : Controller
     {
         public IActionResult attemptQuiz()
         {

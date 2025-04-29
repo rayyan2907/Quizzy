@@ -14,6 +14,18 @@
   <div class="wrapper">
     <h1>Login</h1>
     <p id="error-message"></p>
+        @if (TempData["Check"] != null)
+        {
+            <div style="color: #07fc03; font-size: 16px; text-align: center;">
+                @TempData["Check"]
+            </div>
+        }
+        @if (TempData["log"] != null)
+        {
+            <div style="color: red; font-size: 16px; text-align: center;">
+                @TempData["log"]
+            </div>
+        }
     <form id="form" method="post">
             <div>
                 <label for="email-input">

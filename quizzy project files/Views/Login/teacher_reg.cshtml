@@ -19,6 +19,12 @@
                 @TempData["Success"]
             </div>
         }
+        @if (TempData["Check"] != null)
+        {
+            <div style="color: red; font-size: 16px; text-align: center;">
+                @TempData["Check"]
+            </div>
+        }
         <form id="form" method="post">
 
             <div>
