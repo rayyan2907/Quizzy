@@ -14,6 +14,7 @@ namespace Quizzy.Controllers.login
         
         public IActionResult Index()
         {
+            HttpContext.Session.Clear();
             return View("login_page");
         }
 
@@ -127,15 +128,15 @@ namespace Quizzy.Controllers.login
                     else if (role == "teacher")
                     {
 
-                        HttpContext.Session.SetString("UserId", user.Rows[0]["teacherID"].ToString());
-                        Response.Cookies.Append("UserId", user.Rows[0]["teacherID"].ToString(), new CookieOptions
+                        HttpContext.Session.SetString("teacId", user.Rows[0]["teacherID"].ToString());
+                        Response.Cookies.Append("teacId", user.Rows[0]["teacherID"].ToString(), new CookieOptions
                         {
                             Expires = DateTimeOffset.Now.AddDays(7),
                             IsEssential = true
                         });
 
 
-                        return RedirectToAction("mainPage", "teacher");
+                        return RedirectToAction("main", "teacher");
 
                     }
                    
