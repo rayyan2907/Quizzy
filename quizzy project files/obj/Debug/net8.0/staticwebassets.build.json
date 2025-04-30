@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "cB2DPb4Ls1dfZr43u4rSBo7gFMMihtSLsCSrW7e7uO8=",
+  "Hash": "4cJePZBws+Y9I0uwn4SOD3Nh4hZ43h+1fKnIQIbCzDM=",
   "Source": "Quizzy",
   "BasePath": "_content/Quizzy",
   "Mode": "Default",
@@ -110,6 +110,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\login_page.css"
+    },
+    {
+      "Identity": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\css\\mainpage_teacher.css",
+      "SourceId": "Quizzy",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\",
+      "BasePath": "_content/Quizzy",
+      "RelativePath": "css/mainpage_teacher.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\mainpage_teacher.css"
     },
     {
       "Identity": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\css\\site.css",

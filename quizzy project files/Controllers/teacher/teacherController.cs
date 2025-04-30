@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Quizzy.Helpers;
+using Quizzy.Models.Buisness_Layer.subjects;
 using Quizzy.Models.Buisness_Layer.teacher;
 using Quizzy.Models.Buisness_Models;
 using Quizzy.Models.Data_Layer.subjects;
@@ -14,7 +15,15 @@ namespace Quizzy.Controllers.teacher
         //there is an issue in saving the session of the teacher
         public IActionResult home()
         {
-            return View("mainpage_teacher");
+
+            var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
+            var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
+            viewModel view = new viewModel
+            {
+                Teacher = teacher,
+                Subject = subject
+            };
+            return View("mainpage_teacher", view);
         }
         public IActionResult main()
         {
@@ -51,9 +60,9 @@ namespace Quizzy.Controllers.teacher
                 TempData["log"] = "Session not found";
 
                 return RedirectToAction("index", "login");
-            } 
+            }
             DataTable dt = getSubject.getSub(teacher.teachID);
-            ViewBag.Subjects=dt;    
+            ViewBag.Subjects = dt;
             return View("selectSub");
         }
 
@@ -63,11 +72,41 @@ namespace Quizzy.Controllers.teacher
         {
             // Store in session
             HttpContext.Session.SetString("subjectID", selectedSubjectId);
-            
+
+
+            subject_model model = new subject_model();
+            model = subjectBL.getSubfromid(selectedSubjectId);
+            HttpContext.Session.SetObject("subjectObj", model);
+
             return RedirectToAction("home");
         }
 
+        public IActionResult logOut()
+        {
+
+            var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
+            if ( teacher == null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+            }
+
+            Console.WriteLine($"user with name {teacher.first_name} {teacher.last_name} is loging out");
+            HttpContext.Session.Clear();
+
+            teacher = null;
+            if (Request.Cookies["teacId"] != null)
+            {
+                Response.Cookies.Delete("teacId");
+            }
+
+            TempData["check"] = "Logged Out Successfully";
+
+            return RedirectToAction("index", "login");
+
+
+        }
 
     }
-
 }

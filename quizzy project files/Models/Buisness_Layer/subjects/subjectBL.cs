@@ -33,6 +33,16 @@ namespace Quizzy.Models.Buisness_Layer.subjects
             {
                 return "Error in adding subject";
             }
+
+           
+        }
+
+        public static subject_model getSubfromid(string id)
+        {
+            subject_model model = new subject_model();
+            model = getSubject.getSubFromID(id);
+            return model;
         }
     }
+
 }
