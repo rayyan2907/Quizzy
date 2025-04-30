@@ -14,7 +14,7 @@ namespace Quizzy.Controllers.login
         
         public IActionResult Index()
         {
-            HttpContext.Session.Clear();
+           
             return View("login_page");
         }
 
@@ -42,6 +42,11 @@ namespace Quizzy.Controllers.login
         [HttpPost]
         public IActionResult Index(login_models model)
         {
+            if (model == null)
+            {
+                TempData["log"] = "Session loading error";
+                return RedirectToAction("index");
+            }
             Console.WriteLine($"A user with email: {model.email} just tried to login");
             login_page login = new login_page();
             bool flag = login.userExists(model);
@@ -122,7 +127,7 @@ namespace Quizzy.Controllers.login
                         });
 
 
-                        return RedirectToAction("mainPage", "student");
+                        return RedirectToAction("main", "student");
 
                     }
                     else if (role == "teacher")

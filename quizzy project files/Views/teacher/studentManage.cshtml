@@ -1,0 +1,128 @@
+﻿
+    @{
+        var teacher = ViewBag.teacher as Quizzy.Models.Buisness_Models.Teacher;
+        var subject = ViewBag.subject as Quizzy.Models.Buisness_Models.subject_model;
+        var studentsDt = ViewBag.student as System.Data.DataTable;
+
+
+    }
+
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Student Dashboard - Quizzy</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="~/css/mainpage_teacher.css">
+        </head>
+    <body>
+
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                
+                <i class="fas fa-graduation-cap brand-icon"></i>
+                <h2>Quizzy</h2>
+            </div>
+            <div class="navbar-menu">
+                <div class="user-welcome">
+                    <i class="fas fa-user-circle user-icon"></i>
+                    <span>Welcome, @teacher.first_name @teacher.last_name</span>
+                </div>
+                <a href="/teacher/logOut" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+            </div>
+        </div>
+    </nav>
+    <a href="/teacher/home" class="btn-go-back">
+        <i class="fas fa-arrow-left"></i> Go Back
+    </a>
+        <div class="content-wrapper">
+            <div class="dashboard-header">
+                <h1>Teacher Dashboard</h1>
+                <div class="course-badge">
+                    <i class="fas fa-book-open"></i>
+                
+
+                    <span>Current Course: @subject.code - @subject.name</span>
+                </div>
+       </div>
+       </div>
+    @if (TempData["Check"] != null)
+    {
+        <div style="color: #07fc03; font-size: 16px; text-align: center;">
+            @TempData["Check"]
+        </div>
+    }
+    @if (TempData["log"] != null)
+    {
+        <div style="color: red; font-size: 16px; text-align: center;">
+            @TempData["log"]
+        </div>
+    }
+
+    <!-- Student Assignment Section -->
+    <div class="student-assignments">
+        <div class="section-header">
+            <h2>Students Management</h2>
+        </div>
+
+        @if (studentsDt != null && studentsDt.Rows.Count > 0)
+        {
+            <table class="student-assignment-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Roll Number</th>
+                        <th>Department</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (System.Data.DataRow row in studentsDt.Rows)
+                    {
+                        var isAssigned = Convert.ToBoolean(row["status"]);
+                        <tr>
+                            <td>@row["first_name"] @row["last_name"]</td>
+                            <td>@row["addmission_year"]-@row["dept"]-@row["roll_num"]</td>
+                            <td>@row["dept"]</td>
+                            <td>
+                                <form method="post" asp-controller="teacher" asp-action="assign" style="display: inline;">
+                                    <input type="hidden" name="studentId" value="@row["studentID"]" />
+                                    <button type="submit" class="btn-enroll" @(isAssigned ? "disabled" : "")>
+                                        <i class="fas fa-plus"></i> Enroll
+                                    </button>
+                                </form>
+
+                                <form method="post" asp-controller="teacher" asp-action="unassign" style="display: inline;">
+                                    <input type="hidden" name="studentId" value="@row["studentID"]" />
+                                    <button type="submit" class="btn-unenroll" @(!isAssigned ? "disabled" : "")>
+                                        <i class="fas fa-minus"></i> Unenroll
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="empty-state">
+                <i class="fas fa-user-times"></i>
+                <div class="empty-message">No students found.</div>
+            </div>
+        }
+                <!-- Footer Section -->
+                <div class="dashboard-footer">
+                    <p class="footer-message">Happy Teaching, @teacher.first_name @teacher.last_name!</p>
+                    <p class="copyright">&copy; 2025 Quizzy. All rights reserved.</p>
+                </div>
+    </div>
+    </body>
+    </html>

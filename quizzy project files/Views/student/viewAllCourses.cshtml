@@ -1,0 +1,127 @@
+﻿@{
+    var dt = ViewBag.Courses as System.Data.DataTable;
+    var student = ViewBag.stu as Quizzy.Models.Buisness_Models.Student;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - Quizzy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/studentMain.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const currentPath = window.location.pathname;
+            document.querySelectorAll('.nav-list a').forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <i class="fas fa-graduation-cap brand-icon"></i>
+                <h2>Quizzy</h2>
+            </div>
+            <div class="navbar-menu">
+                <div class="user-welcome">
+                    <i class="fas fa-user-circle user-icon"></i>
+                    <span>Welcome, @student.first_name @student.last_name</span>
+                </div>
+                <a href="/student/logOut" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <ul class="nav-list">
+                <li><a href="/student/main"><i class="fas fa-book"></i> Enrolled Courses</a></li>
+                <li><a href="/student/availableCourse"><i class="fas fa-book"></i> All Courses</a></li>
+                <li><a href="/student/availableQuizes"><i class="fas fa-book"></i> Available Quizzes</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <div class="dashboard-header">
+            <h1>Student Dashboard</h1>
+            <div class="student-badge">
+                <i class="fas fa-id-card"></i>
+                <span>Roll No: @student.addmission_year-@student.dept-@student.roll_num </span>
+            </div>
+        </div>
+        @if (TempData["Check"] != null)
+        {
+            <div style="color: red; font-size: 16px; text-align: center;">
+                @TempData["Check"]
+            </div>
+        }
+        <!-- Available Courses Section -->
+        <div class="available-courses">
+            <div class="section-header">
+                <h2>Available Courses</h2>
+                <a href="/student/enrolledCourse" class="view-all">View enrolled courses <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            @if (dt != null && dt.Rows.Count > 0)
+            {
+                <table class="available-courses-table">
+                    <thead>
+                        <tr>
+                            <th>Course</th>
+                            <th>Professor</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (System.Data.DataRow row in dt.Rows)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="course-code">@row["subject_name"] - @row["subject_code"]</div>
+                                </td>
+                                <td>Prof. @row["first_name"] @row["last_name"]</td>
+                                <td>
+                                    <form asp-action="Enroll" asp-controller="student" method="post">
+                                        <input type="hidden" name="courseId" value="@row["subjectID"]" />
+                                        <button type="submit" class="btn-enroll"><i class="fas fa-plus"></i> Enroll</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                        
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="empty-state">
+                    <div class="empty-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="empty-message">No available courses to enroll in at the moment.</div>
+                </div>
+            }
+        </div> <!-- Close available-courses div -->
+    </div> <!-- Close content-wrapper div -->
+
+    <div class="dashboard-footer">
+        <p class="footer-message">Happy Learning, @student.first_name @student.last_name!</p>
+        <p class="copyright">&copy; 2025 Quizzy. All rights reserved.</p>
+    </div>
+</body>
+</html>

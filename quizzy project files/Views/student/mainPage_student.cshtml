@@ -1,88 +1,195 @@
-﻿@model Quizzy.Models.Buisness_Models.Student
+﻿@{
+  
+        var dt = ViewBag.Enrolled as System.Data.DataTable;
+        var student = ViewBag.stu as Quizzy.Models.Buisness_Models.Student;
 
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Home - Quiz Management System</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="~/css/studentMain.css">
+    
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Student Dashboard - Quizzy</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="~/css/studentMain.css">
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const currentPath = window.location.pathname;
+                document.querySelectorAll('.nav-list a').forEach(link => {
+                    if (link.getAttribute('href') === currentPath) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            });
+        </script>
 
-</head>
-<body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="navbar-logo"><h2>Quizzy</h2></div>
-        <div class="navbar-nav">
-            <a href="#" class="nav-link"><i class="fas fa-search"></i> Find Courses</a>
-            <a href="#" class="nav-link"><i class="fas fa-list-check"></i> See Available Quizes</a>
-        </div>
-        <div class="navbar-student-info">
-            <div class="student-details">
-                <span class="student-name">@Model.first_name @Model.last_name,</span>
-                <span class="student-roll">@Model.addmission_year-@Model.dept-@Model.roll_num</span>
+    </head>
+    <body>
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="navbar-container">
+                <div class="navbar-brand">
+                    <i class="fas fa-graduation-cap brand-icon"></i>
+                    <h2>Quizzy</h2>
+                </div>
+                <div class="navbar-menu">
+                    <div class="user-welcome">
+                        <i class="fas fa-user-circle user-icon"></i>
+                    <span>Welcome, @student.first_name @student.last_name </span>
+                    </div>
+                    <a href="/student/logOut" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+                </div>
             </div>
-            <a href="/student/logOut" class="logout-btn">Logout</a>
-        </div>
+        </nav>
 
-
-    </nav>
-
-    <div class="wrapper">
-        <!-- Header -->
-        <div class="form-header">
-            <h1 class="header-title">Student Dashboard</h1>
-        </div>
-
-        <!-- User Info (hidden, using navbar instead) -->
-        <div class="user-info">
-            <span class="user-name">@Model.first_name @Model.last_name</span>
-            <a href="/student/logOut" class="logout-btn">Logout</a>
-        </div>
-
-        <!-- Dashboard Content -->
-        <h2 class="dashboard-title">Welcome to Quizzy</h2>
-
-        <!-- Feature Cards -->
-        <div class="feature-cards">
-            <!-- Attempt Quiz Card -->
-            <div class="feature-card">
-                <img src="/quiz.jpg" alt="Attempt Quiz" class="feature-image" />
-                <i class="fas fa-pen-to-square feature-icon"></i>
-                <h3 class="feature-title">Attempt Quiz</h3>
-                <p class="feature-description">View available quizzes assigned to you</p>
-                <a href="#" class="feature-btn">
-                    Take Quiz <i class="fas fa-arrow-right"></i>
-                </a>
+        <!-- Main Navigation -->
+        <nav class="main-nav">
+            <div class="nav-container">
+                <ul class="nav-list">
+                    <li><a href="/student/main"><i class="fas fa-book"></i> Enrolled Courses</a></li>
+                    <li><a href="/student/availableCourse"><i class="fas fa-book"></i> All Courses</a></li>
+                    <li><a href="/student/availableQuizes"><i class="fas fa-book"></i> Available Quizzes</a></li>
+                </ul>
             </div>
-
-            <!-- Enrolled Courses Card -->
-            <div class="feature-card">
-                <img src="/courses_enroll.jpg" alt="Enrolled Courses" class="feature-image" />
-                <i class="fas fa-book feature-icon"></i>
-                <h3 class="feature-title">Enrolled Courses</h3>
-                <p class="feature-description">View your enrolled courses and study materials</p>
-                <a href="#" class="feature-btn">
-                    View Courses <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-
-            <!-- Check Results Card -->
-            <div class="feature-card">
-                <img src="/result.jpg" alt="Check Results" class="feature-image" />
-                <i class="fas fa-chart-simple feature-icon"></i>
-                <h3 class="feature-title">Check Results</h3>
-                <p class="feature-description">Review your quiz scores and progress</p>
-                <a href="#" class="feature-btn">
-                    View Results <i class="fas fa-arrow-right"></i>
-                </a>
+        </nav>
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <div class="dashboard-header">
+            <h1>Student Dashboard</h1>
+            <div class="student-badge">
+                <i class="fas fa-id-card"></i>
+                <span>Roll No: @student.addmission_year-@student.dept-@student.roll_num</span>
             </div>
         </div>
+        @if (TempData["Check"] != null)
+        {
+            <div style="color: red; font-size: 16px; text-align: center;">
+                @TempData["Check"]
+            </div>
+        }
+        @if (TempData["log"] != null)
+        {
+            <div style="color: #07fc03; font-size: 16px; text-align: center;">
+                @TempData["log"]
+            </div>
+        }
 
-        <!-- Footer -->
-        <div class="footer">
-            <p>&copy; 2025 Quizzy. All rights reserved.</p>
+        <!-- Enrolled Courses Section -->
+        <div class="courses-container">
+            <div class="section-header">
+                <h2>Your Enrolled Courses</h2>
+                <a href="/student/availableCourse" class="view-all">View available courses <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            @if (dt != null && dt.Rows.Count > 0)
+            {
+                <div class="course-cards">
+                    @foreach (System.Data.DataRow row in dt.Rows)
+                    {
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div>
+                                    <h3 class="course-title">@row["subject_name"]-@row["subject_code"]</h3>
+                                    <div class="course-instructor">
+                                        <i class="fas fa-chalkboard-teacher"></i>
+                                        Prof. @row["first_name"] @row["last_name"]
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="course-body">
+                               
+
+                                
+
+
+                                <div class="course-action">
+                                    @if (Convert.ToBoolean(row["status"]) == true)
+                                    {
+                                        <a href="#" class="btn-view-course">
+                                            View Course <i class="fas fa-arrow-right"></i>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <button class="btn-view-course" disabled>
+                                            Registration Pending
+                                        </button>
+                                    }
+                                </div> <!-- Close course-action div -->
+                            </div> <!-- Close course-body div -->
+                        </div> <!-- Close course-card div -->
+                    }
+                </div> <!-- Close course-cards div -->
+            }
+            else
+            {
+                <div class="empty-state">
+                    <div class="empty-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="empty-message">You are not enrolled in any courses yet.</div>
+                </div>
+            }
+        </div> <!-- Close courses-container div -->
+        <!-- Quick Stats Section -->
+
+
+
+
+
+        <div class="stats-container">
+            <div class="stats-header">
+                <h3>Quick Stats</h3>
+                <span class="refresh-btn"><i class="fas fa-sync-alt"></i> Refresh</span>
+            </div>
+            <div class="stats-cards">
+                <div class="stat-card">
+                    <div class="stat-icon courses">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value">m</span>
+                        <span class="stat-label">Enrolled Courses</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon completed">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value">j</span>
+                        <span class="stat-label">Completed Quizzes</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon upcoming">
+                        <i class="fas fa-hourglass-half"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value">pp</span>
+                        <span class="stat-label">Upcoming Quizzes</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon average">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value">77%</span>
+                        <span class="stat-label">Average Score</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+        <div class="dashboard-footer">
+            <p class="footer-message">Happy Learning,  @student.first_name @student.last_name!</p>
+            <p class="copyright">&copy; 2025 Quizzy. All rights reserved.</p>
         </div>
     </div>
 </body>

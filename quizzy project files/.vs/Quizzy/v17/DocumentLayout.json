@@ -3,80 +3,116 @@
   "WorkspaceRootPath": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\wwwroot\\css\\mainpage_teacher.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:wwwroot\\css\\mainpage_teacher.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\wwwroot\\css\\login_page.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:wwwroot\\css\\login_page.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\views\\teacher\\mainpage_teacher.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:views\\teacher\\mainpage_teacher.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\controllers\\teacher\\teachercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:controllers\\teacher\\teachercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\controllers\\login\\login_controller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:controllers\\login\\login_controller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\views\\teacher\\addnewsubject.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:views\\teacher\\addnewsubject.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\controllers\\teacher\\teachercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:controllers\\teacher\\teachercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\models\\buisness_models\\viewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:models\\buisness_models\\viewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\models\\buisness_layer\\teacher\\teacherbl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:models\\buisness_layer\\teacher\\teacherbl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\models\\buisness_layer\\student\\studentbl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:models\\buisness_layer\\student\\studentbl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\controllers\\subject\\subjectcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:controllers\\subject\\subjectcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\models\\buisness_layer\\subjects\\subjectbl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:models\\buisness_layer\\subjects\\subjectbl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\models\\data_layer\\subjects\\getsubject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:models\\data_layer\\subjects\\getsubject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\models\\data_layer\\student\\studentdl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:models\\data_layer\\student\\studentdl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\models\\buisness_layer\\student\\studentbl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:models\\buisness_layer\\student\\studentbl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:1:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\models\\buisness_layer\\registration\\signup_student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:1:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:models\\buisness_layer\\registration\\signup_student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\controllers\\student\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:controllers\\student\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\models\\buisness_models\\subject_model.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:models\\buisness_models\\subject_model.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\wwwroot\\css\\mainpage_teacher.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:wwwroot\\css\\mainpage_teacher.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\views\\student\\mainpage_student.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:views\\student\\mainpage_student.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\views\\teacher\\studentmanage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:views\\teacher\\studentmanage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\views\\teacher\\mainpage_teacher.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:views\\teacher\\mainpage_teacher.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\views\\teacher\\selectsub.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:views\\teacher\\selectsub.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\wwwroot\\css\\login_page.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:wwwroot\\css\\login_page.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\wwwroot\\css\\studentmain.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:wwwroot\\css\\studentmain.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\views\\student\\seeopenquiz.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:views\\student\\seeopenquiz.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\views\\login\\login_page.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:views\\login\\login_page.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\views\\login\\register_page.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:views\\login\\register_page.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\models\\data_layer\\student\\studentdl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:models\\data_layer\\student\\studentdl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\views\\student\\viewallcourses.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:views\\student\\viewallcourses.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\models\\data_layer\\teacher\\teacherdl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:models\\data_layer\\teacher\\teacherdl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\views\\teacher\\addnewsubject.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:views\\teacher\\addnewsubject.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\views\\student\\mainpage_student.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:views\\student\\mainpage_student.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\models\\buisness_layer\\subjects\\subjectbl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:models\\buisness_layer\\subjects\\subjectbl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\views\\login\\enterotp.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:views\\login\\enterotp.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\models\\buisness_models\\enrollment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:models\\buisness_models\\enrollment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\models\\datalayer_models\\enrollmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:models\\datalayer_models\\enrollmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\models\\buisness_layer\\teacher\\teacherbl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:models\\buisness_layer\\teacher\\teacherbl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\models\\buisness_models\\viewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:models\\buisness_models\\viewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\models\\data_layer\\subjects\\getsubject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:models\\data_layer\\subjects\\getsubject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:1:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\models\\buisness_layer\\registration\\signup_student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:1:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:models\\buisness_layer\\registration\\signup_student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\models\\buisness_models\\subject_model.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:models\\buisness_models\\subject_model.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\models\\data_layer\\subjects\\addsub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -103,18 +139,6 @@
       "RelativeMoniker": "D:1:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\views\\login\\login_page.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:views\\login\\login_page.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\views\\login\\register_page.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:views\\login\\register_page.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\views\\login\\enterotp.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:views\\login\\enterotp.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\models\\buisness_layer\\registration\\signup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:models\\buisness_layer\\registration\\signup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -129,10 +153,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\models\\databasehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:models\\databasehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|c:\\users\\rayya\\pictures\\quizzy\\dbs25006\\quizzy project files\\wwwroot\\css\\studentmain.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{C17B1849-ADA1-4907-B345-57698F90EF88}|Quizzy.csproj|solutionrelative:wwwroot\\css\\studentmain.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
@@ -229,7 +249,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 27,
           "Children": [
             {
               "$type": "Bookmark",
@@ -242,6 +262,71 @@
             {
               "$type": "Document",
               "DocumentIndex": 6,
+              "Title": "studentManage.cshtml",
+              "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\teacher\\studentManage.cshtml",
+              "RelativeDocumentMoniker": "Views\\teacher\\studentManage.cshtml",
+              "ToolTip": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\teacher\\studentManage.cshtml",
+              "RelativeToolTip": "Views\\teacher\\studentManage.cshtml",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAACYAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-30T19:24:38.086Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "enrollModel.cs",
+              "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\DataLayer_Models\\enrollModel.cs",
+              "RelativeDocumentMoniker": "Models\\DataLayer_Models\\enrollModel.cs",
+              "ToolTip": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\DataLayer_Models\\enrollModel.cs",
+              "RelativeToolTip": "Models\\DataLayer_Models\\enrollModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-30T17:01:34.356Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "Enrollment.cs",
+              "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Buisness_Models\\Enrollment.cs",
+              "RelativeDocumentMoniker": "Models\\Buisness_Models\\Enrollment.cs",
+              "ToolTip": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Buisness_Models\\Enrollment.cs",
+              "RelativeToolTip": "Models\\Buisness_Models\\Enrollment.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-30T17:00:41.322Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "seeOpenQuiz.cshtml",
+              "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\student\\seeOpenQuiz.cshtml",
+              "RelativeDocumentMoniker": "Views\\student\\seeOpenQuiz.cshtml",
+              "ToolTip": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\student\\seeOpenQuiz.cshtml",
+              "RelativeToolTip": "Views\\student\\seeOpenQuiz.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADIAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-30T14:23:23.034Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "viewAllCourses.cshtml",
+              "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\student\\viewAllCourses.cshtml",
+              "RelativeDocumentMoniker": "Views\\student\\viewAllCourses.cshtml",
+              "ToolTip": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\student\\viewAllCourses.cshtml",
+              "RelativeToolTip": "Views\\student\\viewAllCourses.cshtml",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAAGgAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-30T14:23:04.016Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
               "Title": "viewModel.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Buisness_Models\\viewModel.cs",
               "RelativeDocumentMoniker": "Models\\Buisness_Models\\viewModel.cs",
@@ -254,20 +339,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "mainpage_teacher.css",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\css\\mainpage_teacher.css",
               "RelativeDocumentMoniker": "wwwroot\\css\\mainpage_teacher.css",
               "ToolTip": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\css\\mainpage_teacher.css",
               "RelativeToolTip": "wwwroot\\css\\mainpage_teacher.css",
-              "ViewState": "AgIAAGAAAAAAAAAAAAAAABkAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAM8BAAAAAAAAAAAAAOUBAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
               "WhenOpened": "2025-04-30T11:28:51.118Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 31,
               "Title": "subjectModel.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\DataLayer_Models\\subjectModel.cs",
               "RelativeDocumentMoniker": "Models\\DataLayer_Models\\subjectModel.cs",
@@ -279,7 +364,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 28,
               "Title": "addSub.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Data_Layer\\subjects\\addSub.cs",
               "RelativeDocumentMoniker": "Models\\Data_Layer\\subjects\\addSub.cs",
@@ -291,46 +376,46 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 19,
               "Title": "subjectBL.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Buisness_Layer\\subjects\\subjectBL.cs",
               "RelativeDocumentMoniker": "Models\\Buisness_Layer\\subjects\\subjectBL.cs",
               "ToolTip": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Buisness_Layer\\subjects\\subjectBL.cs",
               "RelativeToolTip": "Models\\Buisness_Layer\\subjects\\subjectBL.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAgwCsAAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACsAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-30T10:02:01.847Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 3,
               "Title": "subjectController.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Controllers\\subject\\subjectController.cs",
               "RelativeDocumentMoniker": "Controllers\\subject\\subjectController.cs",
               "ToolTip": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Controllers\\subject\\subjectController.cs",
               "RelativeToolTip": "Controllers\\subject\\subjectController.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAowDoAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAADkAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-30T09:26:12.977Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 17,
               "Title": "addNewSubject.cshtml",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\teacher\\addNewSubject.cshtml",
               "RelativeDocumentMoniker": "Views\\teacher\\addNewSubject.cshtml",
               "ToolTip": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\teacher\\addNewSubject.cshtml",
               "RelativeToolTip": "Views\\teacher\\addNewSubject.cshtml",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAAxAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-04-30T09:25:00.338Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 25,
               "Title": "getSubject.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Data_Layer\\subjects\\getSubject.cs",
               "RelativeDocumentMoniker": "Models\\Data_Layer\\subjects\\getSubject.cs",
@@ -338,24 +423,24 @@
               "RelativeToolTip": "Models\\Data_Layer\\subjects\\getSubject.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-30T07:05:36.757Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-30T07:05:36.757Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 8,
               "Title": "selectSub.cshtml",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\teacher\\selectSub.cshtml",
               "RelativeDocumentMoniker": "Views\\teacher\\selectSub.cshtml",
               "ToolTip": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\teacher\\selectSub.cshtml",
               "RelativeToolTip": "Views\\teacher\\selectSub.cshtml",
-              "ViewState": "AgIAAH0AAAAAAAAAAAAwwJsAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAAJsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-30T06:41:50.835Z"
+              "WhenOpened": "2025-04-30T06:41:50.835Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 27,
               "Title": "subject_model.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Buisness_Models\\subject_model.cs",
               "RelativeDocumentMoniker": "Models\\Buisness_Models\\subject_model.cs",
@@ -363,12 +448,11 @@
               "RelativeToolTip": "Models\\Buisness_Models\\subject_model.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-30T06:38:45.739Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-30T06:38:45.739Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 16,
               "Title": "teacherDL.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Data_Layer\\teacher\\teacherDL.cs",
               "RelativeDocumentMoniker": "Models\\Data_Layer\\teacher\\teacherDL.cs",
@@ -376,11 +460,12 @@
               "RelativeToolTip": "Models\\Data_Layer\\teacher\\teacherDL.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-30T06:34:53.437Z"
+              "WhenOpened": "2025-04-30T06:34:53.437Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 23,
               "Title": "teacherBL.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Buisness_Layer\\teacher\\teacherBL.cs",
               "RelativeDocumentMoniker": "Models\\Buisness_Layer\\teacher\\teacherBL.cs",
@@ -393,7 +478,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 36,
               "Title": "sessionHelper.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\sessionHelper.cs",
               "RelativeDocumentMoniker": "Models\\sessionHelper.cs",
@@ -405,7 +490,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 38,
               "Title": "Microsoft.Common.CurrentVersion.targets",
               "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
@@ -417,32 +502,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 10,
               "Title": "studentMain.css",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\css\\studentMain.css",
               "RelativeDocumentMoniker": "wwwroot\\css\\studentMain.css",
               "ToolTip": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\css\\studentMain.css",
               "RelativeToolTip": "wwwroot\\css\\studentMain.css",
-              "ViewState": "AgIAAFwBAAAAAAAAAAAQwDkBAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAEUCAAAAAAAAAAAYwGMCAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-04-30T05:02:20.072Z"
+              "WhenOpened": "2025-04-30T05:02:20.072Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 18,
               "Title": "mainPage_student.cshtml",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\student\\mainPage_student.cshtml",
               "RelativeDocumentMoniker": "Views\\student\\mainPage_student.cshtml",
               "ToolTip": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\student\\mainPage_student.cshtml",
               "RelativeToolTip": "Views\\student\\mainPage_student.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA4AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-04-29T21:45:45.294Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 39,
               "Title": "student_reg.cshtml",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\Login\\student_reg.cshtml",
               "RelativeDocumentMoniker": "Views\\Login\\student_reg.cshtml",
@@ -454,72 +540,72 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 2,
               "Title": "StudentBL.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Buisness_Layer\\student\\StudentBL.cs",
               "RelativeDocumentMoniker": "Models\\Buisness_Layer\\student\\StudentBL.cs",
               "ToolTip": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Buisness_Layer\\student\\StudentBL.cs",
               "RelativeToolTip": "Models\\Buisness_Layer\\student\\StudentBL.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFkAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-30T04:07:22.88Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
               "Title": "studentDL.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Data_Layer\\student\\studentDL.cs",
               "RelativeDocumentMoniker": "Models\\Data_Layer\\student\\studentDL.cs",
               "ToolTip": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Data_Layer\\student\\studentDL.cs",
               "RelativeToolTip": "Models\\Data_Layer\\student\\studentDL.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAqwFgAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-30T04:06:58.664Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 4,
               "Title": "studentController.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Controllers\\student\\studentController.cs",
               "RelativeDocumentMoniker": "Controllers\\student\\studentController.cs",
               "ToolTip": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Controllers\\student\\studentController.cs",
               "RelativeToolTip": "Controllers\\student\\studentController.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAA1wDcAAAA2AAAAAAAAAA==",
+              "ViewState": "AgIAAJcAAAAAAAAAAAAqwLAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-29T21:46:37.296Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "teacherController.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Controllers\\teacher\\teacherController.cs",
               "RelativeDocumentMoniker": "Controllers\\teacher\\teacherController.cs",
               "ToolTip": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Controllers\\teacher\\teacherController.cs",
               "RelativeToolTip": "Controllers\\teacher\\teacherController.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABkAAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAAKUAAAAAAAAAAAAqwK4AAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-29T21:32:48.372Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "mainpage_teacher.cshtml",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\teacher\\mainpage_teacher.cshtml",
               "RelativeDocumentMoniker": "Views\\teacher\\mainpage_teacher.cshtml",
               "ToolTip": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\teacher\\mainpage_teacher.cshtml",
               "RelativeToolTip": "Views\\teacher\\mainpage_teacher.cshtml",
-              "ViewState": "AgIAAGMAAAAAAAAAAAAAAA4AAAA5AAAAAAAAAA==",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAAAIAAAABKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-04-29T21:32:07.355Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 43,
               "Title": "login.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Data_Layer\\registration\\login.cs",
               "RelativeDocumentMoniker": "Models\\Data_Layer\\registration\\login.cs",
@@ -531,7 +617,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 48,
               "Title": "TeacherModel.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\DataLayer_Models\\TeacherModel.cs",
               "RelativeDocumentMoniker": "Models\\DataLayer_Models\\TeacherModel.cs",
@@ -543,7 +629,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 29,
               "Title": "signupTeacher.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Buisness_Layer\\registration\\signupTeacher.cs",
               "RelativeDocumentMoniker": "Models\\Buisness_Layer\\registration\\signupTeacher.cs",
@@ -555,7 +641,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 45,
               "Title": "TeacherSignup.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Data_Layer\\registration\\TeacherSignup.cs",
               "RelativeDocumentMoniker": "Models\\Data_Layer\\registration\\TeacherSignup.cs",
@@ -567,7 +653,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 47,
               "Title": "RegistrationModel.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\DataLayer_Models\\RegistrationModel.cs",
               "RelativeDocumentMoniker": "Models\\DataLayer_Models\\RegistrationModel.cs",
@@ -579,7 +665,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 49,
               "Title": "studentModel.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\DataLayer_Models\\studentModel.cs",
               "RelativeDocumentMoniker": "Models\\DataLayer_Models\\studentModel.cs",
@@ -591,7 +677,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 46,
               "Title": "student_signup.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Data_Layer\\registration\\student_signup.cs",
               "RelativeDocumentMoniker": "Models\\Data_Layer\\registration\\student_signup.cs",
@@ -603,7 +689,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 42,
               "Title": "getrole.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Data_Layer\\registration\\getrole.cs",
               "RelativeDocumentMoniker": "Models\\Data_Layer\\registration\\getrole.cs",
@@ -615,7 +701,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 34,
               "Title": "signup.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Buisness_Layer\\registration\\signup.cs",
               "RelativeDocumentMoniker": "Models\\Buisness_Layer\\registration\\signup.cs",
@@ -627,7 +713,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 50,
               "Title": "launchSettings.json",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "Properties\\launchSettings.json",
@@ -639,7 +725,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 41,
               "Title": "login_models.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Buisness_Models\\login_models.cs",
               "RelativeDocumentMoniker": "Models\\Buisness_Models\\login_models.cs",
@@ -651,20 +737,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "login_controller.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Controllers\\login\\login_controller.cs",
               "RelativeDocumentMoniker": "Controllers\\login\\login_controller.cs",
               "ToolTip": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Controllers\\login\\login_controller.cs",
               "RelativeToolTip": "Controllers\\login\\login_controller.cs",
-              "ViewState": "AgIAAFwAAAAAAAAAAAAlwGsAAAAYAAAAAAAAAA==",
+              "ViewState": "AgIAAPgAAAAAAAAAAAAuwP4AAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-28T18:17:54.611Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 40,
               "Title": "mcqs_controller.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Controllers\\mcqs\\mcqs_controller.cs",
               "RelativeDocumentMoniker": "Controllers\\mcqs\\mcqs_controller.cs",
@@ -676,7 +762,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 51,
               "Title": "make_mcqs.cshtml",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\mcqs\\make_mcqs.cshtml",
               "RelativeDocumentMoniker": "Views\\mcqs\\make_mcqs.cshtml",
@@ -688,7 +774,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 35,
               "Title": "Quiz_models.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Buisness_Models\\Quiz_models.cs",
               "RelativeDocumentMoniker": "Models\\Buisness_Models\\Quiz_models.cs",
@@ -700,7 +786,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 26,
               "Title": "signUp_student.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Buisness_Layer\\registration\\signUp_student.cs",
               "RelativeDocumentMoniker": "Models\\Buisness_Layer\\registration\\signUp_student.cs",
@@ -708,12 +794,11 @@
               "RelativeToolTip": "Models\\Buisness_Layer\\registration\\signUp_student.cs",
               "ViewState": "AgIAABkAAAAAAAAAAAAgwCsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-28T15:00:40.526Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-28T15:00:40.526Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 20,
               "Title": "EnterOtp.cshtml",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\Login\\EnterOtp.cshtml",
               "RelativeDocumentMoniker": "Views\\Login\\EnterOtp.cshtml",
@@ -721,11 +806,12 @@
               "RelativeToolTip": "Views\\Login\\EnterOtp.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-28T14:03:51.572Z"
+              "WhenOpened": "2025-04-28T14:03:51.572Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 32,
               "Title": "teacher_reg.cshtml",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\Login\\teacher_reg.cshtml",
               "RelativeDocumentMoniker": "Views\\Login\\teacher_reg.cshtml",
@@ -737,7 +823,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 56,
               "Title": "signUp_student.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Buisness_Layer\\registration\\signUp_student.cs",
               "RelativeDocumentMoniker": "Models\\Buisness_Layer\\registration\\signUp_student.cs",
@@ -749,7 +835,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 53,
               "Title": "login.js",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\js\\login.js",
               "RelativeDocumentMoniker": "wwwroot\\js\\login.js",
@@ -761,32 +847,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 13,
               "Title": "register_page.cshtml",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\Login\\register_page.cshtml",
               "RelativeDocumentMoniker": "Views\\Login\\register_page.cshtml",
               "ToolTip": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\Login\\register_page.cshtml",
               "RelativeToolTip": "Views\\Login\\register_page.cshtml",
-              "ViewState": "AgIAACMAAAAAAAAAAAAiwEIAAAAHAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEIAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-25T13:08:15.099Z"
+              "WhenOpened": "2025-04-25T13:08:15.099Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 9,
               "Title": "login_page.css",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\css\\login_page.css",
               "RelativeDocumentMoniker": "wwwroot\\css\\login_page.css",
               "ToolTip": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\css\\login_page.css",
               "RelativeToolTip": "wwwroot\\css\\login_page.css",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
               "WhenOpened": "2025-04-25T12:53:16.407Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 33,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -798,7 +885,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 54,
               "Title": "_ViewStart.cshtml",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\_ViewStart.cshtml",
               "RelativeDocumentMoniker": "Views\\_ViewStart.cshtml",
@@ -810,7 +897,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 57,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -822,7 +909,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 30,
               "Title": "login_page.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Buisness_Layer\\registration\\login_page.cs",
               "RelativeDocumentMoniker": "Models\\Buisness_Layer\\registration\\login_page.cs",
@@ -834,19 +921,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 12,
               "Title": "login_page.cshtml",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\Login\\login_page.cshtml",
               "RelativeDocumentMoniker": "Views\\Login\\login_page.cshtml",
               "ToolTip": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\Login\\login_page.cshtml",
               "RelativeToolTip": "Views\\Login\\login_page.cshtml",
-              "ViewState": "AgIAABIAAAAAAAAAAAAiwDEAAAAHAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-21T20:07:49.387Z"
+              "WhenOpened": "2025-04-21T20:07:49.387Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 52,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
@@ -858,7 +946,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 58,
               "Title": "student_reg.cshtml",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\Login\\student_reg.cshtml",
               "RelativeDocumentMoniker": "Views\\Login\\student_reg.cshtml",
@@ -870,7 +958,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 44,
               "Title": "login_check.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Data_Layer\\registration\\login_check.cs",
               "RelativeDocumentMoniker": "Models\\Data_Layer\\registration\\login_check.cs",
@@ -882,7 +970,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
+              "DocumentIndex": 59,
               "Title": "login_page.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\Buisness_Layer\\registration\\login_page.cs",
               "RelativeDocumentMoniker": "Models\\Buisness_Layer\\registration\\login_page.cs",
@@ -894,7 +982,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 37,
               "Title": "dataBaseHelper.cs",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Models\\dataBaseHelper.cs",
               "RelativeDocumentMoniker": "Models\\dataBaseHelper.cs",
@@ -906,7 +994,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 55,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
