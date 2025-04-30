@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "EExvS25elDLfXfK+gwFLS1VZuPbQopIDLravTx+Sv+4=",
+  "Hash": "cB2DPb4Ls1dfZr43u4rSBo7gFMMihtSLsCSrW7e7uO8=",
   "Source": "Quizzy",
   "BasePath": "_content/Quizzy",
   "Mode": "Default",
@@ -74,6 +74,25 @@
       "OriginalItemSpec": "wwwroot\\background.jpg"
     },
     {
+      "Identity": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\courses_enroll.jpg",
+      "SourceId": "Quizzy",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\",
+      "BasePath": "_content/Quizzy",
+      "RelativePath": "courses_enroll.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\courses_enroll.jpg"
+    },
+    {
       "Identity": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\css\\login_page.css",
       "SourceId": "Quizzy",
       "SourceType": "Discovered",
@@ -110,6 +129,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\css\\studentMain.css",
+      "SourceId": "Quizzy",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\",
+      "BasePath": "_content/Quizzy",
+      "RelativePath": "css/studentMain.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\studentMain.css"
     },
     {
       "Identity": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\favicon.ico",
@@ -1250,6 +1288,44 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\quiz.jpg",
+      "SourceId": "Quizzy",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\",
+      "BasePath": "_content/Quizzy",
+      "RelativePath": "quiz.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\quiz.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\result.jpg",
+      "SourceId": "Quizzy",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\",
+      "BasePath": "_content/Quizzy",
+      "RelativePath": "result.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\result.jpg"
     }
   ]
 }

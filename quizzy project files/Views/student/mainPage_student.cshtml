@@ -1,12 +1,89 @@
-﻿@model string
+﻿@model Quizzy.Models.Buisness_Models.Student
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Student Main Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Home - Quiz Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="~/css/studentMain.css">
+
 </head>
 <body>
-    <h2>Welcome Student</h2>
-    <p>Your ID is: @Model</p>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-logo"><h2>Quizzy</h2></div>
+        <div class="navbar-nav">
+            <a href="#" class="nav-link"><i class="fas fa-search"></i> Find Courses</a>
+            <a href="#" class="nav-link"><i class="fas fa-list-check"></i> See Available Quizes</a>
+        </div>
+        <div class="navbar-student-info">
+            <div class="student-details">
+                <span class="student-name">@Model.first_name @Model.last_name,</span>
+                <span class="student-roll">@Model.addmission_year-@Model.dept-@Model.roll_num</span>
+            </div>
+            <a href="/student/logOut" class="logout-btn">Logout</a>
+        </div>
+
+
+    </nav>
+
+    <div class="wrapper">
+        <!-- Header -->
+        <div class="form-header">
+            <h1 class="header-title">Student Dashboard</h1>
+        </div>
+
+        <!-- User Info (hidden, using navbar instead) -->
+        <div class="user-info">
+            <span class="user-name">@Model.first_name @Model.last_name</span>
+            <a href="/student/logOut" class="logout-btn">Logout</a>
+        </div>
+
+        <!-- Dashboard Content -->
+        <h2 class="dashboard-title">Welcome to Quizzy</h2>
+
+        <!-- Feature Cards -->
+        <div class="feature-cards">
+            <!-- Attempt Quiz Card -->
+            <div class="feature-card">
+                <img src="/quiz.jpg" alt="Attempt Quiz" class="feature-image" />
+                <i class="fas fa-pen-to-square feature-icon"></i>
+                <h3 class="feature-title">Attempt Quiz</h3>
+                <p class="feature-description">View available quizzes assigned to you</p>
+                <a href="#" class="feature-btn">
+                    Take Quiz <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- Enrolled Courses Card -->
+            <div class="feature-card">
+                <img src="/courses_enroll.jpg" alt="Enrolled Courses" class="feature-image" />
+                <i class="fas fa-book feature-icon"></i>
+                <h3 class="feature-title">Enrolled Courses</h3>
+                <p class="feature-description">View your enrolled courses and study materials</p>
+                <a href="#" class="feature-btn">
+                    View Courses <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- Check Results Card -->
+            <div class="feature-card">
+                <img src="/result.jpg" alt="Check Results" class="feature-image" />
+                <i class="fas fa-chart-simple feature-icon"></i>
+                <h3 class="feature-title">Check Results</h3>
+                <p class="feature-description">Review your quiz scores and progress</p>
+                <a href="#" class="feature-btn">
+                    View Results <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; 2025 Quizzy. All rights reserved.</p>
+        </div>
+    </div>
 </body>
 </html>

@@ -112,9 +112,14 @@ namespace Quizzy.Controllers.login
 
                     if (role == "student")
                     {
-                        
 
                         HttpContext.Session.SetString("UserId", user.Rows[0]["studentID"].ToString());
+                        Response.Cookies.Append("UserId", user.Rows[0]["studentID"].ToString(), new CookieOptions
+                        {
+                            Expires = DateTimeOffset.Now.AddDays(7),
+                            IsEssential = true
+                        });
+
 
                         return RedirectToAction("mainPage", "student");
 
@@ -123,7 +128,11 @@ namespace Quizzy.Controllers.login
                     {
 
                         HttpContext.Session.SetString("UserId", user.Rows[0]["teacherID"].ToString());
-
+                        Response.Cookies.Append("UserId", user.Rows[0]["teacherID"].ToString(), new CookieOptions
+                        {
+                            Expires = DateTimeOffset.Now.AddDays(7),
+                            IsEssential = true
+                        });
 
 
                         return RedirectToAction("mainPage", "teacher");
