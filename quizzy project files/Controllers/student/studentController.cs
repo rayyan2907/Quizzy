@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using MimeKit;
 using Mysqlx.Crud;
 using Quizzy.Helpers;
+using Quizzy.Models.Buisness_Layer.quiz;
 using Quizzy.Models.Buisness_Layer.student;
 using Quizzy.Models.Buisness_Layer.subjects;
 using Quizzy.Models.Buisness_Models;
@@ -19,6 +21,25 @@ namespace Quizzy.Controllers.student
 
         public IActionResult availableQuizes()
         {
+
+            var stu = HttpContext.Session.GetObject<Student>("StudentObj");
+
+            if (stu == null)
+            {
+                TempData["log"] = "Session not found";
+                return RedirectToAction("index", "login");
+
+            }
+
+            DataTable dt = stu_quizBL.getopenquiz();
+
+            ViewBag.quiz = dt;
+
+
+            Console.WriteLine($"open quizes section has been opened by the student with name {stu.first_name} {stu.last_name} ");
+
+
+            ViewBag.stu = stu;
             return View("seeOpenQuiz");
         }
         public IActionResult main()
@@ -52,6 +73,13 @@ namespace Quizzy.Controllers.student
         {
             var stu = HttpContext.Session.GetObject<Student>("StudentObj");
 
+            if (stu == null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+
+            }
             Console.WriteLine($"user with name {stu.first_name} {stu.last_name} is loging out");
             HttpContext.Session.Clear();
 

@@ -1,4 +1,125 @@
-﻿@page
-@model Quizzy.Views.student.showQuizesModel
-@{
+﻿@{
+
+    var student = ViewBag.stu as Quizzy.Models.Buisness_Models.Student;
+    var sub = ViewBag.sub as Quizzy.Models.Buisness_Models.subject_model;
+    var quizDt = ViewBag.quiz as System.Data.DataTable;
+
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizes (@sub.code) - Quizzy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/studentMain.css">
+    <link rel="stylesheet" href="~/css/mainpage_teacher.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <i class="fas fa-graduation-cap brand-icon"></i>
+                <h2>Quizzy</h2>
+            </div>
+            <div class="navbar-menu">
+                <div class="user-welcome">
+                    <i class="fas fa-user-circle user-icon"></i>
+                    <span>Welcome, @student.first_name @student.last_name </span>
+                </div>
+                <a href="/student/logOut" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Go Back Button -->
+    <a href="/student/main" class="btn-go-back">
+        <i class="fas fa-arrow-left"></i> Go Back
+    </a>
+
+    <!-- Content Wrapper -->
+    <div class="content-wrapper">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <h1>Student Dashboard</h1>
+            <div class="student-badge">
+                <i class="fas fa-id-card"></i>
+                <span>Roll No: @student.addmission_year-@student.dept-@student.roll_num</span>
+            </div>
+        </div>
+
+        <!-- TempData Messages -->
+        @if (TempData["Check"] != null)
+        {
+            <div style="color: #07fc03; font-size: 16px; text-align: center;">
+                @TempData["Check"]
+            </div>
+        }
+        @if (TempData["log"] != null)
+        {
+            <div style="color: red; font-size: 16px; text-align: center;">
+                @TempData["log"]
+            </div>
+        }
+
+        <!-- Courses Container -->
+        <div class="courses-container">
+            <div class="section-header">
+                <h2>@sub.code-@sub.name</h2>
+            </div>
+        </div>
+
+        @if (quizDt != null && quizDt.Rows.Count > 0)
+        {
+            <div class="quiz-container">
+                @foreach (System.Data.DataRow row in quizDt.Rows)
+                {
+                    string quizName = row["quiz_name"].ToString();
+                    string givenTime = row["given_time"].ToString();
+                    bool isAssigned = row["is_asssign"] != DBNull.Value && Convert.ToBoolean(row["is_asssign"]);
+                    int quizId = Convert.ToInt32(row["quizID"]);
+
+                    <div class="quiz-card">
+                        <div class="quiz-header">
+                            <div>
+                                <h3 class="quiz-title">@quizName</h3>
+                                <div class="quiz-time">
+                                    <i class="fas fa-clock"></i> @givenTime minutes
+                                </div>
+                            </div>
+                        </div>
+                        <div class="quiz-body">
+                            <div class="quiz-action">
+                                @if (isAssigned)
+                                {
+                                    <a href="/student/attemptQuiz/@quizId" class="quiz-btn">
+                                        Attempt Quiz <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <button class="quiz-btn not-assigned" disabled>
+                                        Not Assigned Yet
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p>No quizzes available.</p>
+        }
+
+        <div class="dashboard-footer">
+            <p class="footer-message">Happy Learning, @student.first_name @student.last_name!</p>
+            <p class="copyright">&copy; 2025 Quizzy. All rights reserved.</p>
+        </div>
+</body>
+
+</html>
