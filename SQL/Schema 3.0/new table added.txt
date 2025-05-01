@@ -1,0 +1,20 @@
+create table attempt(
+	quizID int ,
+    subjectID int,
+    studentID int,
+    foreign key (quizID) references quiz (quizID)
+    on update cascade
+    on delete cascade
+    ,
+    foreign key (subjectID) references subjects (subjectID)
+    on update cascade
+    on delete cascade
+    ,
+    foreign key (studentID) references subjects(subjectID)
+    on update cascade
+    on delete cascade);
+    
+-- a new table for attempts has been made
+
+alter table quiz
+add is_asssign bool;
