@@ -109,13 +109,13 @@
                                 <div class="course-action">
                                     @if (Convert.ToBoolean(row["status"]) == true)
                                     {
-                                        <a href="#" class="btn-view-course">
+                                        <a href="/student/getCourse/@row["subjectID"]" class="btn-view-course">
                                             View Course <i class="fas fa-arrow-right"></i>
                                         </a>
                                     }
                                     else
                                     {
-                                        <button class="btn-view-course" disabled>
+                                        <button style="background-color:red;" class="btn-view-course" disabled>
                                             Registration Pending
                                         </button>
                                     }

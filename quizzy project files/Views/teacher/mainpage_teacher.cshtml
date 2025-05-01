@@ -119,7 +119,19 @@
                 <span>Current Course: @Model.Subject.code - @Model.Subject.name</span>
             </div>
         </div>
-        
+        @if (TempData["Check"] != null)
+        {
+            <div style="color: #07fc03; font-size: 16px; text-align: center;">
+                @TempData["Check"]
+            </div>
+        }
+        @if (TempData["log"] != null)
+        {
+            <div style="color: red; font-size: 16px; text-align: center;">
+                @TempData["log"]
+            </div>
+        }
+
 
         <!-- Section with Options -->
         <div class="options-container">
@@ -158,7 +170,7 @@
                 <div class="card-content">
                     <h3>Announcements</h3>
                     <p>Share important updates with your students</p>
-                    <a href="/announcement/create" class="btn-option">Announce Something <i class="fas fa-arrow-right"></i></a>
+                    <a href="/teacher/announcements" class="btn-option">Announce Something <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
 

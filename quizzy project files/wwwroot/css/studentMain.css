@@ -343,6 +343,28 @@ body {
         box-shadow: 0 4px 12px rgba(46, 43, 65, 0.3);
     }
 
+.btn-unview-course {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background-color: red;
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    width: 100%;
+}
+
+    .btn-unview-course:hover {
+        background-color: #2E2B41;
+        box-shadow: 0 4px 12px rgba(46, 43, 65, 0.3);
+    }
+
+
 /* Available Courses Section */
 .available-courses {
     background-color: white;

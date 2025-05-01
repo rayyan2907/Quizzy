@@ -1,0 +1,98 @@
+﻿
+    @{
+        var teacher = ViewBag.teacher as Quizzy.Models.Buisness_Models.Teacher;
+        var subject = ViewBag.subject as Quizzy.Models.Buisness_Models.subject_model;
+        
+    }
+    @model Quizzy.Models.Buisness_Models.Announcements
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - Quizzy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/mainpage_teacher.css">
+</head>
+<body>
+
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+
+                <i class="fas fa-graduation-cap brand-icon"></i>
+                <h2>Quizzy</h2>
+            </div>
+            <div class="navbar-menu">
+                <div class="user-welcome">
+                    <i class="fas fa-user-circle user-icon"></i>
+                    <span>Welcome, @teacher.first_name @teacher.last_name</span>
+                </div>
+                <a href="/teacher/logOut" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+            </div>
+        </div>
+    </nav>
+    <a href="/teacher/home" class="btn-go-back">
+        <i class="fas fa-arrow-left"></i> Go Back
+    </a>
+    <div class="content-wrapper">
+        <div class="dashboard-header">
+            <h1>Teacher Dashboard</h1>
+            <div class="course-badge">
+                <i class="fas fa-book-open"></i>
+
+
+                <span>Current Course: @subject.code - @subject.name</span>
+            </div>
+        </div>
+    </div>
+    @if (TempData["Check"] != null)
+    {
+        <div style="color: #07fc03; font-size: 16px; text-align: center;">
+            @TempData["Check"]
+        </div>
+    }
+    @if (TempData["log"] != null)
+    {
+        <div style="color: red; font-size: 16px; text-align: center;">
+            @TempData["log"]
+        </div>
+    }
+
+
+    <!-- Announcement Form -->
+    <div class="announcement-form">
+        <h2>Send Announcement</h2>
+        <form method="post" asp-controller="teacher" asp-action="sendAnnouncement">
+            <input type="text"  asp-for="subject" placeholder="Subject" required />
+            <textarea  rows="6" asp-for="body" placeholder="Enter your announcement..." required></textarea>
+            <button type="submit">Send to Students</button>
+        </form>
+    </div>
+
+
+    <div class="dashboard-footer">
+        <p class="footer-message">Happy Teaching, @teacher.first_name @teacher.last_name!</p>
+        <p class="copyright">&copy; 2025 Quizzy. All rights reserved.</p>
+    </div>
+    <!-- Sending Modal -->
+    <div id="sendingModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.8); z-index:9999; text-align:center; padding-top:200px; font-size:24px;">
+        <div class="loading-spinner"></div>
+        <p>Sending announcements to all the registered emails, please wait...</p>
+    </div>
+
+
+
+    <script>
+        document.querySelector("form").addEventListener("submit", function (e) {
+            document.getElementById("sendingModal").style.display = "block";
+        });
+    </script>
+</body>
+</html>

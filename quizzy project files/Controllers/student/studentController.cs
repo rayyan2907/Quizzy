@@ -229,7 +229,25 @@ namespace Quizzy.Controllers.student
             return RedirectToAction("enrolledCourse");
         }
 
-       
 
+        [HttpGet]
+        public IActionResult getCourse(string id)
+        {
+            var stu = HttpContext.Session.GetObject<Student>("StudentObj");
+
+            if (stu == null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+
+            }
+
+
+
+
+            Console.WriteLine($"course id is{id}");
+            return RedirectToAction("main");
+        }
     }
 }

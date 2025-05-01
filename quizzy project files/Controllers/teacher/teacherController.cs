@@ -202,7 +202,7 @@ namespace Quizzy.Controllers.teacher
                                  </body>
                                 </html>
 
-                                </html>
+                               
                                     "
 
                 };
@@ -307,6 +307,121 @@ namespace Quizzy.Controllers.teacher
             return RedirectToAction("studentManage");
 
 
+        }
+
+
+
+        public IActionResult announcements()
+        {
+            var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
+            var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
+
+            if (teacher == null || subject == null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+            }
+
+            ViewBag.subject = subject;
+            ViewBag.teacher = teacher;
+
+
+            return View("announcements");
+        }
+
+
+        [HttpPost]
+
+        public IActionResult sendAnnouncement(Announcements a)
+        {
+            var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
+            var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
+
+            if (teacher == null || subject == null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+            }
+
+            DataTable dt = teacherBL.annnounce(subject.subjectID);
+            Console.WriteLine(dt.Rows.Count);
+            if (dt == null || dt.Rows.Count==0)
+            {
+                TempData["log"] = "You do not have any enrolled students yet";
+                return RedirectToAction("home");
+            }
+
+            string serverAddress = $"{Request.Scheme}://{Request.Host}";
+            string loginUrl = $"{serverAddress}/login/index";
+
+            Console.WriteLine($"an announcement \"{a.body}\" was made by teacher {teacher.first_name} {teacher.last_name} ");
+
+            foreach (DataRow row in dt.Rows)
+            {
+                string stu_first = row["first_name"].ToString();
+                string stu_last = row["last_name"].ToString();
+                string stu_email = row["email"].ToString();
+
+
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("Quizzy - Modern Quiz System", "mrayyan403@gmail.com"));
+                message.To.Add(new MailboxAddress( stu_first+ " " + stu_last, stu_email));
+                message.Subject = $"Annoucement ({subject.code}) - {a.subject}";
+
+                message.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+                {
+                    Text = $@"
+                              <html>
+                                    <body style=""font-family: Arial, sans-serif; background-color: #ffffff; color: #2E2B41; padding: 30px;"">
+                                        <div style=""background-color: #E8F5E9; border-radius: 10px; padding: 30px; max-width: 600px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1);"">
+                                            <h2 style=""color: #388E3C;"">📢 New Announcement</h2>
+
+                                            <p>Dear, <h1>{stu_first} {stu_last}</h1></p>
+
+                                            <p>You have received a new announcement from <strong>Prof. {teacher.first_name} {teacher.last_name}</strong> for the course <strong>{subject.code} - {subject.name}</strong>.</p>
+
+                                            <hr style=""border: none; border-top: 1px solid #ccc; margin: 20px 0;"" />
+
+                                            <h3 style=""color: #2E7D32;"">{a.subject}</h3>
+                                            <p style=""line-height: 1.6;"">{a.body}</p>
+                                            
+
+                                            <hr style=""border: none; border-top: 1px solid #ccc; margin: 20px 0;"" />
+                                            <p>Best Regards,
+                                            {teacher.first_name} {teacher.last_name}</p>
+                                            <p>Stay updated by checking your Quizzy dashboard regularly.</p>
+                                            
+                                            
+
+                                            <div style=""text-align: center; margin-top: 20px;"">
+                                                <a href=""{loginUrl}"" style=""background-color: #388E3C; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-size: 16px;"">Go to Dashboard</a>
+                                            </div>
+
+                                            <div style=""margin-top: 40px; font-size: 12px; color: #999; text-align: center;"">
+                                                <footer style=""font-size: 12px; color: #888;"">Keep Learning with Quizzy</footer>
+                                                &copy; 2025 Quizzy. All rights reserved.
+                                            </div>
+                                        </div>
+                                    </body>
+                                    </html>
+
+                                    "
+
+                };
+                using (var client = new MailKit.Net.Smtp.SmtpClient())
+                {
+                    client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+                    client.Authenticate("mrayyan403@gmail.com", "yuax ekty ofav lkvj"); // your app password
+                    client.Send(message);
+                    client.Disconnect(true);
+                }
+                Console.WriteLine($"Email sent to {stu_first} {stu_last} at email {stu_email}");
+            }
+
+            TempData["Check"] = "Email sent to all the enrolled students";
+            return RedirectToAction("home");
         }
     }
 }

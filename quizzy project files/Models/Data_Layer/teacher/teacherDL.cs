@@ -19,5 +19,12 @@ namespace Quizzy.Models.Data_Layer.teacher
 
             return t;
         }
+
+        public static DataTable announcement(string id)
+        {
+            string query = $"select s.first_name,s.last_name,s.email from enrollments e join students  s on s.studentID = e.studentID where subjectID ={id} and status = true";
+
+            return DatabaseHelper.Instance.GetData(query);
+        }
     }
 }

@@ -24,5 +24,10 @@ namespace Quizzy.Models.Buisness_Layer.teacher
             DataTable table = getSubject.getSub(t.teachID);
             return table;   
         }
+
+        public static DataTable annnounce(string id)
+        {
+            return teacherDL.announcement(id);
+        }
     }
 }

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Quizzy")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+440c45d545ac33a6423117079e9a168d9a0e2c64")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+04b0a041d12a82a07d757f4b55dc5b4008711af6")]
 [assembly: System.Reflection.AssemblyProductAttribute("Quizzy")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Quizzy")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

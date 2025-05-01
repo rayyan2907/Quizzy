@@ -494,3 +494,78 @@ body {
         background-color: black;
     }
 
+.announcement-form {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 32px;
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    font-family: 'Poppins', Arial, sans-serif;
+}
+
+    .announcement-form h2 {
+        text-align: center;
+        margin-bottom: 24px;
+        font-size: 26px;
+        font-weight: 600;
+        color: #2E2B41;
+    }
+
+    .announcement-form input[type="text"],
+    .announcement-form textarea {
+        width: 100%;
+        padding: 14px 16px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        font-size: 15px;
+        transition: border-color 0.3s ease;
+    }
+
+        .announcement-form input[type="text"]:focus,
+        .announcement-form textarea:focus {
+            border-color: #8672FF;
+            outline: none;
+        }
+
+    .announcement-form button {
+        background-color: #8672FF;
+        color: white;
+        padding: 14px 24px;
+        border: none;
+        border-radius: 50px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+    }
+
+        .announcement-form button:hover {
+            background-color: #2E2B41;
+            box-shadow: 0 4px 12px rgba(46, 43, 65, 0.3);
+        }
+
+/* Spinner (Loading Circle) */
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid #fff;
+    border-top: 3px solid #2E2B41;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    display: none;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
