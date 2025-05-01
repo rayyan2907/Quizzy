@@ -3,6 +3,7 @@ using MimeKit;
 using Mysqlx.Crud;
 using Quizzy.Helpers;
 using Quizzy.Models.Buisness_Layer.student;
+using Quizzy.Models.Buisness_Layer.subjects;
 using Quizzy.Models.Buisness_Models;
 using System.Data;
 using System.Security.Cryptography.X509Certificates;
@@ -233,6 +234,22 @@ namespace Quizzy.Controllers.student
         [HttpGet]
         public IActionResult getCourse(string id)
         {
+           
+
+
+
+            HttpContext.Session.SetString("courseID",id);
+
+
+
+            Console.WriteLine($"course id is{id}");
+
+
+            return RedirectToAction("coursePage");
+        }
+
+        public IActionResult coursePage()
+        {
             var stu = HttpContext.Session.GetObject<Student>("StudentObj");
 
             if (stu == null)
@@ -242,12 +259,27 @@ namespace Quizzy.Controllers.student
                 return RedirectToAction("index", "login");
 
             }
+            string id = HttpContext.Session.GetString("courseID");
+
+            if (string.IsNullOrEmpty(id))
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+
+            }
+
+            subject_model sub = subjectBL.getSubfromid(id);
+
+            Console.WriteLine($"course id is {id}");
+
+            Console.WriteLine($"student with name {stu.first_name} {stu.last_name} is opening the course {sub.name}");
 
 
+            ViewBag.stu = stu;
+            ViewBag.sub = sub;
 
-
-            Console.WriteLine($"course id is{id}");
-            return RedirectToAction("main");
+            return View("coursePage");
         }
     }
 }

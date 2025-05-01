@@ -54,12 +54,28 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Rayya/Pictures/Quizzy/DBS25006/quizzy project files/Views/student/coursePage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3Ncc3R1ZGVudFxjb3Vyc2VQYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Rayya/Pictures/Quizzy/DBS25006/quizzy project files/Views/student/mainPage_student.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3Ncc3R1ZGVudFxtYWluUGFnZV9zdHVkZW50LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Rayya/Pictures/Quizzy/DBS25006/quizzy project files/Views/student/seeOpenQuiz.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3Ncc3R1ZGVudFxzZWVPcGVuUXVpei5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rayya/Pictures/Quizzy/DBS25006/quizzy project files/Views/student/showAttemtedQuizes.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3Ncc3R1ZGVudFxzaG93QXR0ZW10ZWRRdWl6ZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rayya/Pictures/Quizzy/DBS25006/quizzy project files/Views/student/showQuizes.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3Ncc3R1ZGVudFxzaG93UXVpemVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rayya/Pictures/Quizzy/DBS25006/quizzy project files/Views/student/showResults.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3Ncc3R1ZGVudFxzaG93UmVzdWx0cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Rayya/Pictures/Quizzy/DBS25006/quizzy project files/Views/student/viewAllCourses.cshtml]

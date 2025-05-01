@@ -631,3 +631,16 @@ body {
     border-radius: 8px;
     object-fit: cover;
 }
+.btn-go-back {
+    background-color: #8672FF;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-go-back:hover {
+        background-color: black;
+    }
