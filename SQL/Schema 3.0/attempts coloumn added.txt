@@ -1,0 +1,10 @@
+alter table quiz
+add attempt bool default false;
+
+
+-- we have addded attempt colomn to see if the user can attempt the quiz multiple time
+
+alter table attempt
+add atemptID int auto_increment primary key;
+
+-- we have added a primary key to attempt table
