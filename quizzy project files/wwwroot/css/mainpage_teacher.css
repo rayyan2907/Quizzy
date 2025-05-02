@@ -569,3 +569,110 @@ body {
         transform: rotate(360deg);
     }
 }
+.quiz-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+    .quiz-table th,
+    .quiz-table td {
+        padding: 14px 18px;
+        text-align: left;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .quiz-table th {
+        background-color: #8672FF;
+        color: #ffffff;
+        font-size: 16px;
+    }
+
+    .quiz-table tr:hover {
+        background-color: #f2f2f2;
+    }
+
+.btn-assign,
+.btn-unassign {
+    padding: 8px 14px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 6px;
+}
+
+.btn-assign {
+    background-color: #2ecc71;
+    color: white;
+}
+
+    .btn-assign:hover {
+        background-color: #27ae60;
+    }
+
+.btn-unassign {
+    background-color: #e74c3c;
+    color: white;
+}
+
+    .btn-unassign:hover {
+        background-color: #c0392b;
+    }
+
+    .btn-assign[disabled],
+    .btn-unassign[disabled] {
+        background-color: #bdc3c7;
+        cursor: not-allowed;
+    }
+
+.empty-state {
+    margin-top: 40px;
+    text-align: center;
+    color: #7f8c8d;
+}
+
+    .empty-state i {
+        font-size: 50px;
+        margin-bottom: 10px;
+        color: #bdc3c7;
+    }
+
+.empty-message {
+    font-size: 18px;
+}
+.btn-update, .btn-delete {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-update {
+    background-color: #3498db;
+    color: white;
+}
+
+    .btn-update:hover {
+        background-color: #2980b9;
+    }
+
+.btn-delete {
+    background-color: #e74c3c;
+    color: white;
+}
+
+    .btn-delete:hover {
+        background-color: #c0392b;
+    }
+
+

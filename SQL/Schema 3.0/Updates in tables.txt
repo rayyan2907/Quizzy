@@ -1,5 +1,11 @@
 ALTER TABLE mcqs DROP image_path;
-
 ALTER TABLE short_questions DROP image_path;
 
+
+-- we have removed the image adding path for now
+
+
+
 ALTER TABLE mcqs ADD statement TEXT;
+
+-- added a new coloumn in the mcq table

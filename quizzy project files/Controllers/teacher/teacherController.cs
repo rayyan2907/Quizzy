@@ -165,7 +165,6 @@ namespace Quizzy.Controllers.teacher
 
             DataTable dt1 = StudentBL.viewReq(subject.subjectID);
 
-            Console.WriteLine(dt1.Rows.Count);
             ViewBag.subject = subject;
             ViewBag.teacher = teacher;
             ViewBag.student = dt1;
