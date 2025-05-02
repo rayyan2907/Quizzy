@@ -55,6 +55,16 @@ namespace Quizzy.Models.Data_Layer.quiz
         public static bool addQuiz(quizModel q)
         {
             string query = $"insert into quiz (isPublic,quiz_name,given_time,subjectID,is_asssign,attempt) values ({q.isPublic},'{q.quizName}',{q.given_time},{q.subID},{q.isAssign},{q.attempt})";
+            
+            int rows = DatabaseHelper.Instance.Update(query);
+            return rows > 0;
+        }
+
+
+        public static bool updateQuiz(quizModel q)
+        {
+            string query = $"update quiz set  isPublic= {q.isPublic},quiz_name = '{q.quizName}',given_time={q.given_time},is_asssign={q.isAssign},attempt={q.attempt} where quizID = {q.quizID}";
+            Console.WriteLine(query);
             int rows = DatabaseHelper.Instance.Update(query);
             return rows > 0;
         }

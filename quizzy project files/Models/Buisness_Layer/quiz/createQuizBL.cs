@@ -53,5 +53,40 @@ namespace Quizzy.Models.Buisness_Layer.quiz
             }
         }
 
+
+        public static string updateQuiz(Models.Buisness_Models.quiz_model q)
+        {
+            int giventime;
+            bool is_time = int.TryParse(q.given_time, out giventime);
+
+            if (!is_time)
+            {
+                return "Time should be in numbers";
+            }
+            DataLayer_Models.quizModel quiz = new DataLayer_Models.quizModel();
+            int subId = Convert.ToInt32(q.subID);
+
+            if (q.quizID != null)
+            {   
+                quiz.quizID = Convert.ToInt32(q.quizID);
+                Console.WriteLine(quiz.quizID); 
+            }
+            quiz.subID = subId;
+            quiz.quizName = q.quizName;
+            quiz.isPublic = q.isPublic;
+            quiz.isAssign = q.isAssign;
+            quiz.given_time = giventime;
+            quiz.attempt = q.attempt;
+
+
+            if (createQuizDL.updateQuiz(quiz))
+            {
+                return "The quiz has been updated successfully";
+            }
+            else
+            {
+                return "Error in updating quiz";
+            }
         }
     }
+}
