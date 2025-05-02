@@ -93,8 +93,11 @@ namespace Quizzy.Models.Buisness_Layer.student
             return studentDL.updateEnroll(e);
         }
 
+        public static bool deleteAssign(Enrollment e)
+        {
+            return studentDL.unEnroll(e);
+        }
 
-      
 
         public static DataTable statsEnroll(string id)
         {

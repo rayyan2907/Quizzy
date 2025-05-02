@@ -21,5 +21,16 @@ namespace Quizzy.Models.Buisness_Layer.quiz
         {
             return stu_quizDL.getResults(id);
         }
+
+
+        public static DataTable getresultsOpenQuiz(string id)
+        {
+            return stu_quizDL.getResultsOpenQuiz(id);
+        }
+
+        public static DataTable getattemptquiz(string id)
+        {
+            return stu_quizDL.getattemptQuizes(id);
+        }
     }
 }

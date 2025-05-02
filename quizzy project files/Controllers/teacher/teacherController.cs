@@ -280,7 +280,7 @@ namespace Quizzy.Controllers.teacher
             e.courseID = subject.subjectID;
             e.status = false;
 
-            if (StudentBL.updateAssign(e))
+            if (StudentBL.deleteAssign(e))
             {
                 TempData["Check"] = "Student unenrolled in the from course successfully";
 

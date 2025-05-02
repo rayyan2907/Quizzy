@@ -1,8 +1,7 @@
 ﻿@{
 
     var student = ViewBag.stu as Quizzy.Models.Buisness_Models.Student;
-    var sub = ViewBag.sub as Quizzy.Models.Buisness_Models.subject_model;
-    var quizDt = ViewBag.attemptquiz as System.Data.DataTable;
+    var resultDt = ViewBag.result as System.Data.DataTable;
 
 }
 <!DOCTYPE html>
@@ -11,11 +10,23 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Results (@sub.code) - Quizzy</title>
+    <title>Open Quizes - Quizzy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/studentMain.css">
     <link rel="stylesheet" href="~/css/mainpage_teacher.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const currentPath = window.location.pathname;
+            document.querySelectorAll('.nav-list a').forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+    </script>
 </head>
 <body>
     <!-- Navbar -->
@@ -34,11 +45,17 @@
             </div>
         </div>
     </nav>
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <ul class="nav-list">
+                <li><a href="/student/main"><i class="fas fa-book"></i> Enrolled Courses</a></li>
+                <li><a href="/student/availableCourse"><i class="fas fa-book"></i> All Courses</a></li>
+                <li><a href="/student/availableQuizes"><i class="fas fa-book"></i> Available Quizzes</a></li>
+            </ul>
+        </div>
+    </nav>
 
-    <!-- Go Back Button -->
-    <a href="/student/coursePage" class="btn-go-back">
-        <i class="fas fa-arrow-left"></i> Go Back
-    </a>
 
     <!-- Content Wrapper -->
     <div class="content-wrapper">
@@ -50,7 +67,6 @@
                 <span>Roll No: @student.addmission_year-@student.dept-@student.roll_num</span>
             </div>
         </div>
-
         <!-- TempData Messages -->
         @if (TempData["Check"] != null)
         {
@@ -64,75 +80,62 @@
                 @TempData["log"]
             </div>
         }
-
-        <!-- Courses Container -->
         <div class="courses-container">
             <div class="section-header">
-                <h2>@sub.code-@sub.name</h2>
+                <h2>Open Quizes</h2>
+
+
+
             </div>
         </div>
-        @if (quizDt != null && quizDt.Rows.Count > 0)
+        @if (resultDt != null && resultDt.Rows.Count > 0)
         {
             <div class="student-quiz-results">
-                @foreach (System.Data.DataRow row in quizDt.Rows)
+                @foreach (System.Data.DataRow row in resultDt.Rows)
                 {
                     string quizName = row["quiz_name"].ToString();
-                    string attempts = row["attempts"].ToString();
-                    string avg_mcqs = row["avg_mmcq"].ToString();
-                    string avg_shq = row["avg_short"].ToString();
-                    string avg_gained = row["avg_gained"].ToString();
-                    string total = row["avg_total"].ToString();
-
-                    float gainedMarks = float.Parse(avg_gained);
-                    float totalMarks = float.Parse(total);
-
-                    // Floor values to 0 decimal places
-                    int floored_mcqs = (int)Math.Floor(float.Parse(avg_mcqs));
-                    int floored_shq = (int)Math.Floor(float.Parse(avg_shq));
-                    int floored_gained = (int)Math.Floor(gainedMarks);
-                    int floored_total = (int)Math.Floor(totalMarks);
-
-                    // Calculate percentage
-                    int percent = floored_total > 0 ? (int)Math.Round((float)floored_gained / floored_total * 100) : 0;
-
-
-
+                    string mcq = row["mcq_marks"].ToString();
+                    string shq = row["shq_marks"].ToString();
+                    string total = row["total_marks"].ToString();
+                    int gain = Convert.ToInt32(mcq) + Convert.ToInt32(shq);
+                    int totalMarks = Convert.ToInt32(total);
+                    int percent = (int)Math.Round((double)gain / totalMarks * 100);
+                    int quizId = Convert.ToInt32(row["quizID"]);
 
                     <div class="quiz-result-card">
-                        <h3 class="quiz-result-title">Attempts of @quizName</h3>
+                        <h3 class="quiz-result-title">Result of @quizName</h3>
 
                         <div class="quiz-result-stats">
                             <div class="stat-box">
-                                <span class="stat-label">Attempts</span>
-                                <span class="stat-value">@attempts</span>
-                            </div>
-                            
+                                <span class="stat-label">MCQs</span>
+                                <span class="stat-value">@mcq</span>
                             </div>
                             <div class="stat-box">
-                                <span class="stat-label">Avg Gained</span>
-                                <span class="stat-value">@floored_gained</span>
+                                <span class="stat-label">Short Qs</span>
+                                <span class="stat-value">@shq</span>
                             </div>
                             <div class="stat-box">
-                                <span class="stat-label">Total Marks</span>
-                                <span class="stat-value">@floored_total</span>
+                                <span class="stat-label">Gained</span>
+                                <span class="stat-value">@gain</span>
                             </div>
-
-                        
+                            <div class="stat-box">
+                                <span class="stat-label">Total</span>
+                                <span class="stat-value">@total</span>
+                            </div>
                         </div>
-                    <div class="quiz-result-actions">
-                        <a href="/student/attemptQuiz/" class="view-report-btn">
-                            View Report <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
 
                         <div class="progress-container">
                             <div class="progress-label">Score: @percent%</div>
                             <div class="progress-bar">
-                                <div class="progress-fill" style="width:@percent%;"></div>
-
-                                
+                                <div class="progress-fill" style="width: @percent%"></div>
                             </div>
+                        </div>
 
+                        <div class="quiz-result-actions">
+                            <a href="/student/attemptQuiz/@quizId" class="view-report-btn">
+                                View Report <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
                     </div>
                 }
             </div>

@@ -71,42 +71,61 @@
                 <h2>@sub.code-@sub.name</h2>
             </div>
         </div>
-
         @if (resultDt != null && resultDt.Rows.Count > 0)
         {
-            <div class="quiz-container">
+            <div class="student-quiz-results">
                 @foreach (System.Data.DataRow row in resultDt.Rows)
                 {
                     string quizName = row["quiz_name"].ToString();
                     string mcq = row["mcq_marks"].ToString();
                     string shq = row["shq_marks"].ToString();
                     string total = row["total_marks"].ToString();
+                    int gain = Convert.ToInt32(mcq) + Convert.ToInt32(shq);
+                    int totalMarks = Convert.ToInt32(total);
+                    int percent = (int)Math.Round((double)gain / totalMarks * 100);
                     int quizId = Convert.ToInt32(row["quizID"]);
-                    
-                    <div class="quiz-card">
-                        <div class="quiz-header">
-                            <div>
-                                <h3 class="quiz-title">Result of @quizName</h3>
-                               <p>Marks in mcqs @mcq</p>
-                                <p>Marks in Short Question @shq</p>
-                                <p>Total of the quiz were @total</p>
 
+                    <div class="quiz-result-card">
+                        <h3 class="quiz-result-title">Result of @quizName</h3>
+
+                        <div class="quiz-result-stats">
+                            <div class="stat-box">
+                                <span class="stat-label">MCQs</span>
+                                <span class="stat-value">@mcq</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-label">Short Qs</span>
+                                <span class="stat-value">@shq</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-label">Gained</span>
+                                <span class="stat-value">@gain</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-label">Total</span>
+                                <span class="stat-value">@total</span>
                             </div>
                         </div>
-                        <div class="quiz-body">
-                            <div class="quiz-action">
-                               
-                                    <a href="/student/attemptQuiz/@quizId" class="quiz-btn">
-                                        Get Report <i class="fas fa-arrow-right"></i>
-                                    </a>
-                                
-                               
+
+                        <div class="progress-container">
+                            <div class="progress-label">Score: @percent%</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: @percent%"></div>
                             </div>
+                        </div>
+
+                        <div class="quiz-result-actions">
+                            <a href="/student/attemptQuiz/@quizId" class="view-report-btn">
+                                View Report <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                 }
             </div>
         }
+
+ 
+
         else
         {
             <p>No results available yet.</p>

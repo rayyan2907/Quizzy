@@ -88,7 +88,12 @@ namespace Quizzy.Models.Data_Layer.student
             int rows = DatabaseHelper.Instance.Update(query) ;
             return rows> 0 ;
         }
-
+        public static bool unEnroll(Enrollment e)
+        {
+            string query = $"delete from enrollments where studentID={e.stuID} and subjectID={e.courseID}";
+            int rows = DatabaseHelper.Instance.Update(query);
+            return rows > 0;
+        }
 
         public static DataTable statsEnroll(string id)
         {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Quizzy.Helpers;
 using Quizzy.Models.Buisness_Layer.quiz;
 using Quizzy.Models.Buisness_Layer.subjects;
@@ -39,11 +40,28 @@ namespace Quizzy.Controllers.result
            
 
             DataTable dt = stu_quizBL.getresults(sub.subjectID);
-            Console.WriteLine(dt.Rows.Count );
             ViewBag.result = dt;
             ViewBag.stu = stu;
             ViewBag.sub = sub;
             return View("~/Views/student/showResults.cshtml");
+        }
+
+
+        public IActionResult openQuizResults()
+        {
+            var stu = HttpContext.Session.GetObject<Student>("StudentObj");
+
+            if (stu == null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+            }
+
+            DataTable dt = stu_quizBL.getresultsOpenQuiz(stu.stuID);
+            ViewBag.result = dt;
+            ViewBag.stu = stu;
+            return View("~/Views/student/openQuizResults.cshtml");
         }
     }
 }
