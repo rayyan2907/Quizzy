@@ -77,12 +77,21 @@ namespace Quizzy.Controllers.subject
                         </html>"
 
                 };
-                using (var client = new MailKit.Net.Smtp.SmtpClient())
+                try
                 {
-                    client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                    client.Authenticate("mrayyan403@gmail.com", "yuax ekty ofav lkvj"); // your app password
-                    client.Send(message);
-                    client.Disconnect(true);
+                    using (var client = new MailKit.Net.Smtp.SmtpClient())
+                    {
+                        client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+                        client.Authenticate("mrayyan403@gmail.com", "yuax ekty ofav lkvj"); // your app password
+                        client.Send(message);
+                        client.Disconnect(true);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    TempData["Check"] = "Internet not connected";
+                    Console.WriteLine("internet issue");
+
                 }
             }
 

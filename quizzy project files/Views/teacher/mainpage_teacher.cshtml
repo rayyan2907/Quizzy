@@ -1,4 +1,11 @@
 ﻿@model Quizzy.Models.Buisness_Models.viewModel
+@{
+
+    var enroll = ViewBag.enroll as string;
+    var compquiz = ViewBag.compquiz as string;
+    var upcomming = ViewBag.upcomming as string;
+    var aggregate = ViewBag.aggregate as string;
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -200,8 +207,8 @@
                         <i class="fas fa-hourglass-half"></i>
                     </div>
                     <div class="stat-info">
-                        <span class="stat-value">3</span>
-                        <span class="stat-label">Pending Quizzes</span>
+                        <span class="stat-value">@upcomming</span>
+                        <span class="stat-label">UnAssigned Quizzes</span>
                     </div>
                 </div>
                 <div class="stat-card">
@@ -209,8 +216,8 @@
                         <i class="fas fa-check-circle"></i>
                     </div>
                     <div class="stat-info">
-                        <span class="stat-value">12</span>
-                        <span class="stat-label">Completed Quizzes</span>
+                        <span class="stat-value">@compquiz</span>
+                        <span class="stat-label">Assigned Quizzes</span>
                     </div>
                 </div>
                 <div class="stat-card">
@@ -218,7 +225,7 @@
                         <i class="fas fa-user-graduate"></i>
                     </div>
                     <div class="stat-info">
-                        <span class="stat-value">28</span>
+                        <span class="stat-value">@enroll</span>
                         <span class="stat-label">Active Students</span>
                     </div>
                 </div>
@@ -227,7 +234,7 @@
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <div class="stat-info">
-                        <span class="stat-value">83%</span>
+                        <span class="stat-value">@aggregate%</span>
                         <span class="stat-label">Average Score</span>
                     </div>
                 </div>

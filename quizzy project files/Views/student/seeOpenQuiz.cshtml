@@ -2,6 +2,7 @@
 
     var student = ViewBag.stu as Quizzy.Models.Buisness_Models.Student;
     var quizDt = ViewBag.quiz as System.Data.DataTable;
+    
 
 }
 <!DOCTYPE html>
@@ -15,6 +16,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/studentMain.css">
     <link rel="stylesheet" href="~/css/mainpage_teacher.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const currentPath = window.location.pathname;
+            document.querySelectorAll('.nav-list a').forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+    </script>
 </head>
 <body>
     <!-- Navbar -->
@@ -33,11 +46,17 @@
             </div>
         </div>
     </nav>
-
-    <!-- Go Back Button -->
-    <a href="/student/main" class="btn-go-back">
-        <i class="fas fa-arrow-left"></i> Go Back
-    </a>
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <ul class="nav-list">
+                <li><a href="/student/main"><i class="fas fa-book"></i> Enrolled Courses</a></li>
+                <li><a href="/student/availableCourse"><i class="fas fa-book"></i> All Courses</a></li>
+                <li><a href="/student/availableQuizes"><i class="fas fa-book"></i> Available Quizzes</a></li>
+            </ul>
+        </div>
+    </nav>
+   
 
     <!-- Content Wrapper -->
     <div class="content-wrapper">

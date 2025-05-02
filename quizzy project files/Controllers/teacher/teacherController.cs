@@ -32,6 +32,34 @@ namespace Quizzy.Controllers.teacher
             }
 
 
+            DataTable enrolled = teacherBL.statsTotalstu(subject.subjectID);
+            string enroll = enrolled.Rows[0]["total_stu"].ToString();
+
+            DataTable compquiz = teacherBL.statsComplete(subject.subjectID);
+            string completequiz = compquiz.Rows[0]["quizes"].ToString();
+
+            DataTable upcomming = teacherBL.statsUpcomming(subject.subjectID);
+            string upcomm = upcomming.Rows[0]["quizes"].ToString();
+
+            DataTable aggregate = teacherBL.statsAvg(subject.subjectID);
+
+            string agregate;
+            if (aggregate == null || aggregate.Rows.Count == 0)
+            {
+                agregate = "0.00";
+            }
+            else
+            {
+                agregate = aggregate.Rows[0]["aggregate"].ToString();
+            }
+            
+            ViewBag.enroll = enroll;
+            ViewBag.compquiz = completequiz;
+            ViewBag.upcomming = upcomm;
+            ViewBag.aggregate = agregate;
+
+
+
             viewModel view = new viewModel
             {
                 Teacher = teacher,
@@ -206,14 +234,22 @@ namespace Quizzy.Controllers.teacher
                                     "
 
                 };
-                using (var client = new MailKit.Net.Smtp.SmtpClient())
+                try
                 {
-                    client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                    client.Authenticate("mrayyan403@gmail.com", "yuax ekty ofav lkvj"); // your app password
-                    client.Send(message);
-                    client.Disconnect(true);
+                    using (var client = new MailKit.Net.Smtp.SmtpClient())
+                    {
+                        client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+                        client.Authenticate("mrayyan403@gmail.com", "yuax ekty ofav lkvj"); // your app password
+                        client.Send(message);
+                        client.Disconnect(true);
+                    }
                 }
+                catch (Exception ex)
+                {
+                    TempData["log"] = "Internet not connected";
+                    Console.WriteLine("internet issue");
 
+                }
 
 
 
@@ -291,12 +327,21 @@ namespace Quizzy.Controllers.teacher
                                     "
 
                 };
-                using (var client = new MailKit.Net.Smtp.SmtpClient())
+                try
                 {
-                    client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                    client.Authenticate("mrayyan403@gmail.com", "yuax ekty ofav lkvj"); // your app password
-                    client.Send(message);
-                    client.Disconnect(true);
+                    using (var client = new MailKit.Net.Smtp.SmtpClient())
+                    {
+                        client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+                        client.Authenticate("mrayyan403@gmail.com", "yuax ekty ofav lkvj"); // your app password
+                        client.Send(message);
+                        client.Disconnect(true);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    TempData["log"] = "Internet not connected";
+                    Console.WriteLine("internet issue");
+
                 }
             }
             else
@@ -410,12 +455,21 @@ namespace Quizzy.Controllers.teacher
                                     "
 
                 };
-                using (var client = new MailKit.Net.Smtp.SmtpClient())
+                try
                 {
-                    client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                    client.Authenticate("mrayyan403@gmail.com", "yuax ekty ofav lkvj"); // your app password
-                    client.Send(message);
-                    client.Disconnect(true);
+                    using (var client = new MailKit.Net.Smtp.SmtpClient())
+                    {
+                        client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+                        client.Authenticate("mrayyan403@gmail.com", "yuax ekty ofav lkvj"); // your app password
+                        client.Send(message);
+                        client.Disconnect(true);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    TempData["log"] = "Internet not connected";
+                    Console.WriteLine("internet issue");
+
                 }
                 Console.WriteLine($"Email sent to {stu_first} {stu_last} at email {stu_email}");
             }

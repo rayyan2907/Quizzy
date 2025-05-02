@@ -1,4 +1,5 @@
 ﻿using Quizzy.Models.Data_Layer.quiz;
+using Quizzy.Models.Data_Layer.student;
 using System.Data;
 
 namespace Quizzy.Models.Buisness_Layer.quiz
@@ -15,6 +16,10 @@ namespace Quizzy.Models.Buisness_Layer.quiz
             return stu_quizDL.getopenQuizes();
 
 
+        }
+        public static DataTable getresults(string id)
+        {
+            return stu_quizDL.getResults(id);
         }
     }
 }

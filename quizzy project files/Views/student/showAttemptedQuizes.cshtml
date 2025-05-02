@@ -2,7 +2,6 @@
 
     var student = ViewBag.stu as Quizzy.Models.Buisness_Models.Student;
     var sub = ViewBag.sub as Quizzy.Models.Buisness_Models.subject_model;
-    var resultDt = ViewBag.result as System.Data.DataTable;
 
 }
 <!DOCTYPE html>
@@ -11,7 +10,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Results (@sub.code) - Quizzy</title>
+    <title>Attempts (@sub.code) - Quizzy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/studentMain.css">
@@ -72,45 +71,7 @@
             </div>
         </div>
 
-        @if (resultDt != null && resultDt.Rows.Count > 0)
-        {
-            <div class="quiz-container">
-                @foreach (System.Data.DataRow row in resultDt.Rows)
-                {
-                    string quizName = row["quiz_name"].ToString();
-                    string mcq = row["mcq_marks"].ToString();
-                    string shq = row["shq_marks"].ToString();
-                    string total = row["total_marks"].ToString();
-                    int quizId = Convert.ToInt32(row["quizID"]);
-                    
-                    <div class="quiz-card">
-                        <div class="quiz-header">
-                            <div>
-                                <h3 class="quiz-title">Result of @quizName</h3>
-                               <p>Marks in mcqs @mcq</p>
-                                <p>Marks in Short Question @shq</p>
-                                <p>Total of the quiz were @total</p>
 
-                            </div>
-                        </div>
-                        <div class="quiz-body">
-                            <div class="quiz-action">
-                               
-                                    <a href="/student/attemptQuiz/@quizId" class="quiz-btn">
-                                        Get Report <i class="fas fa-arrow-right"></i>
-                                    </a>
-                                
-                               
-                            </div>
-                        </div>
-                    </div>
-                }
-            </div>
-        }
-        else
-        {
-            <p>No results available yet.</p>
-        }
 
         <div class="dashboard-footer">
             <p class="footer-message">Happy Learning, @student.first_name @student.last_name!</p>

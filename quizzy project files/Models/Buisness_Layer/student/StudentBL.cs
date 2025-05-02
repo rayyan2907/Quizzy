@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.StaticFiles;
 using Quizzy.Models.Buisness_Models;
+using Quizzy.Models.Data_Layer.quiz;
 using Quizzy.Models.Data_Layer.student;
 using Quizzy.Models.DataLayer_Models;
 using System.Data;
@@ -90,6 +91,27 @@ namespace Quizzy.Models.Buisness_Layer.student
         public static bool updateAssign(Enrollment e)
         {
             return studentDL.updateEnroll(e);
+        }
+
+
+      
+
+        public static DataTable statsEnroll(string id)
+        {
+            return studentDL.statsEnroll(id);
+        }
+
+        public static DataTable statsComplete(string id)
+        {
+            return studentDL.statsCompQuiz(id);
+        }
+        public static DataTable statsUpcomming(string id)
+        {
+            return studentDL.statsUpcomingQuiz(id);
+        }
+        public static DataTable statsAvg(string id)
+        {
+            return studentDL.statsAggregate(id);
         }
     }
 }

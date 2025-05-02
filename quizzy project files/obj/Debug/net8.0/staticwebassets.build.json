@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "4cJePZBws+Y9I0uwn4SOD3Nh4hZ43h+1fKnIQIbCzDM=",
+  "Hash": "dYIuF0g+XO/UdaF/EwPAjAvBzQfEEyU5HtPxnQheIPU=",
   "Source": "Quizzy",
   "BasePath": "_content/Quizzy",
   "Mode": "Default",
@@ -72,25 +72,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\background.jpg"
-    },
-    {
-      "Identity": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\courses_enroll.jpg",
-      "SourceId": "Quizzy",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\",
-      "BasePath": "_content/Quizzy",
-      "RelativePath": "courses_enroll.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\courses_enroll.jpg"
     },
     {
       "Identity": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\css\\login_page.css",
@@ -1307,44 +1288,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
-    },
-    {
-      "Identity": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\quiz.jpg",
-      "SourceId": "Quizzy",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\",
-      "BasePath": "_content/Quizzy",
-      "RelativePath": "quiz.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\quiz.jpg"
-    },
-    {
-      "Identity": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\result.jpg",
-      "SourceId": "Quizzy",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\",
-      "BasePath": "_content/Quizzy",
-      "RelativePath": "result.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\result.jpg"
     }
   ]
 }

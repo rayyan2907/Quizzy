@@ -108,12 +108,21 @@ namespace Quizzy.Controllers.login
                             </body>
                             </html>"
                     };
-                    using (var client = new MailKit.Net.Smtp.SmtpClient())
+                    try
                     {
-                        client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                        client.Authenticate("mrayyan403@gmail.com", "yuax ekty ofav lkvj"); // your app password
-                        client.Send(message);
-                        client.Disconnect(true);
+                        using (var client = new MailKit.Net.Smtp.SmtpClient())
+                        {
+                            client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+                            client.Authenticate("mrayyan403@gmail.com", "yuax ekty ofav lkvj"); // your app password
+                            client.Send(message);
+                            client.Disconnect(true);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        TempData["Check"] = "Internet not connected";
+                        Console.WriteLine("internet issue");
+                        
                     }
 
                     if (role == "student")
@@ -219,16 +228,23 @@ namespace Quizzy.Controllers.login
 "
 
                     };
-
-                    // (Then use SMTP to send the message)
-                    using (var client = new MailKit.Net.Smtp.SmtpClient())
+                    try
                     {
-                        client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                        client.Authenticate("mrayyan403@gmail.com", "yuax ekty ofav lkvj"); // NOT your email password! Use Gmail App Password
-                        client.Send(message);
-                        client.Disconnect(true);
+                        // (Then use SMTP to send the message)
+                        using (var client = new MailKit.Net.Smtp.SmtpClient())
+                        {
+                            client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+                            client.Authenticate("mrayyan403@gmail.com", "yuax ekty ofav lkvj"); // NOT your email password! Use Gmail App Password
+                            client.Send(message);
+                            client.Disconnect(true);
+                        }
                     }
-
+                    catch (Exception ex)
+                    {
+                        TempData["log"] = "Internet not connected";
+                        Console.WriteLine("internet issue");
+                        return RedirectToAction("index");
+                    }
 
 
                     return RedirectToAction("EnterOtp");
@@ -308,12 +324,22 @@ namespace Quizzy.Controllers.login
                     </body>
                     </html>"
                 };
-                using (var client = new MailKit.Net.Smtp.SmtpClient())
+                try
                 {
-                    client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                    client.Authenticate("mrayyan403@gmail.com", "yuax ekty ofav lkvj"); // your app password
-                    client.Send(message);
-                    client.Disconnect(true);
+                    using (var client = new MailKit.Net.Smtp.SmtpClient())
+                    {
+                        client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+                        client.Authenticate("mrayyan403@gmail.com", "yuax ekty ofav lkvj"); // your app password
+                        client.Send(message);
+                        client.Disconnect(true);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    TempData["log"] = "Internet not connected";
+                    Console.WriteLine("internet issue");
+                    return RedirectToAction("register");
+
                 }
 
 
@@ -392,12 +418,22 @@ namespace Quizzy.Controllers.login
                     </body>
                     </html>"
                 };
-                using (var client = new MailKit.Net.Smtp.SmtpClient())
+                try
                 {
-                    client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                    client.Authenticate("mrayyan403@gmail.com", "yuax ekty ofav lkvj"); // your app password
-                    client.Send(message);
-                    client.Disconnect(true);
+                    using (var client = new MailKit.Net.Smtp.SmtpClient())
+                    {
+                        client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+                        client.Authenticate("mrayyan403@gmail.com", "yuax ekty ofav lkvj"); // your app password
+                        client.Send(message);
+                        client.Disconnect(true);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    TempData["log"] = "Internet not connected";
+                    Console.WriteLine("internet issue");
+                    return RedirectToAction("register");
+
                 }
             }
 

@@ -88,5 +88,28 @@ namespace Quizzy.Models.Data_Layer.student
             int rows = DatabaseHelper.Instance.Update(query) ;
             return rows> 0 ;
         }
+
+
+        public static DataTable statsEnroll(string id)
+        {
+            string query = $"select count(subjectID) as enroll from enrollments where studentID={id} and status = true";
+            return DatabaseHelper.Instance.GetData(query) ;
+        }
+        public static DataTable statsCompQuiz(string id)
+        {
+            string query = $"select count(atemptID) as comp_quiz from attempt where studentID = {id}";
+            return DatabaseHelper.Instance.GetData(query);
+        }
+        public static DataTable statsUpcomingQuiz(string id)
+        {
+            string query = $"select count(q.quizID) as upcoming from enrollments e join subjects s on s.subjectID=e.subjectID join quiz q on q.subjectID=s.subjectID where studentID={id} and q.is_asssign=true";
+            return DatabaseHelper.Instance.GetData(query);
+        }
+
+        public static DataTable statsAggregate(string id)
+        {
+            string query = $"select (sum(mcq_marks)+sum(shq_marks))/sum(total_marks)*100 as agrregate from results where studentID={id}";
+            return DatabaseHelper.Instance.GetData(query);
+        }
     }
 }

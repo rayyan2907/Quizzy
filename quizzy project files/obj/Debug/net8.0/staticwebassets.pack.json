@@ -9,10 +9,6 @@
       "PackagePath": "staticwebassets\\background.jpg"
     },
     {
-      "Id": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\courses_enroll.jpg",
-      "PackagePath": "staticwebassets\\courses_enroll.jpg"
-    },
-    {
       "Id": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\css\\login_page.css",
       "PackagePath": "staticwebassets\\css\\login_page.css"
     },
@@ -267,14 +263,6 @@
     {
       "Id": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
-    },
-    {
-      "Id": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\quiz.jpg",
-      "PackagePath": "staticwebassets\\quiz.jpg"
-    },
-    {
-      "Id": "C:\\Users\\Rayya\\Pictures\\Quizzy\\DBS25006\\quizzy project files\\wwwroot\\result.jpg",
-      "PackagePath": "staticwebassets\\result.jpg"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Quizzy.Microsoft.AspNetCore.StaticWebAssets.props",

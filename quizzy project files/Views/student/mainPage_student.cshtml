@@ -1,8 +1,12 @@
 ﻿@{
-  
-        var dt = ViewBag.Enrolled as System.Data.DataTable;
-        var student = ViewBag.stu as Quizzy.Models.Buisness_Models.Student;
 
+    var dt = ViewBag.Enrolled as System.Data.DataTable;
+    var student = ViewBag.stu as Quizzy.Models.Buisness_Models.Student;
+
+    var enroll = ViewBag.enroll as string;
+    var compquiz = ViewBag.compquiz as string;
+    var upcomming= ViewBag.upcomming as string;
+    var aggregate = ViewBag.aggregate as string;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -139,7 +143,7 @@
 
 
 
-
+       
 
         <div class="stats-container">
             <div class="stats-header">
@@ -152,7 +156,7 @@
                         <i class="fas fa-book-open"></i>
                     </div>
                     <div class="stat-info">
-                        <span class="stat-value">m</span>
+                        <span class="stat-value">@enroll</span>
                         <span class="stat-label">Enrolled Courses</span>
                     </div>
                 </div>
@@ -161,7 +165,7 @@
                         <i class="fas fa-check-circle"></i>
                     </div>
                     <div class="stat-info">
-                        <span class="stat-value">j</span>
+                        <span class="stat-value">@compquiz</span>
                         <span class="stat-label">Completed Quizzes</span>
                     </div>
                 </div>
@@ -170,8 +174,8 @@
                         <i class="fas fa-hourglass-half"></i>
                     </div>
                     <div class="stat-info">
-                        <span class="stat-value">pp</span>
-                        <span class="stat-label">Upcoming Quizzes</span>
+                        <span class="stat-value">@upcomming</span>
+                        <span class="stat-label">Pending Quizzes</span>
                     </div>
                 </div>
                 <div class="stat-card">
@@ -179,7 +183,7 @@
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <div class="stat-info">
-                        <span class="stat-value">77%</span>
+                        <span class="stat-value">@aggregate%</span>
                         <span class="stat-label">Average Score</span>
                     </div>
                 </div>

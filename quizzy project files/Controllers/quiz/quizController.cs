@@ -44,5 +44,40 @@ namespace Quizzy.Controllers.quiz
             ViewBag.sub = sub;
             return View("~/Views/student/showQuizes.cshtml");
         }
+
+
+
+        public IActionResult showAttempts()
+        {
+            var stu = HttpContext.Session.GetObject<Student>("StudentObj");
+
+            if (stu == null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+
+            }
+            string id = HttpContext.Session.GetString("courseID");
+
+            if (string.IsNullOrEmpty(id))
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+
+            }
+
+            subject_model sub = subjectBL.getSubfromid(id);
+
+            Console.WriteLine($"course id is {id}");
+
+            Console.WriteLine($"student with name {stu.first_name} {stu.last_name} is opening the quiz attempts of the course {sub.name}");
+
+
+            ViewBag.stu = stu;
+            ViewBag.sub = sub;
+            return View("~/Views/student/showAttemptedQuizes.cshtml");
+        }
     }
 }
