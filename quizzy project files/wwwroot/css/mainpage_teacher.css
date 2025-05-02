@@ -614,7 +614,7 @@ body {
 }
 
     .btn-assign:hover {
-        background-color: #27ae60;
+        background-color: black;
     }
 
 .btn-unassign {
@@ -623,7 +623,7 @@ body {
 }
 
     .btn-unassign:hover {
-        background-color: #c0392b;
+        background-color: black;
     }
 
     .btn-assign[disabled],
@@ -663,7 +663,7 @@ body {
 }
 
     .btn-update:hover {
-        background-color: #2980b9;
+        background-color: black;
     }
 
 .btn-delete {
@@ -672,7 +672,31 @@ body {
 }
 
     .btn-delete:hover {
-        background-color: #c0392b;
+        background-color: black;
     }
 
 
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.btn-create-quiz {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-create-quiz i {
+        margin-right: 6px;
+    }
+
+    .btn-create-quiz:hover {
+        background-color: black;
+    }

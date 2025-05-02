@@ -1,6 +1,6 @@
 ﻿namespace Quizzy.Models.Buisness_Models
 {
-    public class Quiz_models
+    public class mcq_model
     {
         public int mcq_id { get; set; }
         public string description { get; set; }

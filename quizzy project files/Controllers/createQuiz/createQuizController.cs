@@ -31,5 +31,7 @@ namespace Quizzy.Controllers.createQuiz
             ViewBag.teacher = teacher;
             return View("showQuiz");
         }
+
+        
     }
 }

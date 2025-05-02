@@ -69,7 +69,10 @@
     <div class="student-assignments">
         <div class="section-header">
             <h2>Quiz Management</h2>
-        </div>
+            <a href="/createQuiz/newQuiz" class="btn-create-quiz">
+                <i class="fas fa-plus-circle"></i> Create New Quiz
+            </a>
+        </div>  
 
         @if (quiz != null && quiz.Rows.Count > 0)
         {
@@ -94,7 +97,7 @@
                                 <form method="post" asp-controller="createQuiz" asp-action="updatequiz" style="display:inline;">
                                     <input type="hidden" name="quizId" value="@row["quizID"]" />
                                     <button type="submit" class="btn-update">
-                                        <i class="fas fa-edit"></i> Update
+                                        <i class="fas fa-edit"></i> Add/Update
                                     </button>
                                 </form>
                                 <form method="post" asp-controller="createQuiz" asp-action="deletequiz" style="display:inline;">
