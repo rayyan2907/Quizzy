@@ -10,7 +10,7 @@ namespace DBHelper
         private String port = "3306";
         private String databaseName = "quizzy";
         private String databaseUser = "root";
-        private String databasePassword = "anas123@";
+        private String databasePassword = "M.rayyan172906";
 
         private static DatabaseHelper _instance;
         private MySqlConnection connection;

@@ -1,4 +1,6 @@
 ﻿using Quizzy.Models.Data_Layer.quiz;
+using Quizzy.Models.Buisness_Layer.quiz;
+
 
 namespace Quizzy.Models.Buisness_Layer.quiz
 {
@@ -16,7 +18,40 @@ namespace Quizzy.Models.Buisness_Layer.quiz
 
         public static bool unassignQuiz(string id)
         {
-            return createQuizDL.assignQuiz(id);
+            return createQuizDL.unassignQuiz(id);
+        }
+
+
+
+        public static string addQuiz(Models.Buisness_Models.quiz_model q)
+        {
+            int giventime;
+            bool is_time = int.TryParse(q.given_time, out giventime);
+
+            if (!is_time)
+            {
+                return "Time should be in numbers";
+            }
+            DataLayer_Models.quizModel quiz = new DataLayer_Models.quizModel();
+            int subId = Convert.ToInt32(q.subID);
+
+            quiz.subID = subId;
+            quiz.quizName = q.quizName;
+            quiz.isPublic = q.isPublic;
+            quiz.isAssign = q.isAssign;
+            quiz.given_time = giventime;
+            quiz.attempt = q.attempt;
+
+
+            if (createQuizDL.addQuiz(quiz))
+            {
+                return "The quiz has been created successfully";
+            }
+            else
+            {
+                return "Error in adding quiz";
+            }
+        }
+
         }
     }
-}

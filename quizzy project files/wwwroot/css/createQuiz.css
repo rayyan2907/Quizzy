@@ -1,95 +1,114 @@
-﻿body {
-    background-color: #f9f9f9;
-    font-family: 'Poppins', sans-serif;
+﻿.body12 {
     margin: 0;
-    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #eef2f7, #dbe9ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 80px); /* assuming navbar + other top items take ~80px */
+    padding-top: 40px;
 }
 
-.quiz-form-card {
-    max-width: 700px;
-    margin: 40px auto;
-    background-color: #ffffff;
-    padding: 30px 35px;
-    border-radius: 16px;
-    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
-}
 
-    .quiz-form-card h2 {
-        text-align: center;
-        color: #333;
-        margin-bottom: 30px;
-        font-weight: 600;
-    }
-
-.form-group label {
-    display: block;
-    font-weight: 500;
-    margin-bottom: 8px;
-    color: #444;
-}
-
-input[type="text"],
-input[type="number"],
-select {
+.newquiz-container {
+    padding: 20px;
     width: 100%;
-    padding: 12px;
-    font-size: 15px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    margin-bottom: 20px;
-    transition: border-color 0.2s;
+    max-width: 600px;
 }
 
-    input[type="text"]:focus,
-    input[type="number"]:focus,
-    select:focus {
-        border-color: #4CAF50;
+.newquiz-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+}
+
+.newquiz-title {
+    text-align: center;
+    color: #354b9c;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+.newquiz-form .newquiz-field {
+    margin-bottom: 20px;
+}
+
+.newquiz-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+}
+
+.newquiz-form input,
+.newquiz-form select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 15px;
+    background-color: #fefefe;
+    transition: border 0.3s;
+}
+
+    .newquiz-form input:focus,
+    .newquiz-form select:focus {
+        border-color: #5a8dee;
         outline: none;
     }
 
-.form-check {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
+.newquiz-toggle-group {
+    margin-top: 15px;
 }
 
-    .form-check input[type="checkbox"] {
-        margin-right: 10px;
-        transform: scale(1.3);
-    }
-
-.button-group {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.submit-btn {
-    background-color: #8672FF;
-    color: #fff;
-    padding: 12px 25px;
-    font-size: 16px;
-    font-weight: 500;
+.newquiz-toggle-btn {
+    padding: 10px 20px;
+    margin-top: 8px;
     border: none;
-    border-radius: 50px;
+    border-radius: 8px;
+    font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: 0.3s;
 }
 
-    .submit-btn:hover {
-        background-color: #218838;
+    .newquiz-toggle-btn.off {
+        background-color: #dc3545;
+        color: white;
     }
 
-.success-message {
-    color: #28a745;
-    text-align: center;
-    font-size: 16px;
-    margin-top: 15px;
+    .newquiz-toggle-btn.on {
+        background-color: #28a745;
+        color: white;
+    }
+
+.newquiz-submit {
+    text-align: right;
+    margin-top: 30px;
 }
 
-.error-message {
-    color: red;
-    text-align: center;
-    font-size: 16px;
-    margin-top: 15px;
+    .newquiz-submit button {
+        background-color: #5a8dee;
+        color: white;
+        border: none;
+        padding: 12px 26px;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+        .newquiz-submit button:hover {
+            background-color: #3f6ad8;
+        }
+
+@media screen and (max-width: 600px) {
+    .newquiz-card {
+        padding: 25px;
+    }
+
+    .newquiz-submit {
+        text-align: center;
+    }
 }
