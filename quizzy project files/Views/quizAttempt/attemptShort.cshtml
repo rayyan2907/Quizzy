@@ -1,5 +1,176 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
 }
+
+.container {
+    max-width: 700px;
+    margin: 40px auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+    color: #444;
+}
+
+.dynamic-question {
+    background-color: #f0f0f0;
+    padding: 12px 15px;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #222;
+    min-height: 60px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+}
+
+textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    font-size: 15px;
+    min-height: 120px;
+}
+
+.button-group {
+    margin-top: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.nav-btn,
+.submit-btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn {
+    background-color: #28a745;
+}
+
+.nav-btn:hover {
+    background-color: #0056b3;
+}
+
+.submit-btn:hover {
+    background-color: #218838;
+}
+
+.nav-btn i,
+.submit-btn i {
+    margin-right: 6px;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Attempt Short Question</title>
+    <link rel="stylesheet" href="AttemptSQ.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2><i class="fas fa-pen"></i> Attempt Short Question</h2>
+
+        <div class="question-box">
+            <label for="question">Question:</label>
+            <div id="question" class="dynamic-question">Loading question...</div>
+        </div>
+
+        <div class="answer-box">
+            <label for="answer">Your Answer:</label>
+            <textarea id="answer" rows="5" placeholder="Type your answer here..."></textarea>
+        </div>
+
+        <div class="button-group">
+            <button onclick="prevQuestion()" class="nav-btn"><i class="fas fa-arrow-left"></i> Previous</button>
+            <button onclick="skipQuestion()" class="nav-btn"><i class="fas fa-forward"></i> Skip</button>
+            <button onclick="clearAnswer()" class="nav-btn"><i class="fas fa-eraser"></i> Clear Answer</button>
+            <button onclick="submitAnswer()" class="submit-btn"><i class="fas fa-paper-plane"></i> Submit Answer</button>
+            <button onclick="nextQuestion()" class="nav-btn"><i class="fas fa-arrow-right"></i> Next</button>
+        </div>
+    </div>
+
+    <script>
+        // Sample question list (this should come dynamically from DB in real systems)
+        const questions = [
+            "Define encapsulation in Object-Oriented Programming.",
+            "What is the difference between == and === in JavaScript?",
+            "Explain normalization in databases.",
+            "What is a foreign key in SQL?",
+            "Describe the working of a stack data structure."
+        ];
+
+        let currentIndex = 0;
+
+        function showQuestion(index) {
+            document.getElementById("question").textContent = questions[index];
+            document.getElementById("answer").value = "";
+        }
+
+        function nextQuestion() {
+            if (currentIndex < questions.length - 1) {
+                currentIndex++;
+                showQuestion(currentIndex);
+            } else {
+                alert("You’ve reached the last question.");
+            }
+        }
+
+        function prevQuestion() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                showQuestion(currentIndex);
+            } else {
+                alert("This is the first question.");
+            }
+        }
+
+        function skipQuestion() {
+            nextQuestion();
+        }
+
+        function clearAnswer() {
+            document.getElementById("answer").value = "";
+        }
+
+        function submitAnswer() {
+            const answer = document.getElementById("answer").value.trim();
+            if (answer === "") {
+                alert("Answer cannot be empty.");
+                return;
+            }
+            alert(`Answer submitted for question ${currentIndex + 1}: ${answer}`);
+            // Here you'd send answer to server using fetch or AJAX
+            nextQuestion();
+        }
+
+        // Initialize
+        window.onload = () => showQuestion(currentIndex);
+    </script>
+</body>
+</html>
