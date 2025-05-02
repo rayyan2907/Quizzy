@@ -1,0 +1,5 @@
+ALTER TABLE mcqs DROP image_path;
+
+ALTER TABLE short_questions DROP image_path;
+
+ALTER TABLE mcqs ADD statement TEXT;
