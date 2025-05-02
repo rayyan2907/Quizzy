@@ -1,5 +1,208 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Add Short Question</title>
+    <link rel="stylesheet" href="MakeSQ.css"> <!-- Use your actual CSS file name -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <i class="fas fa-book brand-icon"></i>
+                <h2>Quiz Manager</h2>
+            </div>
+            <div class="navbar-menu">
+                <div class="user-welcome">
+                    <i class="fas fa-user user-icon"></i>
+                    <span>Welcome, Admin</span>
+                </div>
+                <a href="logout.html" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content-wrapper">
+        <div class="dashboard-header">
+            <h1>Add Short Question</h1>
+            <div class="course-badge"><i class="fas fa-question-circle"></i> Short Question Entry</div>
+        </div>
+
+        <form class="announcement-form" action="submit-short-question.php" method="POST">
+            <h2>Enter Question Details</h2>
+
+            <label for="question">Question</label>
+            <input type="text" name="question" id="question" placeholder="Enter your question here" required>
+
+            <label for="marks">Marks</label>
+            <input type="number" name="marks" id="marks" placeholder="e.g., 2" min="1" required>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <button type="submit" class="btn-option"><i class="fas fa-plus-circle"></i> Add Question</button>
+            </div>
+        </form>
+
+    </div>
+</body>
+</html>
+
+            /* Navbar styles */
+.navbar {
+    background-color: #34495e;
+    color: #fff;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-icon {
+    font-size: 24px;
+    color: #f39c12;
+}
+
+.navbar-menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-welcome {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+}
+
+.user-icon {
+    font-size: 18px;
+    color: #ecf0f1;
+}
+
+.btn-logout {
+    background-color: #e74c3c;
+    padding: 8px 14px;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn-logout:hover {
+    background-color: #c0392b;
+}
+
+/* Page container */
+.content-wrapper {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 25px;
+    background-color: #fdfdfd;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Header styles */
+.dashboard-header {
+    margin-bottom: 25px;
+}
+
+.dashboard-header h1 {
+    font-size: 26px;
+    margin-bottom: 5px;
+    color: #2c3e50;
+}
+
+.course-badge {
+    background-color: #3498db;
+    color: #fff;
+    padding: 6px 12px;
+    display: inline-block;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+/* Form styling */
+.announcement-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.announcement-form h2 {
+    font-size: 22px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.announcement-form label {
+    font-weight: bold;
+    color: #34495e;
+}
+
+.announcement-form input,
+.announcement-form select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.announcement-form input:focus,
+.announcement-form select:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+/* Button styling */
+.btn-option {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-option i {
+    margin-right: 8px;
+}
+
+.btn-option:hover {
+    background-color: #1e8449;
+}
+
+/* Footer */
+.dashboard-footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
+.footer-message {
+    font-style: italic;
+    margin-bottom: 5px;
 }
