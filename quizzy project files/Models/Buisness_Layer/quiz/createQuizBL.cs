@@ -1,5 +1,8 @@
 ﻿using Quizzy.Models.Data_Layer.quiz;
 using Quizzy.Models.Buisness_Layer.quiz;
+using System.Security.Cryptography.X509Certificates;
+using Quizzy.Models.Buisness_Models;
+using Quizzy.Models.DataLayer_Models;
 
 
 namespace Quizzy.Models.Buisness_Layer.quiz
@@ -87,6 +90,25 @@ namespace Quizzy.Models.Buisness_Layer.quiz
             {
                 return "Error in updating quiz";
             }
+
+            
+        }
+        public static bool addMcq(mcq_model m)
+        {
+            int quizID= Convert.ToInt32(m.quizID);
+
+            mcqModel mcq = new mcqModel();
+            mcq.quizID = quizID;
+            Console.WriteLine(mcq.quizID);
+            mcq.description = m.description;
+            mcq.opt1= m.opt1;
+            mcq.opt2= m.opt2;
+            mcq.opt3= m.opt3;
+            mcq.opt4= m.opt4;
+            mcq.corr_opt= m.corr_opt;
+
+            return createQuizDL.addMcq(mcq);
+            
         }
     }
 }

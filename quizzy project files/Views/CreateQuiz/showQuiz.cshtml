@@ -81,6 +81,7 @@
                     <tr>
                         <th>Quiz Name</th>
                         <th>Subject</th>
+                        <th>Add</th>
                         <th>Update/Delete</th>
                         <th>Actions</th>
                     </tr>
@@ -94,10 +95,18 @@
                             <td>@row["quiz_name"]</td>
                             <td>@row["subject_code"]-@row["subject_name"]</td>
                             <td>
+                                <form method="post" asp-controller="createQuiz" asp-action="addMcq" style="display:inline;">
+                                    <input type="hidden" name="id" value="@row["quizID"]" />
+                                    <button type="submit" class="btn-update">
+                                        <i class="fas fa-edit"></i> Add
+                                    </button>
+                                    </form>
+                                    </td>
+                                    <td>
                                 <form method="post" asp-controller="createQuiz" asp-action="updateQuiz" style="display:inline;">
                                     <input type="hidden" name="id" value="@row["quizID"]" />
                                     <button type="submit" class="btn-update">
-                                        <i class="fas fa-edit"></i> Add/Update
+                                        <i class="fas fa-edit"></i> Update
                                     </button>
                                 </form>
                                 <form method="post" asp-controller="createQuiz" asp-action="deletequiz" style="display:inline;">

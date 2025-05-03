@@ -744,5 +744,100 @@ namespace Quizzy.Controllers.createQuiz
             return RedirectToAction("quizMake");
         }
 
+
+        [HttpPost]
+        public IActionResult addMcq(string id)
+        {
+            Console.WriteLine("page 1 refresh");
+            var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
+            var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
+
+            if (teacher == null || subject == null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+            }
+            HttpContext.Session.SetString("quizIDformcq", id);
+
+
+            ViewBag.subject = subject;
+            ViewBag.teacher = teacher;
+            return View("createMcq");
+        }
+
+        public IActionResult addShq()
+        {
+            var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
+            var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
+
+            if (teacher == null || subject == null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+            }
+
+
+
+            ViewBag.subject = subject;
+            ViewBag.teacher = teacher;
+            return View("createShq");
+        }
+
+        [HttpPost]
+
+        public IActionResult addMcqData(mcq_model mcq)
+        {
+            Console.WriteLine("page 2 refresh");
+
+            var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
+            var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
+
+            if (teacher == null || subject == null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+            }
+
+            Console.WriteLine($"mcq: {mcq.description} has beeen added with corrrect option as {mcq.corr_opt}");
+
+            if (HttpContext.Session.GetString != null)
+            {
+                mcq.quizID = HttpContext.Session.GetString("quizIDformcq");
+                Console.WriteLine(" the quizid is " + mcq.quizID);
+            }
+            else
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+
+            }
+
+            bool flag = createQuizBL.addMcq(mcq);
+
+            if (flag)
+            {
+                TempData["Check"] = "Mcq added successfully";
+                mcq = new mcq_model();
+                mcq = null;
+            }
+            else
+            {
+                TempData["log"] = "Error adding mcq";
+            }
+
+
+
+
+
+
+            ViewBag.subject = subject;
+            ViewBag.teacher = teacher;
+            return View("createMcq",mcq);
+        }
+
     }
 }

@@ -68,5 +68,15 @@ namespace Quizzy.Models.Data_Layer.quiz
             int rows = DatabaseHelper.Instance.Update(query);
             return rows > 0;
         }
+
+        public static bool addMcq(mcqModel mcq)
+        {
+            string query = $"insert into mcqs (option_A,option_B,option_C,option_D,correct_opt,quizID,statement) values ('{mcq.opt1}','{mcq.opt2}','{mcq.opt3}','{mcq.opt4}','{mcq.corr_opt}',{mcq.quizID},'{mcq.description}')";
+            Console.WriteLine(query );
+            int row= DatabaseHelper.Instance.Update(query);
+            return row > 0;
+
+
+        }
     }
 }        

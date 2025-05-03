@@ -149,6 +149,12 @@ namespace Quizzy.Controllers.student
         public IActionResult availableCourse()
         {
             var stu = HttpContext.Session.GetObject<Student>("StudentObj");
+            if (stu==null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+            }
             DataTable dt = StudentBL.getAllStuCourses();
 
             ViewBag.Courses = dt;
@@ -282,7 +288,7 @@ namespace Quizzy.Controllers.student
                         {
                             client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
                             client.Authenticate("mrayyan403@gmail.com", "yuax ekty ofav lkvj"); // your app password
-                            client.Send(message);
+                            client.Send(message1);
                             client.Disconnect(true);
                         }
                     }
@@ -292,7 +298,7 @@ namespace Quizzy.Controllers.student
                         Console.WriteLine("internet issue");
 
                     }
-
+                    Console.WriteLine("email sent to teacher");
 
                 }
             }
