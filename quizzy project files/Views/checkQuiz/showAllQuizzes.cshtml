@@ -1,10 +1,8 @@
 ﻿@{
     var teacher = ViewBag.teacher as Quizzy.Models.Buisness_Models.Teacher;
     var subject = ViewBag.subject as Quizzy.Models.Buisness_Models.subject_model;
-
+    var quizDt = ViewBag.quiz as System.Data.DataTable;
 }
-    @model Quizzy.Models.Buisness_Models.Announcements
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,14 +10,15 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard - Quizzy</title>
+    <title>Manage Students - Quizzy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/mainpage_teacher.css">
-    <link rel="stylesheet" href="~/css/evaluate.css">
-
+    <link rel="stylesheet" href="~/css/studentMain.css">
+    
 </head>
 <body>
+
 
     <!-- Navbar -->
     <nav class="navbar">
@@ -65,43 +64,50 @@
         </div>
     }
 
-    <!-- Student Quiz Evaluation Form -->
-    <!-- Student Quiz Evaluation Table -->
-    <div class="evaluation-section">
-        <h2>Evaluate Quiz Results</h2>
-        <table class="evaluation-table">
-            <thead>
-                <tr>
-                    <th>Registration Number</th>
-                    <th>Student Name</th>
-                    <th>MCQ Marks</th>
-                    <th>Check Quiz</th>
-                    <th>Send Result</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>2024-CS-137</td>
-                    <td>Ali Raza</td>
-                    <td>8 / 10</td>
-                    <td><button class="btn check"><i class="fas fa-pen"></i> Check</button></td>
-                    <td><button class="btn send"><i class="fas fa-paper-plane"></i> Send</button></td>
-                </tr>
-                <tr>
-                    <td>2021-CS-002</td>
-                    <td>Ayesha Khan</td>
-                    <td>7 / 10</td>
-                    <td><button class="btn check"><i class="fas fa-pen"></i> Check</button></td>
-                    <td><button class="btn send"><i class="fas fa-paper-plane"></i> Send</button></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <!-- Student Assignment Section -->
+    <div class="student-assignments">
+        <div class="section-header">
+            <h2>Students Management</h2>
+        </div>
 
 
-    <div class="dashboard-footer">
-        <p class="footer-message">Happy Teaching, @teacher.first_name @teacher.last_name!</p>
-        <p class="copyright">&copy; 2025 Quizzy. All rights reserved.</p>
-    </div>
+        @if (quizDt != null && quizDt.Rows.Count > 0)
+        {
+            <div class="quiz-container">
+                @foreach (System.Data.DataRow row in quizDt.Rows)
+                {
+                    string quizName = row["quiz_name"].ToString();
+                    int quizId = Convert.ToInt32(row["quizID"]);
+
+                    <div class="quiz-card">
+                        <div class="quiz-header">
+                            <div>
+                                <h3 class="quiz-title">@quizName</h3>
+                                
+                            </div>
+                        </div>
+                        <div class="quiz-body">
+                            <div class="quiz-action">
+                               
+                                    <a href="/createQuiz/checkQuiz/@quizId" class="quiz-btn">
+                                        Check Quiz <i class="fas fa-arrow-right"></i>
+                                    </a>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p>No quizzes available.</p>
+        }
+        <!-- Footer Section -->
+        <div class="dashboard-footer">
+            <p class="footer-message">Happy Teaching, @teacher.first_name @teacher.last_name!</p>
+            <p class="copyright">&copy; 2025 Quizzy. All rights reserved.</p>
+        </div>
 </body>
+
 </html>
