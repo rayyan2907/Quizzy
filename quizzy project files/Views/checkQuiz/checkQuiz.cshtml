@@ -1,210 +1,80 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Create MCQ Quiz</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-        }
+﻿@{
+    var teacher = ViewBag.teacher as Quizzy.Models.Buisness_Models.Teacher;
+    var subject = ViewBag.subject as Quizzy.Models.Buisness_Models.subject_model;
 
-        .container {
-            max-width: 700px;
-            margin: 40px auto;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+}
+    @model Quizzy.Models.Buisness_Models.Announcements
 
-        h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-        }
-
-        label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 8px;
-            color: #444;
-        }
-
-        input[type="text"],
-        input[type="number"],
-        select {
-            width: 100%;
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            margin-bottom: 20px;
-            font-size: 15px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-check {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .form-check input {
-            margin-right: 10px;
-            transform: scale(1.3);
-        }
-
-        .button-group {
-            text-align: center;
-        }
-
-        .submit-btn {
-            background-color: #28a745;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-        }
-
-        .submit-btn:hover {
-            background-color: #218838;
-        }
-
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h2><i class="fas fa-plus-circle"></i> Create Quiz</h2>
-
-        <div class="form-group">
-            <label for="quiz_name">Quiz Name</label>
-            <input type="text" id="quiz_name" placeholder="Enter quiz title...">
-        </div>
-
-        <div class="form-group">
-            <label for="given_time">Given Time (in minutes)</label>
-            <input type="number" id="given_time" placeholder="e.g., 30" min="1">
-        </div>
-
-        <div class="form-group">
-            <label for="domain">Visibility (isPublic)</label>
-            <select id="domain">
-                <option value="true">Public</option>
-                <option value="false">Private</option>
-            </select>
-        </div>
-
-        <div class="form-check">
-            <input type="checkbox" id="is_assigned">
-            <label for="is_assigned">Assigned to Students</label>
-        </div>
-
-        <div class="form-check">
-            <input type="checkbox" id="allow_attempts">
-            <label for="allow_attempts">Allow Multiple Attempts</label>
-        </div>
-
-        <div class="button-group">
-            <button class="submit-btn" onclick="submitQuiz()"><i class="fas fa-check-circle"></i> Create Quiz</button>
-        </div>
-    </div>
-
-    <script>
-        function submitQuiz() {
-            const quiz = {
-                quiz_name: document.getElementById('quiz_name').value.trim(),
-                subjectID: document.getElementById('subjectID').value.trim(),
-                given_time: parseInt(document.getElementById('given_time').value),
-                isPublic: document.getElementById('domain').value === "true",
-                is_assigned: document.getElementById('is_assigned').checked,
-                attempt: document.getElementById('allow_attempts').checked
-            };
-
-            if (!quiz.quiz_name || !quiz.subjectID || isNaN(quiz.given_time)) {
-                alert("Please fill in all required fields.");
-                return;
-            }
-
-            console.log("Quiz Created:", quiz);
-            alert("Quiz Created Successfully!");
-
-            // Here you'd typically send this quiz data to the backend via fetch/AJAX
-        }
-    </script>
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-<!--New code added-->
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
-    <title>Check Short Questions</title>
-    <link rel="stylesheet" href="test.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - Quizzy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/mainpage_teacher.css">
+    <link rel="stylesheet" href="~/css/evaluate.css">
+
 </head>
 <body>
+
 
     <!-- Navbar -->
     <nav class="navbar">
         <div class="navbar-container">
             <div class="navbar-brand">
+
                 <i class="fas fa-graduation-cap brand-icon"></i>
                 <h2>Quizzy</h2>
             </div>
             <div class="navbar-menu">
                 <div class="user-welcome">
                     <i class="fas fa-user-circle user-icon"></i>
-                    <span>Welcome, Teacher Name</span> <!-- Replace with dynamic template value -->
+                    <span>Welcome, @teacher.first_name @teacher.last_name</span>
                 </div>
                 <a href="/teacher/logOut" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Log Out</a>
             </div>
         </div>
     </nav>
-
-    <!-- Dashboard Header -->
+    <a href="/teacher/home" class="btn-go-back">
+        <i class="fas fa-arrow-left"></i> Go Back
+    </a>
     <div class="content-wrapper">
-        <a href="/student/main" class="go-back"><i class="fas fa-arrow-left"></i> Go Back</a>
+        <div class="dashboard-header">
+            <h1>Teacher Dashboard</h1>
+            <div class="course-badge">
+                <i class="fas fa-book-open"></i>
 
-        <h1 class="dashboard-title">Short Questions</h1>
-        <div class="current-course">📘 Current Course: EG102 – Functional English</div>
 
-        <div class="card-container">
-            <div class="card">
-                <div class="card-icon">📝</div>
-                <h2>Evaluate Short Questions</h2>
-                <p>Review student answers for short questions and assign marks.</p>
-                <button class="action-button">Start Evaluating →</button>
+                <span>Current Course: @subject.code - @subject.name</span>
             </div>
         </div>
     </div>
+    @if (TempData["Check"] != null)
+    {
+        <div style="color: #07fc03; font-size: 16px; text-align: center;">
+            @TempData["Check"]
+        </div>
+    }
+    @if (TempData["log"] != null)
+    {
+        <div style="color: red; font-size: 16px; text-align: center;">
+            @TempData["log"]
+        </div>
+    }
 
     <!-- Student Quiz Evaluation Form -->
+    <!-- Student Quiz Evaluation Table -->
     <div class="evaluation-section">
         <h2>Evaluate Quiz Results</h2>
         <table class="evaluation-table">
             <thead>
                 <tr>
                     <th>Registration Number</th>
+                    <th>Student Name</th>
                     <th>MCQ Marks</th>
                     <th>Check Quiz</th>
                     <th>Send Result</th>
@@ -213,12 +83,14 @@
             <tbody>
                 <tr>
                     <td>2024-CS-137</td>
+                    <td>Ali Raza</td>
                     <td>8 / 10</td>
                     <td><button class="btn check"><i class="fas fa-pen"></i> Check</button></td>
                     <td><button class="btn send"><i class="fas fa-paper-plane"></i> Send</button></td>
                 </tr>
                 <tr>
                     <td>2021-CS-002</td>
+                    <td>Ayesha Khan</td>
                     <td>7 / 10</td>
                     <td><button class="btn check"><i class="fas fa-pen"></i> Check</button></td>
                     <td><button class="btn send"><i class="fas fa-paper-plane"></i> Send</button></td>
@@ -227,6 +99,10 @@
         </table>
     </div>
 
+
+    <div class="dashboard-footer">
+        <p class="footer-message">Happy Teaching, @teacher.first_name @teacher.last_name!</p>
+        <p class="copyright">&copy; 2025 Quizzy. All rights reserved.</p>
+    </div>
 </body>
 </html>
-
