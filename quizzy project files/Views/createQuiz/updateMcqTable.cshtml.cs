@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Quizzy.Views.checkQuiz
+namespace Quizzy.Views.createQuiz
 {
-    public class showAllQuizzesModel : PageModel
+    public class updateMcqTableModel : PageModel
     {
         public void OnGet()
         {

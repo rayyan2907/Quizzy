@@ -1,0 +1,159 @@
+﻿@{
+    var teacher = ViewBag.teacher as Quizzy.Models.Buisness_Models.Teacher;
+    var subject = ViewBag.subject as Quizzy.Models.Buisness_Models.subject_model;
+
+    var quiz = ViewBag.shq as System.Data.DataTable;
+    var quizID = ViewBag.id?.ToString();
+
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Short Questions - Quizzy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/mainpage_teacher.css">
+    <link rel="stylesheet" href="~/css/studentMain.css">
+    <link rel="stylesheet" href="~/css/addMcq.css"> <!-- NEW CSS FILE -->
+
+</head>
+<body>
+
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+
+                <i class="fas fa-graduation-cap brand-icon"></i>
+                <h2>Quizzy</h2>
+            </div>
+            <div class="navbar-menu">
+                <div class="user-welcome">
+                    <i class="fas fa-user-circle user-icon"></i>
+                    <span>Welcome, @teacher.first_name @teacher.last_name</span>
+                </div>
+                <a href="/teacher/logOut" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+            </div>
+        </div>
+    </nav>
+    <a href="/createQuiz/quizMake" class="btn-go-back">
+        <i class="fas fa-arrow-left"></i> Go Back
+    </a>
+    <div class="content-wrapper">
+        <div class="dashboard-header">
+            <h1>Teacher Dashboard</h1>
+            <div class="course-badge">
+                <i class="fas fa-book-open"></i>
+
+
+                <span>Current Course: @subject.code - @subject.name</span>
+            </div>
+        </div>
+    </div>
+    @if (TempData["Check"] != null)
+    {
+        <div style="color: #07fc03; font-size: 16px; text-align: center;">
+            @TempData["Check"]
+        </div>
+    }
+    @if (TempData["log"] != null)
+    {
+        <div style="color: red; font-size: 16px; text-align: center;">
+            @TempData["log"]
+        </div>
+    }
+    <nav class="main-nav">
+        <div class="nav-container">
+            <ul class="nav-list">
+                <li><a href="/createQuiz/showMcq_2?id=@quizID"><i class="fas fa-plus-circle"></i> MCQs</a></li>
+                <li><a href="/createQuiz/showShqs_2?id=@quizID"><i class="fas fa-plus-circle"></i> Shorts</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Student Assignment Section -->
+    <div class="student-assignments">
+        <div class="section-header">
+            <h2>SHQs</h2>
+            <a href="/createQuiz/createShq" class="btn-create-quiz">
+                <i class="fas fa-plus-circle"></i> Create New Short
+            </a>
+        </div>
+
+        @if (quiz != null && quiz.Rows.Count > 0)
+        {
+            <table class="quiz-table">
+                <thead>
+                    <tr>
+                        <th>Question No.</th> <!-- New column for Question Number -->
+                        <th>Question</th>
+                        <th>Total Marks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < quiz.Rows.Count; i++)
+                    {
+                        var row = quiz.Rows[i];
+                        <tr>
+                            <td>@(i + 1)</td> <!-- Incrementing Question Number -->
+                            <td>@row["question"]</td>
+                            <td>2</td> <!-- You can adjust marks based on your logic -->
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="empty-state">
+                <i class="fas fa-file-alt"></i>
+                <div class="empty-message">No SHQs found.</div>
+            </div>
+        }
+
+
+
+        <!-- Footer Section -->
+        <div class="dashboard-footer">
+            <p class="footer-message">Happy Teaching, @teacher.first_name @teacher.last_name!</p>
+            <p class="copyright">&copy; 2025 Quizzy. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+
+        // Show modal for both assign and unassign quiz forms
+        document.querySelectorAll("form[action*='assignQuiz'], form[action*='unassignQuiz']").forEach(function (form) {
+            form.addEventListener("submit", function () {
+                const modal = document.getElementById("sendingModal");
+                if (modal) {
+                    modal.style.display = "block";
+                }
+            });
+        });
+
+        // Hide modal automatically if TempData is received (when page reloads)
+        window.addEventListener("load", function () {
+            const check = '@TempData["Check"]';
+            const log = '@TempData["log"]';
+
+            if (check || log) {
+                const modal = document.getElementById("sendingModal");
+                if (modal) {
+                    modal.style.display = "none";
+                }
+            }
+        });
+    </script>
+
+    <div id="sendingModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:9999; text-align:center; padding-top:200px; color:white; font-size:24px;">
+        Announcing to the class. Please wait....
+    </div>
+
+</body>
+</html>

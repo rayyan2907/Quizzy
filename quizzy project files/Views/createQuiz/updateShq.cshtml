@@ -8,9 +8,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">  
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create New Short - Quizzy</title>
+    <title>Update Shorts - Quizzy</title>
 
     <!-- Fonts & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -54,7 +54,7 @@
         </div>
     </nav>
 
-    <a href="/createQuiz/quizMake" class="btn-go-back">
+    <a href="/createQuiz/shoqShqForUpdate" class="btn-go-back">
         <i class="fas fa-arrow-left"></i> Go Back
     </a>
 
@@ -83,38 +83,36 @@
         </div>
     }
 
-    
+
     <div class="mcq-page-wrapper">
         <div class="mcq-form-box">
-            <h1 class="mcq-form-title">Create Short Question</h1>
+            <h1 class="mcq-form-title">Update Short Question</h1>
             <p class="mcq-form-subtitle">Fill in the question below</p>
-    <!-- Main Content -->
-    <form asp-action="createShq" asp-action="createQuiz" method="post">
+            <!-- Main Content -->
+            <form asp-action="updateShqData" asp-action="createQuiz" method="post">
 
-        <!-- Question -->
-        <input class="mcq-question-input" type="text" placeholder="Enter your short question here..." asp-for="shortQuestion" />
+                <!-- Question -->
+                <input class="mcq-question-input" type="text" placeholder="Enter your short question here..." asp-for="shortQuestion" />
 
-        <!-- Answer -->
-        
+                <!-- Answer -->
+                <!-- Buttons -->
+                <div class="mcq-action-bar">
+                    <button class="mcq-btn mcq-btn-submit" type="submit">
+                        Update Question <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
 
-        <!-- Buttons -->
-        <div class="mcq-action-bar">
-            <button class="mcq-btn mcq-btn-submit" type="submit">
-                Add Question <i class="fas fa-arrow-right"></i>
-            </button>
-        </div>
-    
 
-               
+
             </form>
         </div>
 
-            <!-- Footer -->
-            <div class="dashboard-footer">
-                <p class="footer-message">Happy Teaching, @teacher.first_name @teacher.last_name!</p>
-                <p class="copyright">&copy; 2025 Quizzy. All rights reserved.</p>
-            </div>
+        <!-- Footer -->
+        <div class="dashboard-footer">
+            <p class="footer-message">Happy Teaching, @teacher.first_name @teacher.last_name!</p>
+            <p class="copyright">&copy; 2025 Quizzy. All rights reserved.</p>
         </div>
+    </div>
     </div>
 </body>
 </html>

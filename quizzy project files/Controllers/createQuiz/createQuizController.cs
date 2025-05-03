@@ -15,17 +15,28 @@ namespace Quizzy.Controllers.createQuiz
     {
         public IActionResult quizMake()
         {
+           
             var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
             var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
-
+            var quiz = HttpContext.Session.GetObject<quiz_model>("quizObj");
+            if (quiz != null)
+            {
+                quiz = null;
+                HttpContext.Session.Remove("quizObj");
+                Console.WriteLine("quiz obj haas been removed");
+            }
             if (teacher == null || subject == null)
             {
                 TempData["log"] = "Session not found";
 
                 return RedirectToAction("index", "login");
             }
-
-
+            if (HttpContext.Session.GetString("quizID") != null)
+            {
+                Console.WriteLine($"we have cleared the quiz id from the session");
+                HttpContext.Session.Remove("quizID");
+            }
+           
             DataTable dt = getQuizBL.getQuiz(subject.subjectID);
 
             ViewBag.quiz = dt;
@@ -60,8 +71,47 @@ namespace Quizzy.Controllers.createQuiz
 
             HttpContext.Session.SetString("quizID", id);
 
-
+            Console.WriteLine("quiz id in post is " + id);
             return View("updateQuiz",quiz);                
+        }
+
+        
+
+        public IActionResult updatequiz_2()
+        {
+            var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
+            var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
+            string id;
+            if (HttpContext.Session.GetString("quizID") != null)
+            {
+                id = HttpContext.Session.GetString("quizID");
+                Console.WriteLine(id);
+                Console.WriteLine("quiz id in get is " + id);
+            }
+            else
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+            }
+
+            
+
+            if (teacher == null || subject == null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+            }
+            ViewBag.subject = subject;
+            ViewBag.teacher = teacher;
+
+            quiz_model quiz = createQuizBL.getQuizObj(id);
+            Console.WriteLine(" the quiz is updated" + id);
+
+
+
+            return View("updateQuiz", quiz);
         }
 
         [HttpPost]   
@@ -745,10 +795,13 @@ namespace Quizzy.Controllers.createQuiz
         }
 
 
+       
+
         [HttpPost]
-        public IActionResult addMcq(string id)
+        public IActionResult showMcq(string id)
         {
-            Console.WriteLine("page 1 refresh");
+            Console.WriteLine("id at start is " + id);
+            Console.WriteLine("page 2");
             var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
             var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
 
@@ -758,15 +811,207 @@ namespace Quizzy.Controllers.createQuiz
 
                 return RedirectToAction("index", "login");
             }
-            HttpContext.Session.SetString("quizIDformcq", id);
+           
+
+            quiz_model q = new quiz_model();
+
+            q = createQuizBL.getQuizObj(id);
+
+            HttpContext.Session.SetObject("quizObj", q);
 
 
+            Console.WriteLine("id in controller is " + id);
+
+            Console.WriteLine($"quiz id is {q.quizID} and {q.subID}");
+            DataTable dt = createQuizBL.getMcqs(q);
+            ViewBag.subject = subject;
+            ViewBag.teacher = teacher;
+            ViewBag.mcq = dt;
+            ViewBag.id = id;
+
+
+            return View("mcqTable");
+        }
+
+        [HttpGet]
+        public IActionResult showMcq_2(string id)
+        {
+            Console.WriteLine("id at start is " + id);
+            Console.WriteLine("page 2");
+            var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
+            var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
+
+            if (teacher == null || subject == null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+            }
+           
+            quiz_model q = new quiz_model();
+
+            q = createQuizBL.getQuizObj(id);
+
+            HttpContext.Session.SetObject("quizObj", q);
+
+
+            Console.WriteLine("id in controller is " + id);
+
+            Console.WriteLine($"quiz id is {q.quizID} and {q.subID}");
+            DataTable dt = createQuizBL.getMcqs(q);
+            ViewBag.subject = subject;
+            ViewBag.teacher = teacher;
+            ViewBag.mcq = dt;
+            ViewBag.id = id;
+
+
+            return View("mcqTable");
+
+        }
+
+        public IActionResult createMcq()
+        {
+            var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
+            var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
+
+            if (teacher == null || subject == null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+            }
+
+
+          
             ViewBag.subject = subject;
             ViewBag.teacher = teacher;
             return View("createMcq");
+
         }
 
-        public IActionResult addShq()
+        [HttpPost]
+
+        public IActionResult createMcq(mcq_model m)
+        {
+            var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
+            var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
+            var quiz = HttpContext.Session.GetObject<quiz_model>("quizObj");
+
+
+            if (teacher == null || subject == null || quiz==null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+            }
+            Console.WriteLine("quiz obj made");
+
+            m.quizID = quiz.quizID;
+
+            ViewBag.subject = subject;
+            ViewBag.teacher = teacher;
+
+            bool flag = createQuizBL.addMcq(m);
+
+            if (flag)
+            {
+                TempData["Check"] = "Mcq Added Succesfully";
+            }
+            else
+            {
+                TempData["log"] = "Error in adding";
+            }
+            HttpContext.Session.Remove("quizObj");
+            quiz = null;
+            Console.WriteLine("quiz obj destroyed");
+
+            return RedirectToAction("showMcq_2", new { id = m.quizID });
+
+
+
+        }
+
+
+        [HttpPost]
+        public IActionResult showShqs(string id)
+        {
+            Console.WriteLine("id at start of ans is " + id);
+            Console.WriteLine("page ans 1");
+            var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
+            var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
+
+            if (teacher == null || subject == null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+            }
+           
+            
+
+            quiz_model q = new quiz_model();
+
+            q = createQuizBL.getQuizObj(id);
+
+            HttpContext.Session.SetObject("quizObj", q);
+
+
+            Console.WriteLine("id in controller is " + id);
+
+            Console.WriteLine($"quiz id is {q.quizID} and {q.subID}");
+            DataTable dt = createQuizBL.getShqs(q);
+            Console.WriteLine("Rows in shq DataTable: " + dt.Rows.Count);
+           
+
+            ViewBag.subject = subject;
+            ViewBag.teacher = teacher;
+            ViewBag.shq = dt;
+            ViewBag.id = id;
+
+
+            return View("shqTable");
+        }
+
+        [HttpGet]
+        public IActionResult showShqs_2(string id)
+        {
+            Console.WriteLine("id at start of ans  is " + id);
+            Console.WriteLine("page ans 2");
+            var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
+            var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
+
+            if (teacher == null || subject == null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+            }
+            
+
+            quiz_model q = new quiz_model();
+
+            q = createQuizBL.getQuizObj(id);
+
+            HttpContext.Session.SetObject("quizObj", q);
+
+
+            Console.WriteLine("id in controller is " + id);
+
+            Console.WriteLine($"quiz id is {q.quizID} and {q.subID}");
+            DataTable dt = createQuizBL.getShqs(q);
+            Console.WriteLine("Rows in shq DataTable: " + dt.Rows.Count);
+           
+
+            ViewBag.subject = subject;
+            ViewBag.teacher = teacher;
+            ViewBag.shq = dt;
+            ViewBag.id = id;
+
+
+            return View("shqTable");
+        }
+
+        public IActionResult createShq()
         {
             var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
             var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
@@ -783,14 +1028,66 @@ namespace Quizzy.Controllers.createQuiz
             ViewBag.subject = subject;
             ViewBag.teacher = teacher;
             return View("createShq");
+
+        }
+        [HttpPost]
+        public IActionResult createShq(shq_model s)
+        {
+            var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
+            var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
+            var quiz = HttpContext.Session.GetObject<quiz_model>("quizObj");
+
+
+            if (teacher == null || subject == null || quiz==null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+            }
+            Console.WriteLine("quiz obj made");
+
+            s.quizID = quiz.quizID;
+
+            ViewBag.subject = subject;
+            ViewBag.teacher = teacher;
+
+            bool flag = createQuizBL.addShq(s);
+
+            if (flag)
+            {
+                TempData["Check"] = "Mcq Added Succesfully";
+            }
+            else
+            {
+                TempData["log"] = "Error in adding";
+            }
+            HttpContext.Session.Remove("quizObj");
+            quiz = null;
+            Console.WriteLine("quiz obj destroyed");
+            return RedirectToAction("showShqs_2", new { id = s.quizID });
+
+
+
         }
 
-        [HttpPost]
-
-        public IActionResult addMcqData(mcq_model mcq)
+        
+        public IActionResult showMcqForUpdate()
         {
-            Console.WriteLine("page 2 refresh");
+            string id;
+            if (HttpContext.Session.GetString("quizID") != null)
+            {
+                id = HttpContext.Session.GetString("quizID");
+                Console.WriteLine(id);
+                Console.WriteLine("quiz id in get is " + id);
+            }
+            else
+            {
+                TempData["log"] = "Session not found";
 
+                return RedirectToAction("index", "login");
+            }
+            Console.WriteLine("id at start is " + id);
+            Console.WriteLine("page 2");
             var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
             var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
 
@@ -801,42 +1098,237 @@ namespace Quizzy.Controllers.createQuiz
                 return RedirectToAction("index", "login");
             }
 
-            Console.WriteLine($"mcq: {mcq.description} has beeen added with corrrect option as {mcq.corr_opt}");
 
-            if (HttpContext.Session.GetString != null)
+            quiz_model q = new quiz_model();
+
+            q = createQuizBL.getQuizObj(id);
+
+           
+
+            Console.WriteLine($"quiz id is {q.quizID} and {q.subID} for update ");
+            DataTable dt = createQuizBL.getMcqs(q);
+            ViewBag.subject = subject;
+            ViewBag.teacher = teacher;
+            ViewBag.mcq = dt;
+            ViewBag.id = id;
+
+
+            return View("updateMcqTable");
+        }
+        public IActionResult shoqShqForUpdate()
+        {
+            string id;
+            if (HttpContext.Session.GetString("quizID") != null)
             {
-                mcq.quizID = HttpContext.Session.GetString("quizIDformcq");
-                Console.WriteLine(" the quizid is " + mcq.quizID);
+                id = HttpContext.Session.GetString("quizID");
+                Console.WriteLine(id);
+                Console.WriteLine("quiz id in get is " + id);
             }
             else
             {
                 TempData["log"] = "Session not found";
 
                 return RedirectToAction("index", "login");
+            }
+            Console.WriteLine("id at start is " + id);
+            Console.WriteLine("page 2");
+            var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
+            var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
 
+            if (teacher == null || subject == null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
             }
 
-            bool flag = createQuizBL.addMcq(mcq);
 
+            quiz_model q = new quiz_model();
+
+            q = createQuizBL.getQuizObj(id);
+
+
+            Console.WriteLine($"quiz id is {q.quizID} and {q.subID}");
+            DataTable dt = createQuizBL.getShqs(q);
+            ViewBag.subject = subject;
+            ViewBag.teacher = teacher;
+            ViewBag.shq = dt;
+            ViewBag.id = id;
+
+
+            return View("updateShortTable");
+        }
+
+        [HttpGet]
+        public IActionResult deleteMcq(string id)
+        {
+            Console.WriteLine("id of mcq id is " + id);
+            bool flag = createQuizBL.mcqDel(id);
             if (flag)
             {
-                TempData["Check"] = "Mcq added successfully";
-                mcq = new mcq_model();
-                mcq = null;
+                TempData["Check"] = "MCQ deleted successfully";
+                Console.WriteLine("mcq deleted successfully");
+
             }
             else
             {
-                TempData["log"] = "Error adding mcq";
+                TempData["log"] = "Error in deleting mcq";
+            }
+            return RedirectToAction("showMcqForUpdate");
+        }
+
+
+        [HttpGet]
+        public IActionResult deleteShq(string id)
+        {
+            Console.WriteLine("id of shq id is " + id);
+            bool flag = createQuizBL.shqDel(id);
+            if (flag)
+            {
+                TempData["Check"] = "SHQ deleted successfully";
+                Console.WriteLine("SHQ deleted successfully");
+
+            }
+            else
+            {
+                TempData["log"] = "Error in deleting SHQ";
+            }
+            return RedirectToAction("shoqShqForUpdate");
+        }
+
+
+        [HttpGet]
+        public IActionResult updateMcq(string id)
+        {
+            
+            var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
+            var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
+
+            Console.WriteLine(id);
+
+            if (teacher == null || subject == null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+            }
+            ViewBag.subject = subject;
+            ViewBag.teacher = teacher;
+
+            mcq_model m = new mcq_model();
+            m = createQuizBL.getMCqobj(id);
+            Console.WriteLine("mcq id in presentation 1 to be update is " + m.mcq_id);
+
+            return View("updateMcq", m);
+        }
+
+
+        [HttpPost]
+        public IActionResult updateMcqData(mcq_model m)
+        {
+
+            var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
+            var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
+
+            
+
+            if (teacher == null || subject == null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+            }
+            ViewBag.subject = subject;
+            ViewBag.teacher = teacher;
+
+            Console.WriteLine("mcq id in presentation to be update is " + m.mcq_id);
+
+
+            bool flag = createQuizBL.updateMcq(m);
+            if (flag)
+            {
+                TempData["Check"] = "MCQ updated successfully";
+                Console.WriteLine("MCQ updated successfully");
+
+            }
+            else
+            {
+                TempData["log"] = "Error in updating MCQ";
             }
 
 
 
+            return RedirectToAction("showMcqForUpdate");
+        }
 
 
 
+
+
+        [HttpGet]
+        public IActionResult updateShq(string id)
+        {
+
+            var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
+            var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
+
+            Console.WriteLine(id);
+
+            if (teacher == null || subject == null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+            }
             ViewBag.subject = subject;
             ViewBag.teacher = teacher;
-            return View("createMcq",mcq);
+
+            shq_model s = createQuizBL.getshqObj(id);
+            Console.WriteLine("shq id in main one func is "+s.shqID);
+            HttpContext.Session.SetString("shqID", s.shqID);
+            return View("updateShq", s);
+        }
+
+
+        [HttpPost]
+        public IActionResult updateShqData(shq_model s)
+        {
+
+            var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
+            var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
+
+
+
+            if (teacher == null || subject == null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+            }
+            ViewBag.subject = subject;
+            ViewBag.teacher = teacher;
+
+            s.shqID = HttpContext.Session.GetString("shqID");
+            HttpContext.Session.Remove("shqID");
+
+            Console.WriteLine("shq id in main is "+s.shqID);
+
+
+            bool flag = createQuizBL.updateSHQ(s);
+            if (flag)
+            {
+                TempData["Check"] = "SHQ updated successfully";
+                Console.WriteLine("SHQ updated successfully");
+
+            }
+            else
+            {
+                TempData["log"] = "Error in updating SHQ";
+            }
+
+
+
+            return RedirectToAction("shoqShqForUpdate");
         }
 
     }

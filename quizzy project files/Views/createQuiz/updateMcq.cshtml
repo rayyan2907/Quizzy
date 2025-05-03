@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create New MCQ - Quizzy</title>
+    <title>Update MCQs - Quizzy</title>
 
     <!-- Fonts & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -40,7 +40,7 @@
         </div>
     </nav>
 
-    <a href="/createQuiz/quizMake" class="btn-go-back">
+    <a href="/createQuiz/showMcqForUpdate" class="btn-go-back">
         <i class="fas fa-arrow-left"></i> Go Back
     </a>
 
@@ -70,16 +70,14 @@
     }
 
     <!-- Sub Navigation -->
-   
-
     <!-- Main Content -->
     <div class="mcq-page-wrapper">
         <div class="mcq-form-box">
-            <h1 class="mcq-form-title">Create MCQ</h1>
+            <h1 class="mcq-form-title">Update MCQ</h1>
             <p class="mcq-form-subtitle">Fill in the question and answer options below</p>
 
-            <form asp-action="createMcq" asp-controller="createQuiz" method="post">
-                  <input type="hidden" asp-for="mcq_id" />
+            <form asp-action="updateMcqData" asp-controller="createQuiz" method="post">
+                <input type="hidden" asp-for="mcq_id" />
 
                 <!-- Question -->
                 <input class="mcq-question-input" type="text" placeholder="Enter your question here..." asp-for="description" />
@@ -113,24 +111,24 @@
                         <option value="B">B</option>
                         <option value="C">C</option>
                         <option value="D">D</option>
-                    </select>   
+                    </select>
                 </div>
 
                 <!-- Buttons -->
                 <div class="mcq-action-bar">
                     <button class="mcq-btn mcq-btn-cancel" asp-action="quizCreate" asp-controller="createQuiz">Cancel</button>
                     <button class="mcq-btn mcq-btn-submit" type="submit">
-                        Add MCQ <i class="fas fa-arrow-right"></i>
+                        Update MCQ <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
             </form>
         </div>
 
-            <!-- Footer -->
-            <div class="dashboard-footer">
-                <p class="footer-message">Happy Teaching, @teacher.first_name @teacher.last_name!</p>
-                <p class="copyright">&copy; 2025 Quizzy. All rights reserved.</p>
-            </div>
+        <!-- Footer -->
+        <div class="dashboard-footer">
+            <p class="footer-message">Happy Teaching, @teacher.first_name @teacher.last_name!</p>
+            <p class="copyright">&copy; 2025 Quizzy. All rights reserved.</p>
+        </div>
     </div>
 </body>
 </html>

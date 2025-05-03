@@ -3,6 +3,7 @@ using Quizzy.Models.Buisness_Layer.quiz;
 using System.Security.Cryptography.X509Certificates;
 using Quizzy.Models.Buisness_Models;
 using Quizzy.Models.DataLayer_Models;
+using System.Data;
 
 
 namespace Quizzy.Models.Buisness_Layer.quiz
@@ -109,6 +110,65 @@ namespace Quizzy.Models.Buisness_Layer.quiz
 
             return createQuizDL.addMcq(mcq);
             
+        }
+
+        public static bool addShq(shq_model shq)
+        {
+            int quizID = Convert.ToInt32(shq.quizID);
+
+            shortQuestionModel s=new shortQuestionModel();
+            s.quizID = quizID;
+            s.shortQuestion=shq.shortQuestion;
+            return createQuizDL.addShq(s);
+
+        }
+
+        public static quiz_model getQuizObj(string id)
+        {
+            return createQuizDL.getQuizObj(id);
+        }
+
+
+        public static DataTable getMcqs(quiz_model q)
+        {
+            return createQuizDL.getMcqs(q);
+        }
+
+        public static DataTable getShqs(quiz_model q)
+        {
+           return createQuizDL.getShqs(q);
+        }
+        public static bool mcqDel(string id)
+        {
+            
+            return createQuizDL.deleteMcq(id);
+        }
+
+        public static bool shqDel(string id)
+        {
+            return createQuizDL.deleteShq(id);
+        }
+
+
+        public static mcq_model getMCqobj(string id)
+        {
+            return createQuizDL.getmcqObj(id);
+        }
+
+        public static bool updateMcq(mcq_model mq)
+        {
+            return createQuizDL.updateMcq(mq);
+        }
+
+
+        public static bool updateSHQ(shq_model s)
+        {
+            return createQuizDL.updateSHQ(s);
+        }
+
+        public static shq_model getshqObj(string id)
+        {
+            return createQuizDL.getshqObj(id);
         }
     }
 }
