@@ -142,3 +142,91 @@
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+<!--New code added-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Check Short Questions</title>
+    <link rel="stylesheet" href="test.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <i class="fas fa-graduation-cap brand-icon"></i>
+                <h2>Quizzy</h2>
+            </div>
+            <div class="navbar-menu">
+                <div class="user-welcome">
+                    <i class="fas fa-user-circle user-icon"></i>
+                    <span>Welcome, Teacher Name</span> <!-- Replace with dynamic template value -->
+                </div>
+                <a href="/teacher/logOut" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Header -->
+    <div class="content-wrapper">
+        <a href="/student/main" class="go-back"><i class="fas fa-arrow-left"></i> Go Back</a>
+
+        <h1 class="dashboard-title">Short Questions</h1>
+        <div class="current-course">📘 Current Course: EG102 – Functional English</div>
+
+        <div class="card-container">
+            <div class="card">
+                <div class="card-icon">📝</div>
+                <h2>Evaluate Short Questions</h2>
+                <p>Review student answers for short questions and assign marks.</p>
+                <button class="action-button">Start Evaluating →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Quiz Evaluation Form -->
+    <div class="evaluation-section">
+        <h2>Evaluate Quiz Results</h2>
+        <table class="evaluation-table">
+            <thead>
+                <tr>
+                    <th>Registration Number</th>
+                    <th>MCQ Marks</th>
+                    <th>Check Quiz</th>
+                    <th>Send Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2024-CS-137</td>
+                    <td>8 / 10</td>
+                    <td><button class="btn check"><i class="fas fa-pen"></i> Check</button></td>
+                    <td><button class="btn send"><i class="fas fa-paper-plane"></i> Send</button></td>
+                </tr>
+                <tr>
+                    <td>2021-CS-002</td>
+                    <td>7 / 10</td>
+                    <td><button class="btn check"><i class="fas fa-pen"></i> Check</button></td>
+                    <td><button class="btn send"><i class="fas fa-paper-plane"></i> Send</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
+
