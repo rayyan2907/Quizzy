@@ -246,6 +246,7 @@ namespace Quizzy.Controllers.login
                         return RedirectToAction("index");
                     }
 
+                    TempData["otp"] = "Please check your spam mail for OTP";
 
                     return RedirectToAction("EnterOtp");
 
@@ -454,6 +455,7 @@ namespace Quizzy.Controllers.login
         [HttpPost]
         public IActionResult EnterOtp(string otpInput)
         {
+
             string savedOtp = HttpContext.Session.GetString("EmailOTP");
             string role = HttpContext.Session.GetString("UserRole");
             string email = HttpContext.Session.GetString("UserEmail");

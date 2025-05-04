@@ -15,6 +15,7 @@ namespace Quizzy.Models.Data_Layer.registration
         public bool addStudent(DataLayer_Models.StudentModel stu) 
         {
             string query = $"insert into students (first_name,last_name,roll_num,dept,addmission_year,email) values ('{stu.first_name}','{stu.last_name}','{stu.roll_num}','{stu.dept}','{stu.year}','{stu.email}')";
+            Console.WriteLine(query);
             int rows = DatabaseHelper.Instance.Update(query);
             return rows > 0;
 

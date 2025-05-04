@@ -10,6 +10,12 @@
 <div class="wrapper">
     <h1>Enter OTP</h1>
     <h6>Please enter the otp sent to your email</h6>
+    @if (TempData["otp"] != null)
+    {
+        <div style="color: red; font-size: 16px; text-align: center;">
+            @TempData["otp"]
+        </div>
+    }
     @if (ViewBag.Error != null)
     {
         <div id="error-message" style="color: red; font-size: 14px; margin-bottom: 10px;">

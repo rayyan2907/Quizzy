@@ -40,7 +40,8 @@ namespace Quizzy.Models.Buisness_Layer.registration
             bool isStudentSave = signup.addStudent(student);
             if (!isStudentSave)
             {
-                return "Error in Registration";
+                return "Please Fill the data correctly";
+
 
             }
 
@@ -52,7 +53,7 @@ namespace Quizzy.Models.Buisness_Layer.registration
             }
             else
             {
-                return "Error in Registration";
+                return "Please Fill the data correctly";
             }
 
         }

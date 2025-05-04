@@ -6,18 +6,20 @@ namespace DBHelper
 {
     public class DatabaseHelper
     {
-        private String serverName = "127.0.0.1";
-        private String port = "3306";
-        private String databaseName = "quizzy";
-        private String databaseUser = "root";
-        private String databasePassword = "M.rayyan172906";
+        // Azure MySQL Flexible Server connection details
+        private string serverName = "test-server-quiz.mysql.database.azure.com";
+        private string port = "3306";
+        private string databaseName = "quizzy"; // Your actual DB name
+        private string databaseUser = "quizzy"; // Must include server name
+        private string databasePassword = "M.rayyan290605"; // Your actual password
 
         private static DatabaseHelper _instance;
         private MySqlConnection connection;
 
         private DatabaseHelper()
         {
-            string connectionString = $"server={serverName};port={port};user={databaseUser};database={databaseName};password={databasePassword};SslMode=None;";
+            // Azure requires SSL
+            string connectionString = $"server={serverName};port={port};user={databaseUser};password={databasePassword};database={databaseName};SslMode=Required;";
             connection = new MySqlConnection(connectionString);
         }
 

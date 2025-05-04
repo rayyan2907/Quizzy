@@ -1,0 +1,3 @@
+
+alter table students
+modify dept char(10);

@@ -1,12 +1,45 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Quizzy.Helpers;
+using Quizzy.Models.Buisness_Layer.quiz;
+using Quizzy.Models.Buisness_Layer.subjects;
+using Quizzy.Models.Buisness_Models;
+using System.Data;
 
 namespace Quizzy.Controllers.attemptQuiz
 {
     public class quizAttemptController : Controller
     {
-        public IActionResult Index()
+        public IActionResult attemptQuiz()
         {
-            return View();
+            var stu = HttpContext.Session.GetObject<Student>("StudentObj");
+
+            if (stu == null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+
+            }
+            string id = HttpContext.Session.GetString("courseID");
+
+            if (string.IsNullOrEmpty(id))
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+
+            }
+
+            subject_model sub = subjectBL.getSubfromid(id);
+
+            Console.WriteLine($"course id is {id}");
+
+            Console.WriteLine($"student with name {stu.first_name} {stu.last_name} is going to attempt the quiz of {sub.name}");
+
+
+            ViewBag.stu = stu;
+            ViewBag.sub = sub;
+            return View("attemptQuiz");
         }
     }
 }
