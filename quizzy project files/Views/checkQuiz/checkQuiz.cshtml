@@ -5,7 +5,6 @@
 }
     @model Quizzy.Models.Buisness_Models.Announcements
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,20 +79,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>2024-CS-137</td>
-                    <td>Ali Raza</td>
-                    <td>8 / 10</td>
-                    <td><button class="btn check"><i class="fas fa-pen"></i> Check</button></td>
-                    <td><button class="btn send"><i class="fas fa-paper-plane"></i> Send</button></td>
-                </tr>
-                <tr>
-                    <td>2021-CS-002</td>
-                    <td>Ayesha Khan</td>
-                    <td>7 / 10</td>
-                    <td><button class="btn check"><i class="fas fa-pen"></i> Check</button></td>
-                    <td><button class="btn send"><i class="fas fa-paper-plane"></i> Send</button></td>
-                </tr>
+                @foreach (System.Data.DataRow row in ViewBag.quizAttempts.Rows)
+                {
+                    <tr>
+                        <td>@row["RegistrationNumber"]</td>
+                        <td>@row["Name"]</td>
+                        <td>@row["MCQMarks"] </td>
+                        <td><button class="btn check"><i class="fas fa-pen"></i> Check</button></td>
+                        <td><button class="btn send"><i class="fas fa-paper-plane"></i> Send</button></td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>

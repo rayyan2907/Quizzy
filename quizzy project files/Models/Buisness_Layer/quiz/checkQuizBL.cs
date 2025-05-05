@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Globalization;
 using Quizzy.Models.Data_Layer.quiz;
 
 namespace Quizzy.Models.Buisness_Layer.quiz
@@ -8,6 +9,11 @@ namespace Quizzy.Models.Buisness_Layer.quiz
         public static DataTable showAllQuizzes(string id)
         {
             return checkQuizDL.showAllQuizzes(id);
+        }
+
+        public static DataTable studentQuizzes(int id)
+        {
+            return checkQuizDL.studentQuizzes(id);
         }
     }
 }
