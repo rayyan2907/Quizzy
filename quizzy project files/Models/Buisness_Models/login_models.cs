@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Quizzy.Models.Buisness_Models
 {
@@ -40,5 +41,25 @@ namespace Quizzy.Models.Buisness_Models
         public string Otp { get; set; }
         public bool isVerified { get; set; }
     }
+    public class change_pass
+    {
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid email format")]
+        public string email { get; set; }
+
+        public string otp1 { get; set; }
+        public string otp2 { get; set; }
+        public string otp3 { get; set; }
+        public string otp4 { get; set; }
+
+        [Required(ErrorMessage = "New password is required")]
+        [MinLength(8, ErrorMessage = "Password must be at least 8 characters long")]
+        public string newPassword { get; set; }
+
+        [Required(ErrorMessage = "Confirm password is required")]
+        [Compare("newPassword", ErrorMessage = "The passwords do not match")]
+        public string confirmPassword { get; set; }
+    }
+
 
 }
