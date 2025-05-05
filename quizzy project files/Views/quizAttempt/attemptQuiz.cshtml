@@ -1,6 +1,7 @@
 ﻿@{
     var student = ViewBag.stu as Quizzy.Models.Buisness_Models.Student;
     var sub = ViewBag.sub as Quizzy.Models.Buisness_Models.subject_model;
+    var quiz = ViewBag.quiz as Quizzy.Models.Buisness_Models.quiz_model;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +31,9 @@
                 <div class="user-welcome">
                     <i class="fas fa-user-circle user-icon"></i>
                     <span>Welcome, @student.first_name @student.last_name</span>
-                
+                </div>
+                <a href="/student/logOut" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Submit Quiz</a>
+            </div>
         </div>
     </nav>
 
@@ -60,6 +63,8 @@
 
             <!-- Student Details -->
             <div class="student-details">
+            <div class="info-label">STUDENT DETAILS: </div>
+
                 <div class="student-info">
                     <div class="info-item">
                         <div class="info-label">Student ID</div>
@@ -78,7 +83,41 @@
                         <div class="info-value">@student.email</div>
                     </div>
                 </div>
+            <div class="info-label">QUIZ DETAILS: </div>
+
+            <div class="student-info">
+
+                <div class="info-item">
+                    <div class="info-label">Quiz Name</div>
+                    <div class="info-value">@quiz.quizName</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Subject Code</div>
+                    <div class="info-value">@sub.code</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Subject Name</div>
+                    <div class="info-value">@sub.name</div>
+                </div>
+                @if( quiz.attempt==true){
+                <div class="info-item">
+                    <div class="info-label">Attempts</div>
+                    <div class="info-value">Multiple</div>
+                    </div>
+                }
+                else
+                {
+                    <div class="info-item">
+                        <div class="info-label">Attempts</div>
+                        <div class="info-value">Single</div>
+                    </div>
+                }
             </div>
+            </div>
+       
+       
+
+
 
             <!-- Quiz Options -->
             <div class="quiz-options">
@@ -89,7 +128,7 @@
                             <div class="quiz-icon">
                                 <i class="fas fa-list-ul"></i>
                             </div>
-                            <h3 class="quiz-title">Multiple Choice Questions</h3>
+                            <h3 class="quiz-title">Quiz (@sub.code)</h3>
                         </div>
                     </div>
                     <div class="quiz-card-body">
@@ -104,7 +143,7 @@
                             </div>
                         </div>
                         <div class="quiz-desc">
-                            Select the correct answer from multiple options. Each question has one correct answer.
+                            The quiz contains short questions and MCQs. Once you have entered the quiz you can not exit without submitting. You need to enter full screen to attempt the quiz.
                         </div>
                         <div class="progress-container">
                             <div class="progress-bar">
@@ -115,62 +154,21 @@
                                 <span class="progress-percent">40%</span>
                             </div>
                         </div>
-                        <button class="btn btn-primary">
+                        <a href="/quizAttempt/attempt">
+                            <button class="btn btn-primary">
                             <i class="fas fa-play"></i>
-                            <span>Attempt MCQ</span>
+                            <span>Attempt Quiz</span>
                         </button>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Short Answer Quiz Card -->
-                <div class="quiz-card-new">
-                    <div class="quiz-card-header">
-                        <div class="quiz-type">
-                            <div class="quiz-icon">
-                                <i class="fas fa-pen"></i>
-                            </div>
-                            <h3 class="quiz-title">Short Answer Questions</h3>
-                        </div>
-                    </div>
-                    <div class="quiz-card-body">
-                        <div class="quiz-stats">
-                            <div class="stat-item">
-                                <div class="stat-label">Questions</div>
-                                <div class="stat-value">10</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-label">Time Limit</div>
-                                <div class="stat-value">45 mins</div>
-                            </div>
-                        </div>
-                        <div class="quiz-desc">
-                            Write brief answers to the given questions. Be concise and to the point.
-                        </div>
-                        <div class="progress-container">
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 0%"></div>
-                            </div>
-                            <div class="progress-text">
-                                <span class="progress-label"><i class="fas fa-clock"></i> Progress</span>
-                                <span class="progress-percent">0%</span>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary">
-                            <i class="fas fa-pen-to-square"></i>
-                            <span>Attempt Short</span>
-                        </button>
-                    </div>
-                </div>
+                
+                    
             </div>
 
-            <!-- Action Buttons -->
-            <div class="action-bar">
-                <button class="btn btn-primary-sub">
-                    <span>Submit</span>
-                    <i class="fas fa-chart-simple"></i>
-                </button>
+           
             </div>
-        </div>
-    </div>
+  
 </body>
 </html>

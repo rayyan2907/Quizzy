@@ -9,18 +9,17 @@ namespace DBHelper
         // Azure MySQL Flexible Server connection details
         private string serverName = "test-server-quiz.mysql.database.azure.com";
         private string port = "3306";
-        private string databaseName = "quizzy"; // Your actual DB name
-        private string databaseUser = "quizzy"; // Must include server name
-        private string databasePassword = "M.rayyan290605"; // Your actual password
+        private string databaseName = "quizzy";
+        private string databaseUser = "quizzy";
+        private string databasePassword = "M.rayyan290605";
 
         private static DatabaseHelper _instance;
-        private MySqlConnection connection;
+        private string connectionString;
 
         private DatabaseHelper()
         {
             // Azure requires SSL
-            string connectionString = $"server={serverName};port={port};user={databaseUser};password={databasePassword};database={databaseName};SslMode=Required;";
-            connection = new MySqlConnection(connectionString);
+            connectionString = $"server={serverName};port={port};user={databaseUser};password={databasePassword};database={databaseName};SslMode=Required;";
         }
 
         public static DatabaseHelper Instance
@@ -33,17 +32,9 @@ namespace DBHelper
             }
         }
 
-        public MySqlConnection GetConnection()
+        private MySqlConnection CreateConnection()
         {
-            if (connection.State == ConnectionState.Closed)
-                connection.Open();
-            return connection;
-        }
-
-        public void CloseConnection()
-        {
-            if (connection.State == ConnectionState.Open)
-                connection.Close();
+            return new MySqlConnection(connectionString);
         }
 
         public DataTable GetData(string query)
@@ -51,21 +42,21 @@ namespace DBHelper
             DataTable dt = new DataTable();
             try
             {
-                using (var command = new MySqlCommand(query, GetConnection()))
+                using (var conn = CreateConnection())
                 {
-                    using (var reader = command.ExecuteReader())
+                    conn.Open();
+                    using (var command = new MySqlCommand(query, conn))
                     {
-                        dt.Load(reader);
+                        using (var reader = command.ExecuteReader())
+                        {
+                            dt.Load(reader);
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error: " + ex.Message);
-            }
-            finally
-            {
-                CloseConnection();
             }
             return dt;
         }
@@ -74,11 +65,13 @@ namespace DBHelper
         {
             try
             {
-                using (var command = new MySqlCommand(query, GetConnection()))
+                using (var conn = CreateConnection())
                 {
-                    int result = command.ExecuteNonQuery();
-                    CloseConnection();
-                    return result;
+                    conn.Open();
+                    using (var command = new MySqlCommand(query, conn))
+                    {
+                        return command.ExecuteNonQuery();
+                    }
                 }
             }
             catch (Exception ex)

@@ -48,6 +48,7 @@
             <div class="student-badge">
                 <i class="fas fa-id-card"></i>
                 <span>Roll No: @student.addmission_year-@student.dept-@student.roll_num</span>
+
             </div>
         </div>
 
@@ -95,7 +96,7 @@
                             <div class="quiz-action">
                                 @if (isAssigned)
                                 {
-                                    <a href="/quizAttempt/attemptQuiz/@quizId" class="quiz-btn">
+                                    <a href="/quizAttempt/attemptQuiz?quizId=@quizId" class="quiz-btn">
                                         Attempt Quiz <i class="fas fa-arrow-right"></i>
                                     </a>
                                 }

@@ -414,7 +414,7 @@ namespace Quizzy.Controllers.createQuiz
 
             ViewBag.subject = subject;
             ViewBag.teacher = teacher;
-
+            quiz.isAssign = false;
 
 
             string serverAddress = $"{Request.Scheme}://{Request.Host}";
