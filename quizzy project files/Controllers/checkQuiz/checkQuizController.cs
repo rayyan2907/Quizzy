@@ -67,6 +67,17 @@ namespace Quizzy.Controllers.checkQuiz
             }
 
             DataTable dt = checkQuizBL.studentQuizzes(quizId);
+            var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
+
+            if (teacher == null || subject == null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+            }
+
+            ViewBag.subject = subject;
+            ViewBag.teacher = teacher;
             ViewBag.quizAttempts = dt;
             return View("checkQuiz");
         }
