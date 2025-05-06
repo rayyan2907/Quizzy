@@ -8,12 +8,10 @@ namespace Quizzy.Models.Buisness_Models
         public string email {  get; set; }
         public string password { get; set; }
     }
-
     public class Registraton_models
     {
         public string email { get; set; }
         public string password { get; set; }
-
         public string cnfrm_pwd { get; set; }
         public string role { get; set; }
     }
@@ -25,8 +23,6 @@ namespace Quizzy.Models.Buisness_Models
         public string roll_num { get; set; }
         public string dept {  get; set; }
         public string addmission_year { get; set; }
-
-
     }
 
     public class Teacher : Registraton_models

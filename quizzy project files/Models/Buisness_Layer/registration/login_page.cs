@@ -35,8 +35,6 @@ namespace Quizzy.Models.Buisness_Layer.registration
                 return "Password not found"; 
             }
         }
-
-
         public DataTable getUserData(login_models model)
         {
             DataTable dt = log.user_get(model);
@@ -58,8 +56,5 @@ namespace Quizzy.Models.Buisness_Layer.registration
             DataTable dt = log.user_get(model);
             return dt.Rows[0]["role"].ToString();
         }
-
-
-
     }
 }

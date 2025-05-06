@@ -4,6 +4,7 @@
     var quiz = ViewBag.quiz as Quizzy.Models.Buisness_Models.quiz_model;
     var mcqs = ViewBag.mcq as System.Data.DataTable;
 }
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,15 +20,20 @@
 <body>
     <div class="main-wrapper">
         <div class="content-wrapper">
-            <!-- Navigation Bar -->
+            <!-- Navbar -->
             <nav class="navbar">
-                <a href="#" class="logo">
-                    <i class="fas fa-list-check"></i>
-                    Quizzy
-                </a>
-                <div class="student-profile">
-                    <div class="avatar">JS</div>
-                    <div class="student-name">John Smith</div>
+                <div class="navbar-container">
+                    <div class="navbar-brand">
+                        <i class="fas fa-graduation-cap brand-icon"></i>
+                        <h2>Quizzy</h2>
+                    </div>
+                    <div class="navbar-menu">
+                        <div class="user-welcome">
+                            <i class="fas fa-user-circle user-icon"></i>
+                            <span>Welcome, @student.first_name @student.last_name </span>
+                        </div>
+                        <a href="/student/logOut" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+                    </div>
                 </div>
             </nav>
 

@@ -10,7 +10,6 @@ namespace Quizzy.Models.Buisness_Layer.quiz
         {
             return checkQuizDL.showAllQuizzes(id);
         }
-
         public static DataTable studentQuizzes(int id)
         {
             return checkQuizDL.studentQuizzes(id);
