@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/mainpage_teacher.css">
+
 </head>
 <body>
 
@@ -71,7 +72,6 @@
             <h2>Students Management</h2>
         </div>
 
-
         @if (quizDt != null && quizDt.Rows.Count > 0)
         {
             <div class="quiz-container">
@@ -97,7 +97,7 @@
                                     <a href="/createQuiz/checkQuiz/@quizId" class="quiz-btn">
                                         Check Quiz <i class="fas fa-arrow-right"></i>
                                     </a>
-                              
+
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,20 @@
+-- Modifications in quiz
+
+ALTER TABLE quiz 
+MODIFY COLUMN quiz_name VARCHAR(100) NOT NULL;
+
+ALTER TABLE quiz 
+MODIFY COLUMN subjectID int NOT NULL;
+
+
+
+-- Modifications in login_details
+
+ALTER TABLE login_details 
+MODIFY COLUMN email VARCHAR(100) PRIMARY KEY;
+
+ALTER TABLE login_details 
+MODIFY COLUMN password VARCHAR(100) NOT NULL;
+
+ALTER TABLE login_details 
+MODIFY COLUMN role enum('teacher', 'student') NOT NULL;

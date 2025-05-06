@@ -3,7 +3,6 @@
     var subject = ViewBag.subject as Quizzy.Models.Buisness_Models.subject_model;
 
 }
-    @model Quizzy.Models.Buisness_Models.Announcements
 
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +45,6 @@
             <div class="course-badge">
                 <i class="fas fa-book-open"></i>
 
-
                 <span>Current Course: @subject.code - @subject.name</span>
             </div>
         </div>
@@ -64,33 +62,45 @@
         </div>
     }
 
-    <!-- Student Quiz Evaluation Form -->
-    <!-- Student Quiz Evaluation Table -->
-    <div class="evaluation-section">
-        <h2>Evaluate Quiz Results</h2>
-        <table class="evaluation-table">
-            <thead>
-                <tr>
-                    <th>Registration Number</th>
-                    <th>Student Name</th>
-                    <th>MCQ Marks</th>
-                    <th>Check Quiz</th>
-                    <th>Send Result</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (System.Data.DataRow row in ViewBag.quizAttempts.Rows)
+    <div class="student-assignments">
+        <div class="section-header">
+            <h2>Check Quizzes of the Students</h2>
+        </div>
+        
+            
+                @if (ViewBag.quizAttempts != null && ViewBag.quizAttempts.Rows.Count > 0)
                 {
-                    <tr>
-                        <td>@row["RegistrationNumber"]</td>
-                        <td>@row["Name"]</td>
-                        <td>@row["MCQMarks"] </td>
-                        <td><button class="btn check"><i class="fas fa-pen"></i> Check</button></td>
-                        <td><button class="btn send"><i class="fas fa-paper-plane"></i> Send</button></td>
-                    </tr>
+                    <table class="evaluation-table">
+                        <thead>
+                        <tr>
+                            <th>Registration Number</th>
+                            <th>Student Name</th>
+                            <th>MCQ Marks</th>
+                            <th>Check Quiz</th>
+                            <th>Send Result</th>
+                        </tr>
+                        </thead>
+
+                    <tbody> 
+                    @foreach (System.Data.DataRow row in ViewBag.quizAttempts.Rows)
+                    {
+                        <tr>
+                            <td>@row["RegistrationNumber"]</td>
+                            <td>@row["Name"]</td>
+                            <td>@row["MCQMarks"] </td>
+                            <td><button class="btn check"><i class="fas fa-pen"></i> Check</button></td>
+                            <td><button class="btn send"><i class="fas fa-paper-plane"></i> Send</button></td>
+                        </tr>
+                    }
+                    </tbody>
+
+                    </table>
                 }
-            </tbody>
-        </table>
+                else
+                {
+            <p style = "text-align: center; font-size: 16px; color: black;">No student has attempted the quiz yet.</p>
+                }
+            
     </div>
 
 

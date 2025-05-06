@@ -25,8 +25,17 @@ namespace Quizzy.Models.Buisness_Layer.registration
         public string GetPwd(login_models model)
         {
             DataTable dt = log.getPwd(model);
-            return dt.Rows[0]["password"].ToString();
+
+            if (dt != null && dt.Rows.Count > 0 && dt.Columns.Contains("password"))
+            {
+                return dt.Rows[0]["password"].ToString();
+            }
+            else
+            {
+                return "Password not found"; 
+            }
         }
+
 
         public DataTable getUserData(login_models model)
         {
