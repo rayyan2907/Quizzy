@@ -9,8 +9,10 @@ namespace Quizzy.Controllers.attemptQuiz
 {
     public class quizAttemptController : Controller
     {
-        public IActionResult attemptQuiz()
+        [HttpGet]
+        public IActionResult attemptQuiz(string quizId)
         {
+            Console.WriteLine("we have quiz id " + quizId + "to solve");
             var stu = HttpContext.Session.GetObject<Student>("StudentObj");
 
             if (stu == null)
@@ -20,26 +22,70 @@ namespace Quizzy.Controllers.attemptQuiz
                 return RedirectToAction("index", "login");
 
             }
-            string id = HttpContext.Session.GetString("courseID");
+           
+            
 
-            if (string.IsNullOrEmpty(id))
-            {
-                TempData["log"] = "Session not found";
 
-                return RedirectToAction("index", "login");
+            quiz_model q = new quiz_model();
+            q = createQuizBL.getQuizObj(quizId);
+            Console.WriteLine($"A new object of quiz {q.quizName} and time is {q.given_time} has been created");
 
-            }
+            HttpContext.Session.SetObject("quizObj", q);
 
+            string id = q.subID;
             subject_model sub = subjectBL.getSubfromid(id);
-
+            HttpContext.Session.SetObject("subjectObj", sub);
             Console.WriteLine($"course id is {id}");
 
-            Console.WriteLine($"student with name {stu.first_name} {stu.last_name} is going to attempt the quiz of {sub.name}");
+            Console.WriteLine($"student with name {stu.first_name} {stu.last_name} is going to attempt the quiz {q.quizID} and {q.quizName} of {sub.name}");
+            ViewBag.quiz = q;   
 
 
             ViewBag.stu = stu;
             ViewBag.sub = sub;
             return View("attemptQuiz");
         }
+
+        public IActionResult attempt()
+        {
+            var stu = HttpContext.Session.GetObject<Student>("StudentObj");
+            var sub = HttpContext.Session.GetObject<subject_model>("subjectObj");
+            quiz_model quiz = new quiz_model();
+            quiz = HttpContext.Session.GetObject<quiz_model>("quizObj");
+            
+            if (stu == null || sub==null || quiz==null)
+            {
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
+
+            }
+            Console.WriteLine($"A new object of quiz {quiz.quizName} and time is {quiz.given_time} has been fetched");
+
+
+
+            DataTable dt = createQuizBL.getMcqs(quiz);
+            DataTable dt2 = createQuizBL.getShqs(quiz);
+            Console.WriteLine("rows are"+dt.Rows.Count);
+            ViewBag.QuizData = quiz;
+            ViewBag.mcqs = dt;
+            ViewBag.sub = sub;
+            ViewBag.stu = stu;
+            ViewBag.shq = dt2;
+
+
+
+            return View("attemptPage");
+
+
+
+
+
+
+        }
+
+
+       
+
     }
 }
