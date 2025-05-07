@@ -114,18 +114,10 @@ namespace Quizzy.Controllers.student
             string enroll = enrolled.Rows[0]["enroll"].ToString();
 
             DataTable compquiz = StudentBL.statsComplete(stu.stuID);
-            string completequiz = "";
-            string upcomm = "";
-            if (compquiz.Rows.Count > 0)
-            {
-                completequiz = compquiz.Rows[0]["comp_quiz"].ToString();
-            }
+            string completequiz = compquiz.Rows[0]["comp_quiz"].ToString();
 
-                DataTable upcomming = StudentBL.statsUpcomming(stu.stuID);
-            if (compquiz.Rows.Count > 0)
-            {
-                upcomm = upcomming.Rows[0]["upcoming"].ToString();
-            }
+            DataTable upcomming = StudentBL.statsUpcomming(stu.stuID);
+            string upcomm = upcomming.Rows[0]["upcoming"].ToString();
 
             DataTable aggregate = StudentBL.statsAvg(stu.stuID);
 
