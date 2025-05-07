@@ -127,26 +127,28 @@
     <script>
         // Quiz data with improved structure for different question types
         const quizData = [
-            @if(mcqs != null && mcqs.Rows.Count>0){
-        @foreach (System.Data.DataRow row in mcqs.Rows)
-        {
-            <text>
-                    {
-                        id: @row["mcqID"],
-                    type: "multiple-choice",
-                    question: "@row["statement"]",
-                    options: [
+        @if (mcqs != null && mcqs.Rows.Count > 0)
+{
+    for (int i = 0; i < mcqs.Rows.Count; i++)
+    {
+        var row = mcqs.Rows[i];
+        <text>
+            {
+                id: @row["mcqID"],
+                type: "multiple-choice",
+                question: "@row["statement"]",
+                options: [
                     "@row["option_A"]",
                     "@row["option_B"]",
                     "@row["option_C"]",
                     "@row["option_D"]"
-                    ],
-                   
-                    userAnswer: null
-                                    },
-            </text>
-        }
-            }
+                ],
+                userAnswer: null
+            }@((i < mcqs.Rows.Count - 1 || (shq != null && shq.Rows.Count > 0)) ? "," : "")
+        </text>
+    }
+}
+
             @if(shq != null && shq.Rows.Count>0){
 
         @foreach (System.Data.DataRow row in shq.Rows)
@@ -186,7 +188,6 @@
 
         // Initialize quiz
         function initQuiz() {
-            restoreFromLocalStorage()
 
             renderQuestion(currentQuestionIndex);
             renderPagination();
@@ -315,7 +316,6 @@
                 renderQuestion(currentQuestionIndex);
                 renderPagination();
                 updateInfoBar();
-                saveToLocalStorage();
             }
         }
 
@@ -447,21 +447,7 @@
         // Adjust layout on resize
         window.addEventListener('resize', adjustLayout);
 
-        function saveToLocalStorage() {
-    localStorage.setItem('quizAnswers', JSON.stringify(quizData));
-    }
-    function restoreFromLocalStorage() {
-        const saved = localStorage.getItem('quizAnswers');
-        if (saved) {
-            const parsed = JSON.parse(saved);
-            parsed.forEach((q, i) => {
-                if (quizData[i]) {
-                    quizData[i].userAnswer = q.userAnswer;
-                }
-            });
-        }
-    }
-
+      
     </script>
 </body>
 
