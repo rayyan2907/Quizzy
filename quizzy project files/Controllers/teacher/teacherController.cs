@@ -35,11 +35,19 @@ namespace Quizzy.Controllers.teacher
             DataTable enrolled = teacherBL.statsTotalstu(subject.subjectID);
             string enroll = enrolled.Rows[0]["total_stu"].ToString();
 
+            string completequiz = "";
+            string upcomm = "";
             DataTable compquiz = teacherBL.statsComplete(subject.subjectID);
-            string completequiz = compquiz.Rows[0]["quizes"].ToString();
+            if (compquiz.Rows.Count > 0)
+            {
+                completequiz = compquiz.Rows[0]["quizes"].ToString();
+            }
 
             DataTable upcomming = teacherBL.statsUpcomming(subject.subjectID);
-            string upcomm = upcomming.Rows[0]["quizes"].ToString();
+            if (upcomming.Rows.Count > 0)
+            {
+                upcomm = upcomming.Rows[0]["quizes"].ToString();
+            }
 
             DataTable aggregate = teacherBL.statsAvg(subject.subjectID);
 
