@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MimeKit;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Ocsp;
+using Quizzy.Helpers;
 using Quizzy.Models.Buisness_Layer.registration;
 using Quizzy.Models.Buisness_Models;
 using System.Data;
@@ -156,6 +157,7 @@ namespace Quizzy.Controllers.login
                    
 
                 }
+
                 return RedirectToAction("index");
 
             }
@@ -168,6 +170,8 @@ namespace Quizzy.Controllers.login
 
         public IActionResult register(Registraton_models reg)
         {
+            HttpContext.Session.SetObject("register", reg);
+
             Console.WriteLine($"user with email {reg.email} and role {reg.role} is trying to sign up");
             Signup signup = new Signup();
             DataTable dt = signup.check(reg);
@@ -190,9 +194,7 @@ namespace Quizzy.Controllers.login
                     // Save OTP in session (or a static/global variable temporarily)
                     HttpContext.Session.SetString("EmailOTP", generatedOtp);
 
-                    HttpContext.Session.SetString("UserRole", reg.role);
-                    HttpContext.Session.SetString("UserEmail", reg.email);
-                    HttpContext.Session.SetString("UserPassword", reg.password);
+                    
 
 
                     Console.WriteLine($"Otp {generatedOtp} has been sent to email {reg.email}");
@@ -270,22 +272,22 @@ namespace Quizzy.Controllers.login
         {
             string serverAddress = $"{Request.Scheme}://{Request.Host}";
             string loginUrl = $"{serverAddress}/login/index";
-            string role = HttpContext.Session.GetString("UserRole");
-            string email = HttpContext.Session.GetString("UserEmail");
-            string password = HttpContext.Session.GetString("UserPassword");
+            Registraton_models reg = HttpContext.Session.GetObject<Registraton_models>("register");
 
-            stu.email = email;
-            stu.role = role;
-            stu.password = password;
+            if (reg == null)
+            {
+                TempData["log"] = "There was an error in registration";
 
-
-            HttpContext.Session.Remove("UserRole");
-            HttpContext.Session.Remove("UserEmail");
-            HttpContext.Session.Remove("UserPassword");
-
-
-
-
+                return RedirectToAction("index", "login");
+            }
+            else
+            {
+                Console.WriteLine($"we have got the obj of studednt with emial {reg.email} and role = {reg.role}");
+                stu.email = reg.email;
+                stu.password = reg.password;
+                stu.role=reg.role;
+                
+            }
             
             signUp_student signUp_Student = new signUp_student();
             string msg = signUp_Student.reg(stu);
@@ -293,6 +295,7 @@ namespace Quizzy.Controllers.login
             if (msg == "Registration Successfull")
             {
                 TempData["Check"] = msg;
+                HttpContext.Session.Remove("register");
 
                 // Send confirmation email
                 var message = new MimeMessage();
@@ -369,25 +372,27 @@ namespace Quizzy.Controllers.login
             string serverAddress = $"{Request.Scheme}://{Request.Host}";
             string loginUrl = $"{serverAddress}/login/index";
             ViewBag.Success = "Email Verified Successfully";
-            string role = HttpContext.Session.GetString("UserRole");
-            string email = HttpContext.Session.GetString("UserEmail");
-            string password = HttpContext.Session.GetString("UserPassword");
+            Registraton_models reg = HttpContext.Session.GetObject<Registraton_models>("register");
 
-            model.email = email;
-            model.role = role;
-            model.password = password;
+            if (reg == null)
+            {
+                TempData["log"] = "There was an error in registration";
 
+                return RedirectToAction("index", "login");
+            }
+            else
+            {
+                model.email = reg.email;
+                model.password = reg.password;
+                model.role = reg.role;
 
-            HttpContext.Session.Remove("UserRole");
-            HttpContext.Session.Remove("UserEmail");
-            HttpContext.Session.Remove("UserPassword");
-
+            }
             string msg = teacher.reg(model);
 
             if (msg == "Registration Successfull")
             {
                 TempData["Check"] = msg;
-
+                HttpContext.Session.Remove("register");
                 // Send confirmation email
                 var message = new MimeMessage();
                 message.From.Add(new MailboxAddress("Quizzy - Modern Quiz System", "mrayyan403@gmail.com"));
@@ -455,11 +460,10 @@ namespace Quizzy.Controllers.login
         [HttpPost]
         public IActionResult EnterOtp(string otpInput)
         {
+            Registraton_models reg = HttpContext.Session.GetObject<Registraton_models>("register");
 
             string savedOtp = HttpContext.Session.GetString("EmailOTP");
-            string role = HttpContext.Session.GetString("UserRole");
-            string email = HttpContext.Session.GetString("UserEmail");
-            Console.WriteLine($"user with email {email} has entered otp {otpInput} and origanal otp is {savedOtp} and the role is {role}");
+            Console.WriteLine($"user with email {reg.email} has entered otp {otpInput} and origanal otp is {savedOtp} and the role is {reg.role}");
             if (savedOtp == otpInput)
             {
                 
@@ -467,13 +471,13 @@ namespace Quizzy.Controllers.login
                 HttpContext.Session.Remove("EmailOTP"); // Clear session after success
                 TempData["Success"] = "Email Verified Successfully";
 
-                if (role == "student")
+                if (reg.role == "student")
                 {
                     
 
                     return RedirectToAction("stuReg");
                 }
-                else if (role == "teacher")
+                else if (reg.role == "teacher")
                 {
                     return RedirectToAction("teacherReg");
                 }
