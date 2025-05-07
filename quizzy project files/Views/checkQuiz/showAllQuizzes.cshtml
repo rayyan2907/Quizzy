@@ -1,112 +1,121 @@
-﻿@{
-    var teacher = ViewBag.teacher as Quizzy.Models.Buisness_Models.Teacher;
-    var subject = ViewBag.subject as Quizzy.Models.Buisness_Models.subject_model;
-    var quizDt = ViewBag.quiz as System.Data.DataTable;
-}
+﻿    @{
+        var teacher = ViewBag.teacher as Quizzy.Models.Buisness_Models.Teacher;
+        var subject = ViewBag.subject as Quizzy.Models.Buisness_Models.subject_model;
+        var quizDt = ViewBag.quiz as System.Data.DataTable;
+    }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Manage Students - Quizzy</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="~/css/mainpage_teacher.css">
+        <link rel="stylesheet" href="~/css/studentMain.css">
+    </head>
+    <body>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Students - Quizzy</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="~/css/mainpage_teacher.css">
-    <link rel="stylesheet" href="~/css/studentMain.css">
-    
-</head>
-<body>
-
-
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="navbar-container">
-            <div class="navbar-brand">
-
-                <i class="fas fa-graduation-cap brand-icon"></i>
-                <h2>Quizzy</h2>
-            </div>
-            <div class="navbar-menu">
-                <div class="user-welcome">
-                    <i class="fas fa-user-circle user-icon"></i>
-                    <span>Welcome, @teacher.first_name @teacher.last_name</span>
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="navbar-container">
+                <div class="navbar-brand">
+                    <i class="fas fa-graduation-cap brand-icon"></i>
+                    <h2>Quizzy</h2>
                 </div>
-                <a href="/teacher/logOut" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+                <div class="navbar-menu">
+                    <div class="user-welcome">
+                        <i class="fas fa-user-circle user-icon"></i>
+                        <span>Welcome, @teacher.first_name @teacher.last_name</span>
+                    </div>
+                    <a href="/teacher/logOut" class="btn-logout">
+                        <i class="fas fa-sign-out-alt"></i> Log Out
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Go Back Button -->
+        <a href="/teacher/home" class="btn-go-back">
+            <i class="fas fa-arrow-left"></i> Go Back
+        </a>
+
+        <!-- Dashboard Header -->
+        <div class="content-wrapper">
+            <div class="dashboard-header">
+                <h1>Teacher Dashboard</h1>
+                <div class="course-badge">
+                    <i class="fas fa-book-open"></i>
+                    <span>Current Course: @subject.code - @subject.name</span>
+                </div>
             </div>
         </div>
-    </nav>
-    <a href="/teacher/home" class="btn-go-back">
-        <i class="fas fa-arrow-left"></i> Go Back
-    </a>
-    <div class="content-wrapper">
-        <div class="dashboard-header">
-            <h1>Teacher Dashboard</h1>
-            <div class="course-badge">
-                <i class="fas fa-book-open"></i>
 
-                <span>Current Course: @subject.code - @subject.name</span>
-            </div>
-        </div>
-    </div>
-    @if (TempData["Check"] != null)
-    {
-        <div style="color: #07fc03; font-size: 16px; text-align: center;">
-            @TempData["Check"]
-        </div>
-    }
-    @if (TempData["log"] != null)
-    {
-        <div style="color: red; font-size: 16px; text-align: center;">
-            @TempData["log"]
-        </div>
-    }
+        <!-- TempData Messages -->
+        @if (TempData["Check"] != null)
+        {
+            <div class="temp-message success">@TempData["Check"]</div>
+        }
+        @if (TempData["log"] != null)
+        {
+            <div class="temp-message error">@TempData["log"]</div>
+        }
 
-    <!-- Student Assignment Section -->
-    <div class="student-assignments">
-        <div class="section-header">
-            <h2>Students Management</h2>
-        </div>
-
-
+        <!-- Quizzes Section -->
         @if (quizDt != null && quizDt.Rows.Count > 0)
         {
-            <div class="quiz-container">
-                @foreach (System.Data.DataRow row in quizDt.Rows)
-                {
-                    string quizName = row["quiz_name"].ToString();
-                    int quizId = Convert.ToInt32(row["quizID"]);
+            bool hasAssignedQuiz = false;
 
-                    <div class="quiz-card">
-                        <div class="quiz-header">
-                            <div>
-                                <h3 class="quiz-title">@quizName</h3>
-                                
-                            </div>
-                        </div>
-                        <div class="quiz-body">
-                            <div class="quiz-action">
+            <div class="student-assignments">
+                <div class="section-header">
+                    <h2>Created Quizzes</h2>
+                </div>
 
-                                <a href="/checkQuiz/showQuizStudents/@quizId" class="quiz-btn">
+                <div class="quiz-container">
+
+                    @foreach (System.Data.DataRow row in quizDt.Rows)
+                    {
+                        if (Convert.ToInt32(row["is_asssign"]) == 1)
+                        {
+                            hasAssignedQuiz = true;
+                            string quizName = row["quiz_name"].ToString();
+                            int quizId = Convert.ToInt32(row["quizID"]);
+
+                            <div class="quiz-card">
+                                <div class="quiz-header">
+                                    <h3 class="quiz-title">@quizName</h3>
+                                </div>
+                                <div class="quiz-body">
+                                    <div class="quiz-action">
+
+                                    <a href="/checkQuiz/showQuizStudents/@quizId" class="quiz-btn">
                                         Check Quiz <i class="fas fa-arrow-right"></i>
                                     </a>
 
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                }
+                        }
+                    }
+
+                    @if (!hasAssignedQuiz)
+                    {
+                        <p class="no-quiz-text">No quizzes are assigned to the students.</p>
+                    }
+                </div>
             </div>
         }
         else
         {
-            <p>No quizzes available.</p>
+            <p class="no-quiz-text">No quizzes available.</p>
         }
-        <!-- Footer Section -->
-        <div class="dashboard-footer">
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
             <p class="footer-message">Happy Teaching, @teacher.first_name @teacher.last_name!</p>
             <p class="copyright">&copy; 2025 Quizzy. All rights reserved.</p>
-        </div>
-</body>
+        </footer>
 
-</html>
+    </body>
+    </html>

@@ -13,7 +13,7 @@ namespace Quizzy.Controllers.createQuiz
 {
     public class createQuizController : Controller
     {
-        public IActionResult quizMake()
+        public IActionResult quizMake()                         
         {
             var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
             var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
@@ -71,7 +71,6 @@ namespace Quizzy.Controllers.createQuiz
             Console.WriteLine("quiz id in post is " + id);
             return View("updateQuiz",quiz);                
         }
-
         public IActionResult updatequiz_2()
         {
             var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
@@ -105,7 +104,6 @@ namespace Quizzy.Controllers.createQuiz
         }
 
         [HttpPost]   
-        
         public IActionResult deletequiz(string id)
         {
             var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
@@ -847,9 +845,6 @@ namespace Quizzy.Controllers.createQuiz
             Console.WriteLine("quiz obj destroyed");
 
             return RedirectToAction("showMcq_2", new { id = m.quizID });
-
-
-
         }
 
         [HttpPost]
@@ -1190,6 +1185,5 @@ namespace Quizzy.Controllers.createQuiz
             }
             return RedirectToAction("shoqShqForUpdate");
         }
-
     }
 }
