@@ -11,13 +11,9 @@ namespace Quizzy.Models.Buisness_Layer.quiz
         {
             return getQuizDL.getQuiz( id );
         }
-
         public static quiz_model getQuizdata(string id)
         {
             return getQuizDL.getQuizData( id );
         }
-
-      
-        
     }
 }

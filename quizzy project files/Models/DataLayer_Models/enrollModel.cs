@@ -4,7 +4,6 @@
     {
         public int stuID {  get; set; }
         public int courseID { get; set; }
-
         public bool status { get; set; }
     }
 }

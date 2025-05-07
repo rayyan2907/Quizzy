@@ -8,11 +8,9 @@ namespace Quizzy.Models.Buisness_Layer.teacher
 {
     public class teacherBL
     {
-
         public static Teacher getData(string id )
         {
             teacherDL teacherDL = new teacherDL();
-
             Teacher model = new Teacher();
             model = teacherDL.getTeac( id );
             return model;
@@ -21,7 +19,6 @@ namespace Quizzy.Models.Buisness_Layer.teacher
         public DataTable getSub(Teacher t)
         {
             getSubject getSubject = new getSubject();
-
             DataTable table = getSubject.getSub(t.teachID);
             return table;   
         }
@@ -30,8 +27,6 @@ namespace Quizzy.Models.Buisness_Layer.teacher
         {
             return teacherDL.announcement(id);
         }
-
-
         public static DataTable statsTotalstu(string id)
         {
             return teacherDL.statsTotalStu(id);

@@ -20,6 +20,7 @@ namespace Quizzy.Controllers.quiz
                 return RedirectToAction("index", "login");
 
             }
+
             string id = HttpContext.Session.GetString("courseID");
 
             if (string.IsNullOrEmpty(id))
@@ -31,21 +32,15 @@ namespace Quizzy.Controllers.quiz
             }
 
             subject_model sub = subjectBL.getSubfromid(id);
-
             Console.WriteLine($"course id is {id}");
-
             Console.WriteLine($"student with name {stu.first_name} {stu.last_name} is opening the quizes of the course {sub.name}");
-
             DataTable dt = stu_quizBL.getquiz(sub.subjectID);
 
             ViewBag.quiz =  dt;
-
             ViewBag.stu = stu;
             ViewBag.sub = sub;
             return View("~/Views/student/showQuizes.cshtml");
         }
-
-
 
         public IActionResult showAttempts()
         {

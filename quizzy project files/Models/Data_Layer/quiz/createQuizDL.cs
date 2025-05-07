@@ -182,8 +182,7 @@ namespace Quizzy.Models.Data_Layer.quiz
             s.shortQuestion = dt.Rows[0]["question"].ToString();
             s.shqID = id;
             Console.WriteLine("shq id assigne " + s.shqID);
-         
-
+        
             return s;
 
         }

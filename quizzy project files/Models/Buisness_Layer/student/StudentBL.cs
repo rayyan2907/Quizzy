@@ -19,20 +19,16 @@ namespace Quizzy.Models.Buisness_Layer.student
             return student;
 
         }
-
-
         public static DataTable getStuCourses(string id)
         {
             DataTable dt = studentDL.getStuSub(id);
             return dt;
         }
-
         public static DataTable getAllStuCourses()
         {
             DataTable dt = studentDL.getAllStuSub();
             return dt;
         }
-
 
         public static bool stuEnroll(Enrollment e)
         {
@@ -52,7 +48,6 @@ namespace Quizzy.Models.Buisness_Layer.student
             return studentDL.enrollStu(em);
             
         }
-
         public static bool CheckIfEnrolled(Enrollment e)
         {
             DataTable dt = studentDL.checkIfEnrolled(e);
@@ -65,7 +60,6 @@ namespace Quizzy.Models.Buisness_Layer.student
                 return false;
             }
         }
-
         public static subject_model getSub(string id)
         {
             subject_model subjectModel = new subject_model();
@@ -73,11 +67,9 @@ namespace Quizzy.Models.Buisness_Layer.student
 
             return subjectModel;
         }
-
         public static Teacher getTec(string id)
         {
             Teacher t = new Teacher();
-
             t= studentDL.getTeacher(id);
             return t;
         }
@@ -92,18 +84,14 @@ namespace Quizzy.Models.Buisness_Layer.student
         {
             return studentDL.updateEnroll(e);
         }
-
         public static bool deleteAssign(Enrollment e)
         {
             return studentDL.unEnroll(e);
         }
-
-
         public static DataTable statsEnroll(string id)
         {
             return studentDL.statsEnroll(id);
         }
-
         public static DataTable statsComplete(string id)
         {
             return studentDL.statsCompQuiz(id);

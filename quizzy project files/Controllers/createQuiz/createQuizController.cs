@@ -13,9 +13,8 @@ namespace Quizzy.Controllers.createQuiz
 {
     public class createQuizController : Controller
     {
-        public IActionResult quizMake()
+        public IActionResult quizMake()                         
         {
-           
             var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
             var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
             var quiz = HttpContext.Session.GetObject<quiz_model>("quizObj");
@@ -28,7 +27,6 @@ namespace Quizzy.Controllers.createQuiz
             if (teacher == null || subject == null)
             {
                 TempData["log"] = "Session not found";
-
                 return RedirectToAction("index", "login");
             }
             if (HttpContext.Session.GetString("quizID") != null)
@@ -46,7 +44,6 @@ namespace Quizzy.Controllers.createQuiz
 
             return View("showQuiz");
         }
-
         
         [HttpPost]
 
@@ -60,9 +57,9 @@ namespace Quizzy.Controllers.createQuiz
             if (teacher == null || subject == null)
             {
                 TempData["log"] = "Session not found";
-
                 return RedirectToAction("index", "login");
             }
+
             ViewBag.subject = subject;
             ViewBag.teacher = teacher;
 
@@ -74,9 +71,6 @@ namespace Quizzy.Controllers.createQuiz
             Console.WriteLine("quiz id in post is " + id);
             return View("updateQuiz",quiz);                
         }
-
-        
-
         public IActionResult updatequiz_2()
         {
             var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
@@ -91,11 +85,8 @@ namespace Quizzy.Controllers.createQuiz
             else
             {
                 TempData["log"] = "Session not found";
-
                 return RedirectToAction("index", "login");
             }
-
-            
 
             if (teacher == null || subject == null)
             {
@@ -109,13 +100,10 @@ namespace Quizzy.Controllers.createQuiz
             quiz_model quiz = createQuizBL.getQuizObj(id);
             Console.WriteLine(" the quiz is updated" + id);
 
-
-
             return View("updateQuiz", quiz);
         }
 
         [HttpPost]   
-        
         public IActionResult deletequiz(string id)
         {
             var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
@@ -124,7 +112,6 @@ namespace Quizzy.Controllers.createQuiz
             if (teacher == null || subject == null)
             {
                 TempData["log"] = "Session not found";
-
                 return RedirectToAction("index", "login");
             }
 
@@ -150,7 +137,6 @@ namespace Quizzy.Controllers.createQuiz
             if (teacher == null || subject == null)
             {
                 TempData["log"] = "Session not found";
-
                 return RedirectToAction("index", "login");
             }
 
@@ -160,8 +146,6 @@ namespace Quizzy.Controllers.createQuiz
             if (assigned)
             {
                 TempData["Check"] = "Quiz assigned successfully.";
-
-
 
                 DataTable dt = teacherBL.annnounce(subject.subjectID);
                 Console.WriteLine(dt.Rows.Count);
@@ -224,7 +208,6 @@ namespace Quizzy.Controllers.createQuiz
                                     </html>
                                     "
 
-
                     };
                     try
                     {
@@ -240,7 +223,6 @@ namespace Quizzy.Controllers.createQuiz
                     {
                         TempData["log"] = "Internet not connected";
                         Console.WriteLine("internet issue");
-
                     }
                     Console.WriteLine($"Email sent to {stu_first} {stu_last} at email {stu_email}");
                 }
@@ -248,7 +230,6 @@ namespace Quizzy.Controllers.createQuiz
                 TempData["Check"] = "Email sent to all the enrolled students";
                 return RedirectToAction("quizMake");
             }
-        
             else
             {
                 TempData["log"] = "Cannot assign Quiz";
@@ -270,13 +251,10 @@ namespace Quizzy.Controllers.createQuiz
             }
             Console.WriteLine($"the quiz with id {id} is un assigned");
 
-
             bool assigned = createQuizBL.unassignQuiz(id);
             if (assigned)
             {
                 TempData["Check"] = "Quiz unassigned successfully.";
-
-
 
                 DataTable dt = teacherBL.annnounce(subject.subjectID);
                 Console.WriteLine(dt.Rows.Count);
@@ -298,7 +276,6 @@ namespace Quizzy.Controllers.createQuiz
                     string stu_first = row["first_name"].ToString();
                     string stu_last = row["last_name"].ToString();
                     string stu_email = row["email"].ToString();
-
 
                     var message = new MimeMessage();
                     message.From.Add(new MailboxAddress("Quizzy - Modern Quiz System", "mrayyan403@gmail.com"));
@@ -338,7 +315,6 @@ namespace Quizzy.Controllers.createQuiz
                                             </html>
                                             "                                
 
-
                     };
                     try
                     {
@@ -354,7 +330,6 @@ namespace Quizzy.Controllers.createQuiz
                     {
                         TempData["log"] = "Internet not connected";
                         Console.WriteLine("internet issue");
-
                     }
                     Console.WriteLine($"Email sent to {stu_first} {stu_last} at email {stu_email}");
                 }
@@ -379,13 +354,10 @@ namespace Quizzy.Controllers.createQuiz
             if (teacher == null || subject == null)
             {
                 TempData["log"] = "Session not found";
-
                 return RedirectToAction("index", "login");
             }
 
-
             DataTable dt = getQuizBL.getQuiz(subject.subjectID);
-
             ViewBag.subject = subject;
             ViewBag.teacher = teacher;
             return View("newQuiz");
@@ -395,27 +367,20 @@ namespace Quizzy.Controllers.createQuiz
 
         public IActionResult newQuiz(quiz_model quiz)
         {
-
             var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
             var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
 
             if (teacher == null || subject == null)
             {
                 TempData["log"] = "Session not found";
-
                 return RedirectToAction("index", "login");
             }
 
             Console.WriteLine(quiz.quizName);
-
             quiz.subID = subject.subjectID;
-            
-
-
             ViewBag.subject = subject;
             ViewBag.teacher = teacher;
             quiz.isAssign = false;
-
 
             string serverAddress = $"{Request.Scheme}://{Request.Host}";
             string loginUrl = $"{serverAddress}/login/index";
@@ -424,10 +389,7 @@ namespace Quizzy.Controllers.createQuiz
             {
                 TempData["Check"] = msg;
 
-
-
                 Console.WriteLine(msg);
-
 
                 var message = new MimeMessage();
                 message.From.Add(new MailboxAddress("Quizzy - Modern Quiz System", "mrayyan403@gmail.com"));
@@ -469,7 +431,7 @@ namespace Quizzy.Controllers.createQuiz
                                   </body>
                                 </html>
                                 "
-                                                };
+                         };
                 try
                 {
                     using (var client = new MailKit.Net.Smtp.SmtpClient())
@@ -484,11 +446,8 @@ namespace Quizzy.Controllers.createQuiz
                 {
                     TempData["Check"] = "Internet not connected";
                     Console.WriteLine("internet issue");
-
                 }
-
                 Console.WriteLine("email sent to teavher");
-
             }
             else
             {
@@ -505,9 +464,6 @@ namespace Quizzy.Controllers.createQuiz
                     return RedirectToAction("quizMake");
                 }
 
-
-
-
                 Console.WriteLine($"the quiz annoucement for {quiz.quizName} is being sent to all reg maills ");
 
                 foreach (DataRow row in dt.Rows)
@@ -515,8 +471,6 @@ namespace Quizzy.Controllers.createQuiz
                     string stu_first = row["first_name"].ToString();
                     string stu_last = row["last_name"].ToString();
                     string stu_email = row["email"].ToString();
-
-
                     var message = new MimeMessage();
                     message.From.Add(new MailboxAddress("Quizzy - Modern Quiz System", "mrayyan403@gmail.com"));
                     message.To.Add(new MailboxAddress(stu_first + " " + stu_last, stu_email));
@@ -555,8 +509,6 @@ namespace Quizzy.Controllers.createQuiz
                                     </body>
                                     </html>
                                     "
-
-
                     };
                     try
                     {
@@ -572,26 +524,20 @@ namespace Quizzy.Controllers.createQuiz
                     {
                         TempData["log"] = "Internet not connected";
                         Console.WriteLine("internet issue");
-
                     }
                     Console.WriteLine($"Email sent to {stu_first} {stu_last} at email {stu_email}");
                 }
 
                 TempData["Check"] = "Email sent to all the enrolled students";
                 return RedirectToAction("quizMake");
-
             }
-
-
             return RedirectToAction("quizMake");
         }
-
 
         [HttpPost]
 
         public IActionResult updatequizdata(quiz_model quiz)
         {
-
             var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
             var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
             if (HttpContext.Session.GetString != null)
@@ -602,27 +548,18 @@ namespace Quizzy.Controllers.createQuiz
             else
             {
                 TempData["log"] = "Session not found";
-
                 return RedirectToAction("index", "login");
-
             }
             if (teacher == null || subject == null)
             {
                 TempData["log"] = "Session not found";
-
                 return RedirectToAction("index", "login");
             }
 
             Console.WriteLine(quiz.quizName);
-
             quiz.subID = subject.subjectID;
-
-
-
             ViewBag.subject = subject;
             ViewBag.teacher = teacher;
-
-
 
             string serverAddress = $"{Request.Scheme}://{Request.Host}";
             string loginUrl = $"{serverAddress}/login/index";
@@ -631,10 +568,7 @@ namespace Quizzy.Controllers.createQuiz
             {
                 TempData["Check"] = msg;
 
-
-
                 Console.WriteLine(msg);
-
 
                 var message = new MimeMessage();
                 message.From.Add(new MailboxAddress("Quizzy - Modern Quiz System", "mrayyan403@gmail.com"));
@@ -694,9 +628,7 @@ namespace Quizzy.Controllers.createQuiz
                     Console.WriteLine("internet issue");
 
                 }
-
                 Console.WriteLine("email sent to teavher");
-
             }
             else
             {
@@ -713,9 +645,6 @@ namespace Quizzy.Controllers.createQuiz
                     return RedirectToAction("quizMake");
                 }
 
-
-
-
                 Console.WriteLine($"the quiz annoucement for {quiz.quizName} is being sent to all reg maills ");
 
                 foreach (DataRow row in dt.Rows)
@@ -723,7 +652,6 @@ namespace Quizzy.Controllers.createQuiz
                     string stu_first = row["first_name"].ToString();
                     string stu_last = row["last_name"].ToString();
                     string stu_email = row["email"].ToString();
-
 
                     var message = new MimeMessage();
                     message.From.Add(new MailboxAddress("Quizzy - Modern Quiz System", "mrayyan403@gmail.com"));
@@ -743,8 +671,6 @@ namespace Quizzy.Controllers.createQuiz
                                             <p>You have been assigned a new quiz {quiz.quizName} by <strong>Prof. {teacher.first_name} {teacher.last_name}</strong> for the course <strong>{subject.code} - {subject.name}</strong>.</p>
 
                                             <p style=""color: #D84315; font-weight: bold;"">Please complete this quiz as soon as possible. You will have only {quiz.given_time} mins to solve once you start the quiz </p>
-
-
                                           
                                             <hr style=""border: none; border-top: 1px solid #ccc; margin: 20px 0;"" />
                                             <p>Best regards,</p>
@@ -763,7 +689,6 @@ namespace Quizzy.Controllers.createQuiz
                                     </body>
                                     </html>
                                     "
-
 
                     };
                     try
@@ -787,15 +712,9 @@ namespace Quizzy.Controllers.createQuiz
 
                 TempData["Check"] = "Email sent to all the enrolled students";
                 return RedirectToAction("quizMake");
-
             }
-
-
             return RedirectToAction("quizMake");
         }
-
-
-       
 
         [HttpPost]
         public IActionResult showMcq(string id)
@@ -926,11 +845,7 @@ namespace Quizzy.Controllers.createQuiz
             Console.WriteLine("quiz obj destroyed");
 
             return RedirectToAction("showMcq_2", new { id = m.quizID });
-
-
-
         }
-
 
         [HttpPost]
         public IActionResult showShqs(string id)
@@ -946,28 +861,19 @@ namespace Quizzy.Controllers.createQuiz
 
                 return RedirectToAction("index", "login");
             }
-           
-            
-
+          
             quiz_model q = new quiz_model();
-
             q = createQuizBL.getQuizObj(id);
-
             HttpContext.Session.SetObject("quizObj", q);
-
-
             Console.WriteLine("id in controller is " + id);
-
             Console.WriteLine($"quiz id is {q.quizID} and {q.subID}");
             DataTable dt = createQuizBL.getShqs(q);
             Console.WriteLine("Rows in shq DataTable: " + dt.Rows.Count);
-           
 
             ViewBag.subject = subject;
             ViewBag.teacher = teacher;
             ViewBag.shq = dt;
             ViewBag.id = id;
-
 
             return View("shqTable");
         }
@@ -983,30 +889,24 @@ namespace Quizzy.Controllers.createQuiz
             if (teacher == null || subject == null)
             {
                 TempData["log"] = "Session not found";
-
                 return RedirectToAction("index", "login");
             }
             
-
             quiz_model q = new quiz_model();
-
             q = createQuizBL.getQuizObj(id);
 
             HttpContext.Session.SetObject("quizObj", q);
-
 
             Console.WriteLine("id in controller is " + id);
 
             Console.WriteLine($"quiz id is {q.quizID} and {q.subID}");
             DataTable dt = createQuizBL.getShqs(q);
             Console.WriteLine("Rows in shq DataTable: " + dt.Rows.Count);
-           
 
             ViewBag.subject = subject;
             ViewBag.teacher = teacher;
             ViewBag.shq = dt;
             ViewBag.id = id;
-
 
             return View("shqTable");
         }
@@ -1023,8 +923,6 @@ namespace Quizzy.Controllers.createQuiz
                 return RedirectToAction("index", "login");
             }
 
-
-
             ViewBag.subject = subject;
             ViewBag.teacher = teacher;
             return View("createShq");
@@ -1037,11 +935,9 @@ namespace Quizzy.Controllers.createQuiz
             var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
             var quiz = HttpContext.Session.GetObject<quiz_model>("quizObj");
 
-
             if (teacher == null || subject == null || quiz==null)
             {
                 TempData["log"] = "Session not found";
-
                 return RedirectToAction("index", "login");
             }
             Console.WriteLine("quiz obj made");
@@ -1065,12 +961,8 @@ namespace Quizzy.Controllers.createQuiz
             quiz = null;
             Console.WriteLine("quiz obj destroyed");
             return RedirectToAction("showShqs_2", new { id = s.quizID });
-
-
-
         }
 
-        
         public IActionResult showMcqForUpdate()
         {
             string id;
@@ -1083,7 +975,6 @@ namespace Quizzy.Controllers.createQuiz
             else
             {
                 TempData["log"] = "Session not found";
-
                 return RedirectToAction("index", "login");
             }
             Console.WriteLine("id at start is " + id);
@@ -1094,16 +985,11 @@ namespace Quizzy.Controllers.createQuiz
             if (teacher == null || subject == null)
             {
                 TempData["log"] = "Session not found";
-
                 return RedirectToAction("index", "login");
             }
 
-
             quiz_model q = new quiz_model();
-
             q = createQuizBL.getQuizObj(id);
-
-           
 
             Console.WriteLine($"quiz id is {q.quizID} and {q.subID} for update ");
             DataTable dt = createQuizBL.getMcqs(q);
@@ -1111,8 +997,6 @@ namespace Quizzy.Controllers.createQuiz
             ViewBag.teacher = teacher;
             ViewBag.mcq = dt;
             ViewBag.id = id;
-
-
             return View("updateMcqTable");
         }
         public IActionResult shoqShqForUpdate()
@@ -1142,11 +1026,9 @@ namespace Quizzy.Controllers.createQuiz
                 return RedirectToAction("index", "login");
             }
 
-
             quiz_model q = new quiz_model();
 
             q = createQuizBL.getQuizObj(id);
-
 
             Console.WriteLine($"quiz id is {q.quizID} and {q.subID}");
             DataTable dt = createQuizBL.getShqs(q);
@@ -1154,7 +1036,6 @@ namespace Quizzy.Controllers.createQuiz
             ViewBag.teacher = teacher;
             ViewBag.shq = dt;
             ViewBag.id = id;
-
 
             return View("updateShortTable");
         }
@@ -1168,7 +1049,6 @@ namespace Quizzy.Controllers.createQuiz
             {
                 TempData["Check"] = "MCQ deleted successfully";
                 Console.WriteLine("mcq deleted successfully");
-
             }
             else
             {
@@ -1176,7 +1056,6 @@ namespace Quizzy.Controllers.createQuiz
             }
             return RedirectToAction("showMcqForUpdate");
         }
-
 
         [HttpGet]
         public IActionResult deleteShq(string id)
@@ -1187,7 +1066,6 @@ namespace Quizzy.Controllers.createQuiz
             {
                 TempData["Check"] = "SHQ deleted successfully";
                 Console.WriteLine("SHQ deleted successfully");
-
             }
             else
             {
@@ -1196,11 +1074,9 @@ namespace Quizzy.Controllers.createQuiz
             return RedirectToAction("shoqShqForUpdate");
         }
 
-
         [HttpGet]
         public IActionResult updateMcq(string id)
         {
-            
             var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
             var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
 
@@ -1222,15 +1098,11 @@ namespace Quizzy.Controllers.createQuiz
             return View("updateMcq", m);
         }
 
-
         [HttpPost]
         public IActionResult updateMcqData(mcq_model m)
         {
-
             var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
             var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
-
-            
 
             if (teacher == null || subject == null)
             {
@@ -1242,7 +1114,6 @@ namespace Quizzy.Controllers.createQuiz
             ViewBag.teacher = teacher;
 
             Console.WriteLine("mcq id in presentation to be update is " + m.mcq_id);
-
 
             bool flag = createQuizBL.updateMcq(m);
             if (flag)
@@ -1256,19 +1127,12 @@ namespace Quizzy.Controllers.createQuiz
                 TempData["log"] = "Error in updating MCQ";
             }
 
-
-
             return RedirectToAction("showMcqForUpdate");
         }
-
-
-
-
 
         [HttpGet]
         public IActionResult updateShq(string id)
         {
-
             var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
             var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
 
@@ -1289,15 +1153,11 @@ namespace Quizzy.Controllers.createQuiz
             return View("updateShq", s);
         }
 
-
         [HttpPost]
         public IActionResult updateShqData(shq_model s)
         {
-
             var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
             var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
-
-
 
             if (teacher == null || subject == null)
             {
@@ -1313,23 +1173,17 @@ namespace Quizzy.Controllers.createQuiz
 
             Console.WriteLine("shq id in main is "+s.shqID);
 
-
             bool flag = createQuizBL.updateSHQ(s);
             if (flag)
             {
                 TempData["Check"] = "SHQ updated successfully";
                 Console.WriteLine("SHQ updated successfully");
-
             }
             else
             {
                 TempData["log"] = "Error in updating SHQ";
             }
-
-
-
             return RedirectToAction("shoqShqForUpdate");
         }
-
     }
 }

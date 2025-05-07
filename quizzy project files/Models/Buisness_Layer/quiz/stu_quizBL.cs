@@ -10,24 +10,18 @@ namespace Quizzy.Models.Buisness_Layer.quiz
         {
             return stu_quizDL.getQuizes(id);
         }
-
         public static DataTable getopenquiz()
         {
             return stu_quizDL.getopenQuizes();
-
-
         }
         public static DataTable getresults(string id)
         {
             return stu_quizDL.getResults(id);
         }
-
-
         public static DataTable getresultsOpenQuiz(string id)
         {
             return stu_quizDL.getResultsOpenQuiz(id);
         }
-
         public static DataTable getattemptquiz(string id)
         {
             return stu_quizDL.getattemptQuizes(id);
