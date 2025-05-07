@@ -1,0 +1,9 @@
+-- Foriegn Key Corrected
+ALTER TABLE attempt 
+DROP FOREIGN KEY attempt_ibfk_3;
+
+ALTER TABLE attempt  
+ADD CONSTRAINT fk_attempt_students  
+FOREIGN KEY (studentID) REFERENCES students(studentID)  
+ON DELETE CASCADE  
+ON UPDATE CASCADE;

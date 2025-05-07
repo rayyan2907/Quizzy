@@ -9,7 +9,6 @@ namespace Quizzy.Models.Buisness_Layer.registration
         {
             Getrole getrole = new Getrole();
             DataTable dt = getrole.user_get(registraton);
-
             return dt;
         }
     }

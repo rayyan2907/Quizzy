@@ -9,7 +9,6 @@
         public string? opt3 { get; set; }
         public string? opt4 { get; set; }
         public string corr_opt { get; set; }
-
         public string quizID { get; set; }
     }
 

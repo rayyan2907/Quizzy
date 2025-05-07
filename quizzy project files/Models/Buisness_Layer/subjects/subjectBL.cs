@@ -7,8 +7,7 @@ namespace Quizzy.Models.Buisness_Layer.subjects
     public class subjectBL
     {
         public string subjectAdd(subject_model sub)
-        {
-            
+        { 
             int teachID;
             bool isTeach = int.TryParse(sub.teacherID, out teachID);
             if (!isTeach)
@@ -26,17 +25,13 @@ namespace Quizzy.Models.Buisness_Layer.subjects
             if (flag)
             {
                 Console.WriteLine($"a new subject {sub.name} and code {sub.code} has been added");
-
                 return "Subject added successfully";
             }
             else
             {
                 return "Error in adding subject";
             }
-
-           
         }
-
         public static subject_model getSubfromid(string id)
         {
             subject_model model = new subject_model();

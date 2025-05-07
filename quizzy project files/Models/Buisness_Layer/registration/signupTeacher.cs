@@ -22,13 +22,11 @@ namespace Quizzy.Models.Buisness_Layer.registration
 
             bool isStudentSave = signup.addTeacher(teac);
 
-
             if (!isStudentSave)
             {
                 return "Error in Registration";
             }
             bool isLoginSave = signup.addLogin(model);
-
 
             if (isLoginSave && isStudentSave)
             {

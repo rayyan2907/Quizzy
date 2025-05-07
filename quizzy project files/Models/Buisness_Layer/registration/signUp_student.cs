@@ -14,7 +14,6 @@ namespace Quizzy.Models.Buisness_Layer.registration
             RegistrationModel login = new RegistrationModel();
             StudentModel student = new StudentModel();
 
-
             int roll_number;
             bool isRoll = int.TryParse(stu.roll_num, out roll_number);
             if (!isRoll)
@@ -41,8 +40,6 @@ namespace Quizzy.Models.Buisness_Layer.registration
             if (!isStudentSave)
             {
                 return "Please Fill the data correctly";
-
-
             }
 
             bool isLoginSave = signup.addLogin(login);
@@ -55,9 +52,6 @@ namespace Quizzy.Models.Buisness_Layer.registration
             {
                 return "Please Fill the data correctly";
             }
-
         }
-
-
     }
 }
