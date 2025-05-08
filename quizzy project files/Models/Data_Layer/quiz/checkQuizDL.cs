@@ -12,7 +12,7 @@ namespace Quizzy.Models.Data_Layer.quiz
             return DatabaseHelper.Instance.GetData(query);
         }
 
-        public static DataTable studentQuizzes(int quizId)
+        public static DataTable studentQuizzes(string quizID)
         {
             string query = $@"
                 SELECT 
@@ -33,7 +33,7 @@ namespace Quizzy.Models.Data_Layer.quiz
                 LEFT JOIN mcqs m ON m.mcqID = ma.mcqID AND m.quizID = apt.quizID
                 LEFT JOIN shq_check sc ON sc.studentID = s.studentID
                 LEFT JOIN short_questions sq ON sq.shqID = sc.shqID AND sq.quizID = apt.quizID
-                WHERE apt.quizID = 101
+                WHERE apt.quizID = {quizID}
                 GROUP BY 
                     s.studentID, s.addmission_year, s.dept, s.roll_num, s.first_name, s.last_name;";
 

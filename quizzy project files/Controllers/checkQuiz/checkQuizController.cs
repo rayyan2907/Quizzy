@@ -48,8 +48,10 @@ namespace Quizzy.Controllers.checkQuiz
             return View("showAllQuizzes");
         }
 
-        public IActionResult showQuizStudents(int quizId)
+        public IActionResult showQuizStudents(string id)
         {
+
+            Console.WriteLine("quiz id is " + id);
             var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
             var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
 
@@ -67,7 +69,7 @@ namespace Quizzy.Controllers.checkQuiz
                 return RedirectToAction("index", "login");
             }
 
-            DataTable dt = checkQuizBL.studentQuizzes(quizId);
+            DataTable dt = checkQuizBL.studentQuizzes(id);
 
             if (teacher == null || subject == null)
             {

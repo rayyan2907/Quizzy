@@ -59,7 +59,6 @@ namespace Quizzy.Controllers.attemptQuiz
             DataTable dt2 = createQuizBL.getShqs(quiz);
 
             Console.WriteLine("rows are"+dt.Rows.Count);
-
             ViewBag.QuizData = quiz;
             ViewBag.mcqs = dt;
             ViewBag.sub = sub;

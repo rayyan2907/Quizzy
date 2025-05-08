@@ -1,0 +1,4 @@
+alter table attempt
+drop constraint attempt_ibfk_2;
+alter table attempt
+drop column subjectID;

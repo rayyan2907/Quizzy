@@ -1,8 +1,9 @@
 ﻿@{
     var student = ViewBag.stu as Quizzy.Models.Buisness_Models.Student;
     var sub = ViewBag.sub as Quizzy.Models.Buisness_Models.subject_model;
-    var quiz = ViewBag.quiz as Quizzy.Models.Buisness_Models.quiz_model;
+    var quiz = ViewBag.QuizData as Quizzy.Models.Buisness_Models.quiz_model;
     var mcqs = ViewBag.mcq as System.Data.DataTable;
+    var shq = ViewBag.shq as System.Data.DataTable;
 }
 
 <!DOCTYPE html>
@@ -11,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Attempt MCQs - Quizzy</title>
+    <title>Attempt Quiz - Quizzy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/css/attemptMcqs.css" />
 
@@ -22,18 +23,12 @@
         <div class="content-wrapper">
             <!-- Navbar -->
             <nav class="navbar">
-                <div class="navbar-container">
-                    <div class="navbar-brand">
-                        <i class="fas fa-graduation-cap brand-icon"></i>
-                        <h2>Quizzy</h2>
-                    </div>
-                    <div class="navbar-menu">
-                        <div class="user-welcome">
-                            <i class="fas fa-user-circle user-icon"></i>
-                            <span>Welcome, @student.first_name @student.last_name </span>
-                        </div>
-                        <a href="/student/logOut" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Log Out</a>
-                    </div>
+                <a href="#" class="logo">
+                    <i class="fas fa-graduation-cap brand-icon"></i>
+                    Quizzy
+                </a>
+                <div class="student-profile">
+                    <div class="student-name">@student.first_name @student.last_name</div>
                 </div>
             </nav>
 
@@ -45,7 +40,7 @@
                     </div>
                     <div class="info-text">
                         <div class="info-label">Quiz</div>
-                        <div class="info-value">Introduction to Computer Science</div>
+                        <div class="info-value">@quiz.quizName (@sub.code)</div>
                     </div>
                 </div>
 
@@ -54,6 +49,7 @@
                         <i class="fas fa-question-circle"></i>
                     </div>
                     <div class="info-text">
+
                         <div class="info-label">Questions</div>
                         <div class="info-value" id="questions-counter">1 / 10</div>
                     </div>
@@ -131,100 +127,43 @@
     <script>
         // Quiz data with improved structure for different question types
         const quizData = [
+        @if (mcqs != null && mcqs.Rows.Count > 0)
+{
+    for (int i = 0; i < mcqs.Rows.Count; i++)
+    {
+        var row = mcqs.Rows[i];
+        <text>
             {
-                id: 1,
+                id: @row["mcqID"],
                 type: "multiple-choice",
-                question: "What does CPU stand for?",
+                question: "@row["statement"]",
                 options: [
-                    "Central Processing Unit",
-                    "Computer Personal Unit",
-                    "Central Process Unit",
-                    "Central Processor Unit"
+                    "@row["option_A"]",
+                    "@row["option_B"]",
+                    "@row["option_C"]",
+                    "@row["option_D"]"
                 ],
-                correctAnswer: 0,
                 userAnswer: null
-            },
-            {
-                id: 2,
-                type: "multiple-choice",
-                question: "Which programming language is known as the 'mother of all programming languages'?",
-                options: [
-                    "Java",
-                    "Python",
-                    "C",
-                    "Assembly"
-                ],
-                correctAnswer: 2,
-                userAnswer: null
-            },
-            {
-                id: 3,
-                type: "short-answer",
-                question: "Explain the difference between primary and secondary memory in a computer system.",
-                userAnswer: ""
-            },
-            {
-                id: 4,
-                type: "short-answer",
-                question: "Describe how a binary search algorithm works and its time complexity.",
-                userAnswer: ""
-            },
-            {
-                id: 5,
-                type: "multiple-choice",
-                question: "Which data structure operates on a LIFO principle?",
-                options: [
-                    "Queue",
-                    "Stack",
-                    "Linked List",
-                    "Tree"
-                ],
-                correctAnswer: 1,
-                userAnswer: null
-            },
-            {
-                id: 6,
-                type: "multiple-choice",
-                question: "What is the time complexity of the quicksort algorithm in the average case?",
-                options: [
-                    "O(n)",
-                    "O(n²)",
-                    "O(n log n)",
-                    "O(log n)"
-                ],
-                correctAnswer: 2,
-                userAnswer: null
-            },
-            {
-                id: 7,
-                type: "short-answer",
-                question: "Explain the concept of encapsulation in object-oriented programming.",
-                userAnswer: ""
-            },
-            {
-                id: 8,
-                type: "short-answer",
-                question: "What is the difference between HTTP and HTTPS protocols?",
-                userAnswer: ""
-            },
-            {
-                id: 9,
-                type: "multiple-choice",
-                question: "Which of the following is not a valid JavaScript data type?",
-                options: [
-                    "String",
-                    "Boolean",
-                    "Character",
-                    "Number"
-                ],
-                correctAnswer: 2,
-                userAnswer: null
-            },
-            {
-                id: 10,
-                type: "short-answer",
-                question: "Explain the concept of recursion and provide a simple example.",
-                userAnswer: ""
+            }@((i < mcqs.Rows.Count - 1 || (shq != null && shq.Rows.Count > 0)) ? "," : "")
+        </text>
+    }
+}
+
+            @if(shq != null && shq.Rows.Count>0){
+
+        @foreach (System.Data.DataRow row in shq.Rows)
+        {
+            <text>
+                    {
+                        id: @row["shqID"],
+                    type: "short-answer",
+                    question: "@row["question"]",
+                    correctAnswer: null,
+                    userAnswer: "",
+
+                                                },
+            </text>
+        }
             }
         ];
 
@@ -232,7 +171,7 @@
         let currentQuestionIndex = 0;
         let totalQuestions = quizData.length;
         let timerInterval;
-        let secondsRemaining = 30 * 60; // 30 minutes in seconds
+        let secondsRemaining = @quiz.given_time * 60; // 30 minutes in seconds
 
         // DOM Elements
         const questionNumberEl = document.getElementById('question-number');
@@ -249,6 +188,7 @@
 
         // Initialize quiz
         function initQuiz() {
+
             renderQuestion(currentQuestionIndex);
             renderPagination();
             updateInfoBar();
@@ -274,12 +214,12 @@
             // Clear existing content
             questionContentEl.innerHTML = '';
 
-            // Render based on question type
-            if (question.type === "multiple-choice") {
-                renderMultipleChoice(question);
-            } else if (question.type === "short-answer") {
-                renderShortAnswer(question);
-            }
+                // Render based on question type
+                if (question.type === "multiple-choice") {
+                    renderMultipleChoice(question);
+                } else if  (question.type === "short-answer") {
+                    renderShortAnswer(question);
+                }
 
             // Update buttons state
             prevButton.disabled = index === 0;
@@ -448,7 +388,7 @@
         // Start timer
         function startTimer() {
             updateTimerDisplay();
-
+                
             timerInterval = setInterval(() => {
                 secondsRemaining--;
 
@@ -506,6 +446,8 @@
 
         // Adjust layout on resize
         window.addEventListener('resize', adjustLayout);
+
+      
     </script>
 </body>
 
