@@ -69,30 +69,45 @@
 
         @if (quizAttempts != null && quizAttempts.Rows.Count > 0)
         {
-                    <table class="evaluation-table">
-                        <thead>
-                        <tr>
-                            <th>Registration Number</th>
-                            <th>Student Name</th>
-                            <th>MCQs Marks</th>
-                            <th>SQs Marks</th>
-                            <th>Check Quiz</th>
-                            <th>Send Result</th>
-                        </tr>
-                        </thead>
+            <table class="evaluation-table">
+                <thead>
+                    <tr>
+                        <th>Registration Number</th>
+                        <th>Student Name</th>
+                        <th>MCQs Marks</th>
+                        <th>SQs Marks</th>
+                        <th>Check Quiz</th>
+                        <th>Send Result</th>
+                    </tr>
+                </thead>
 
-                    <tbody>
+                <tbody>
                     @foreach (System.Data.DataRow row in quizAttempts.Rows)
                     {
+                        var studentId = row["student_id"];
+                        var sqsPending = Convert.ToInt32(row["sqs_pending"]);
+
                         <tr>
                             <td>@row["registration_number"]</td>
                             <td>@row["name"]</td>
                             <td>@row["mcqs_marks"]</td>
-                            <td>@row["total_marks"]</td> 
-                            <td><button class="btn check"><i class="fas fa-pen"></i> Check</button></td>
-                            <td><button class="btn send"><i class="fas fa-paper-plane"></i> Send</button></td>
+                            <td>@row["sqs_marks"]</td>
+                            <td>
+                                @if (sqsPending == 1)
+                                {
+                                    <a href="/checkQuiz/SQCheck/@studentId" class="btn check" style="text-decoration: none;">Check</a>
+                                }
+                                else
+                                {
+                                    <a href="/checkQuiz/SQCheck/@studentId?quizId=@ViewBag.quizId" class="btn check" style="text-decoration: none; color: lawngreen;">Recheck</a>
+                                }
+                            </td>
+                            <td>
+                                <a href="/checQuiz/SendResult/@studentId" class=" btn send" style=" text-decoration: none;">Send</a>
+                            </td>
                         </tr>
                     }
+
                     </tbody>
 
                     </table>

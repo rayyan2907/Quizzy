@@ -7,13 +7,13 @@ namespace Quizzy.Models.Data_Layer.student
 {
     public class studentDL
     {
-        public Buisness_Models.Student getStu(string id)
+        public Buisness_Models.Student getStu(string s_id)
         {
-            string query = $"select studentID,first_name,last_name,dept,roll_num,addmission_year,email from students where studentID = '{id}'";
+            string query = $"select studentID,first_name,last_name,dept,roll_num,addmission_year,email from students where studentID = '{s_id}'";
             DataTable dt = DatabaseHelper.Instance.GetData(query);
 
             Student s = new Student();
-            s.stuID = id;
+            s.stuID = s_id;
             s.first_name = dt.Rows[0]["first_name"].ToString();
             s.last_name = dt.Rows[0]["last_name"].ToString();
             s.dept = dt.Rows[0]["dept"].ToString();

@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Globalization;
 using DBHelper;
 using MySql.Data.MySqlClient;
 
@@ -16,6 +17,7 @@ namespace Quizzy.Models.Data_Layer.quiz
         {
             string query = $@"
                 SELECT 
+                    s.studentID AS student_id,
                     CONCAT(s.addmission_year, '-', s.dept, '-', s.roll_num) AS registration_number,
                     CONCAT(s.first_name, ' ', s.last_name) AS name,
                     COUNT(CASE 
@@ -23,10 +25,17 @@ namespace Quizzy.Models.Data_Layer.quiz
                              THEN 1 
                          END) AS mcqs_marks,
                     IFNULL(SUM(sc.marks), 0) AS sqs_marks,
+
+                    CASE 
+                        WHEN SUM(sc.marks) IS NULL THEN 1
+                        ELSE 0
+                    END AS sqs_pending,
+
                     COUNT(CASE 
                              WHEN m.correct_opt = ma.answer 
                              THEN 1 
                          END) + IFNULL(SUM(sc.marks), 0) AS total_marks
+
                 FROM attempt apt
                 JOIN students s ON s.studentID = apt.studentID
                 LEFT JOIN mcq_answers ma ON ma.studentID = s.studentID
@@ -36,6 +45,18 @@ namespace Quizzy.Models.Data_Layer.quiz
                 WHERE apt.quizID = {quizID}
                 GROUP BY 
                     s.studentID, s.addmission_year, s.dept, s.roll_num, s.first_name, s.last_name;";
+
+            return DatabaseHelper.Instance.GetData(query);
+        }
+
+        public static DataTable AnswersOfStudent(string quizID, string studentID)
+        {
+            string query = @"
+                SELECT sq.question AS question
+                       sa.answer AS answer
+                FROM shq_answers sa 
+                JOIN short_questions sq USING(shqID)
+                WHERE sa.studentID = {studentID} AND sq.quizID = {quizID};";
 
             return DatabaseHelper.Instance.GetData(query);
         }

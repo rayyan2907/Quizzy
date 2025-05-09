@@ -1,0 +1,2 @@
+-- added is_sent column to results table
+alter table results add column is_sent bool not null default 0;

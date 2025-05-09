@@ -14,5 +14,10 @@ namespace Quizzy.Models.Buisness_Layer.quiz
         {
             return checkQuizDL.studentQuizzes(quizId);
         }
+
+        public static DataTable AnswersOfStudent(string quizID, string studentId)
+        {
+            return checkQuizDL.AnswersOfStudent(quizID, studentId);
+        }
     }
 }

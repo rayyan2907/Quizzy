@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Quizzy.Helpers;
 using Quizzy.Models.Buisness_Layer.quiz;
+using Quizzy.Models.Buisness_Layer.student;
 using Quizzy.Models.Buisness_Models;
+using Quizzy.Models.Data_Layer.student;
 using System.Data;
 
 namespace Quizzy.Controllers.checkQuiz
@@ -50,7 +52,6 @@ namespace Quizzy.Controllers.checkQuiz
 
         public IActionResult showQuizStudents(string id)
         {
-
             Console.WriteLine("quiz id is " + id);
             var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
             var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
@@ -81,6 +82,17 @@ namespace Quizzy.Controllers.checkQuiz
             ViewBag.teacher = teacher;
             ViewBag.quizAttempts = dt;
             return View("checkQuiz");
+        }
+
+        public IActionResult SQCheck(string quizID, string studentID)
+        {
+            Console.WriteLine("this is SQ check page for studentID = " + studentID);
+
+            Models.Buisness_Models.Student dt1 = StudentBL.getData(studentID.ToString());
+            DataTable dt2 = checkQuizBL.AnswersOfStudent(quizID, studentID);
+            ViewBag.student = dt1;
+            ViewBag.answers = dt2;
+            return View("checkSQ");
         }
     }
 }

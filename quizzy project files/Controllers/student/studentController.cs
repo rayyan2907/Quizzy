@@ -17,9 +17,6 @@ namespace Quizzy.Controllers.student
     {
         Student stu = new Student();
 
-
-       
-
         public IActionResult availableQuizes()
         {
 
