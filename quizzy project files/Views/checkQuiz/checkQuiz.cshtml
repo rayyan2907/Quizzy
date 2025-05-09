@@ -84,7 +84,7 @@
                 <tbody>
                     @foreach (System.Data.DataRow row in quizAttempts.Rows)
                     {
-                        var studentId = row["student_id"];
+                        int studentId = Convert.ToInt32( row["studentId"]);
                         var sqsPending = Convert.ToInt32(row["sqs_pending"]);
 
                         <tr>
@@ -95,15 +95,15 @@
                             <td>
                                 @if (sqsPending == 1)
                                 {
-                                    <a href="/checkQuiz/SQCheck/@studentId" class="btn check" style="text-decoration: none;">Check</a>
+                                    <a href="/checkQuiz/SQCheck?id=@studentId" class="btn check" style="text-decoration: none;">Check</a>
                                 }
                                 else
                                 {
-                                    <a href="/checkQuiz/SQCheck/@studentId?quizId=@ViewBag.quizId" class="btn check" style="text-decoration: none; color: lawngreen;">Recheck</a>
+                                    <a href="/checkQuiz/SQCheck?id=@studentId?" class="btn check" style="text-decoration: none; color: lawngreen;">Recheck</a>
                                 }
                             </td>
                             <td>
-                                <a href="/checQuiz/SendResult/@studentId" class=" btn send" style=" text-decoration: none;">Send</a>
+                                <a href="/checQuiz/SendResult?id=@studentId" class=" btn send" style=" text-decoration: none;">Send</a>
                             </td>
                         </tr>
                     }

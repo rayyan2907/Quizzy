@@ -49,12 +49,17 @@ namespace Quizzy.Controllers.checkQuiz
             ViewBag.teacher = teacher;
             return View("showAllQuizzes");
         }
-
+        [HttpGet]
         public IActionResult showQuizStudents(string id)
         {
             Console.WriteLine("quiz id is " + id);
             var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
             var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
+
+
+            quiz_model quiz = createQuizBL.getQuizObj(id);
+
+            HttpContext.Session.SetObject("quizObj", quiz);
 
             if (teacher == null)
             {
@@ -64,7 +69,7 @@ namespace Quizzy.Controllers.checkQuiz
             {
                 Console.WriteLine("Teacher session object found: " + teacher.first_name);
             }
-            if (teacher == null)
+            if (teacher == null || subject==null)
             {
                 TempData["log"] = "Session not found";
                 return RedirectToAction("index", "login");
@@ -83,13 +88,26 @@ namespace Quizzy.Controllers.checkQuiz
             ViewBag.quizAttempts = dt;
             return View("checkQuiz");
         }
-
-        public IActionResult SQCheck(string quizID, string studentID)
+        [HttpGet]
+        public IActionResult SQCheck(string id)
         {
-            Console.WriteLine("this is SQ check page for studentID = " + studentID);
+            Console.WriteLine("this is SQ check page for studentID = " + id);
+            var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
+            var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
+            var quiz = HttpContext.Session.GetObject<quiz_model>("quizObj");
+            if (teacher == null || subject == null ||quiz==null)
+            {
+                TempData["log"] = "Session not found";
+                return RedirectToAction("index", "login");
+            }
 
-            Models.Buisness_Models.Student dt1 = StudentBL.getData(studentID.ToString());
-            DataTable dt2 = checkQuizBL.AnswersOfStudent(quizID, studentID);
+
+            Models.Buisness_Models.Student dt1 = StudentBL.getData(id);
+            Console.WriteLine($"we have got student with name ", dt1.first_name, dt1.last_name);
+            DataTable dt2 = checkQuizBL.AnswersOfStudent(quiz.quizID, id);
+
+            ViewBag.subject = subject;
+            ViewBag.teacher = teacher;
             ViewBag.student = dt1;
             ViewBag.answers = dt2;
             return View("checkSQ");

@@ -17,6 +17,7 @@ namespace Quizzy.Models.Data_Layer.quiz
         {
             string query = $@"
                 SELECT 
+                    s.studentId,
                     s.studentID AS student_id,
                     CONCAT(s.addmission_year, '-', s.dept, '-', s.roll_num) AS registration_number,
                     CONCAT(s.first_name, ' ', s.last_name) AS name,
@@ -51,8 +52,8 @@ namespace Quizzy.Models.Data_Layer.quiz
 
         public static DataTable AnswersOfStudent(string quizID, string studentID)
         {
-            string query = @"
-                SELECT sq.question AS question
+            string query = $@"
+                SELECT shqID, sq.question AS question,
                        sa.answer AS answer
                 FROM shq_answers sa 
                 JOIN short_questions sq USING(shqID)
