@@ -15,7 +15,6 @@
     <title>Attempt Quiz - Quizzy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/css/attemptMcqs.css" />
-
 </head>
 
 <body>
@@ -49,7 +48,6 @@
                         <i class="fas fa-question-circle"></i>
                     </div>
                     <div class="info-text">
-
                         <div class="info-label">Questions</div>
                         <div class="info-value" id="questions-counter">1 / 10</div>
                     </div>
@@ -124,332 +122,503 @@
         </button>
     </div>
 
+    <!-- Modal for quiz submission confirmation -->
+    <div class="modal" id="submit-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Submit Quiz</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to submit this quiz?</p>
+                <div class="quiz-summary">
+                    <p><strong>Total Questions:</strong> <span id="total-questions-count">0</span></p>
+                    <p><strong>Attempted Questions:</strong> <span id="attempted-questions-count">0</span></p>
+                    <p><strong>Unattempted Questions:</strong> <span id="unattempted-questions-count">0</span></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancel-submit">Cancel</button>
+                <button class="btn btn-danger" id="confirm-submit">Submit Quiz</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for time's up -->
+    <div class="modal" id="timeout-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Time's Up!</h3>
+            </div>
+            <div class="modal-body">
+                <p>Your quiz time has expired. Your answers have been automatically submitted.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="timeout-ok">OK</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Quiz data with improved structure for different question types
         const quizData = [
         @if (mcqs != null && mcqs.Rows.Count > 0)
-{
-    for (int i = 0; i < mcqs.Rows.Count; i++)
-    {
-        var row = mcqs.Rows[i];
-        <text>
-            {
-                id: @row["mcqID"],
-                type: "multiple-choice",
-                question: "@row["statement"]",
-                options: [
-                    "@row["option_A"]",
-                    "@row["option_B"]",
-                    "@row["option_C"]",
-                    "@row["option_D"]"
-                ],
-                userAnswer: null
-            }@((i < mcqs.Rows.Count - 1 || (shq != null && shq.Rows.Count > 0)) ? "," : "")
-        </text>
-    }
-}
-
-            @if(shq != null && shq.Rows.Count>0){
-
-        @foreach (System.Data.DataRow row in shq.Rows)
         {
-            <text>
-                    {
-                        id: @row["shqID"],
-                    type: "short-answer",
-                    question: "@row["question"]",
-                    correctAnswer: null,
-                    userAnswer: "",
-
-                                                },
-            </text>
-        }
+            for (int i = 0; i < mcqs.Rows.Count; i++)
+            {
+                var row = mcqs.Rows[i];
+                <text>
+                            {
+                                id: @row["mcqID"],
+                                type: "multiple-choice",
+                                question: "@row["statement"]",
+                                options: [
+                                    "@row["option_A"]",
+                                    "@row["option_B"]",
+                                    "@row["option_C"]",
+                                    "@row["option_D"]"
+                                ],
+                                userAnswer: null,
+                                correct_opt: "@row["correct_opt"]"
+                            }@((i < mcqs.Rows.Count - 1 || (shq != null && shq.Rows.Count > 0)) ? "," : "")
+                </text>
             }
+        }
+
+        @if (shq != null && shq.Rows.Count > 0)
+        {
+            for (int i = 0; i < shq.Rows.Count; i++)
+            {
+                var row = shq.Rows[i];
+                <text>
+                            {
+                                id: @row["shqID"],
+                                type: "short-answer",
+                                question: "@row["question"]",
+                                userAnswer: ""
+                            }@(i < shq.Rows.Count - 1 ? "," : "")
+                </text>
+            }
+        }
         ];
 
         // Initialize variables
         let currentQuestionIndex = 0;
         let totalQuestions = quizData.length;
         let timerInterval;
-        let secondsRemaining = @quiz.given_time * 60; // 30 minutes in seconds
+        let secondsRemaining = @quiz.given_time * 60; // Convert minutes to seconds
+        let attemptId = null;
+        const studentId = "@student.stuID";
+        const quizId = "@quiz.quizID";
+        const subjectId = "@sub.subjectID";
+        let isSubmitting = false;
 
-        // DOM Elements
-        const questionNumberEl = document.getElementById('question-number');
-        const questionTextEl = document.getElementById('question-text');
-        const questionContentEl = document.getElementById('question-content');
+        // DOM elements
+        const questionNumber = document.getElementById('question-number');
+        const questionText = document.getElementById('question-text');
+        const questionContent = document.getElementById('question-content');
         const progressFill = document.getElementById('progress-fill');
-        const prevButton = document.getElementById('prev-btn');
-        const nextButton = document.getElementById('next-btn');
-        const finishButton = document.getElementById('finish-btn');
-        const paginationContainer = document.getElementById('question-pagination');
-        const questionsCounterEl = document.getElementById('questions-counter');
-        const attemptedCounterEl = document.getElementById('attempted-counter');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const finishBtn = document.getElementById('finish-btn');
+        const questionsCounter = document.getElementById('questions-counter');
+        const attemptedCounter = document.getElementById('attempted-counter');
         const timeRemainingEl = document.getElementById('time-remaining');
+        const questionPagination = document.getElementById('question-pagination');
 
-        // Initialize quiz
-        function initQuiz() {
+        // Modal elements
+        const submitModal = document.getElementById('submit-modal');
+        const closeModal = document.querySelector('.close-modal');
+        const cancelSubmit = document.getElementById('cancel-submit');
+        const confirmSubmit = document.getElementById('confirm-submit');
+        const totalQuestionsCount = document.getElementById('total-questions-count');
+        const attemptedQuestionsCount = document.getElementById('attempted-questions-count');
+        const unattemptedQuestionsCount = document.getElementById('unattempted-questions-count');
+        const timeoutModal = document.getElementById('timeout-modal');
+        const timeoutOk = document.getElementById('timeout-ok');
 
-            renderQuestion(currentQuestionIndex);
-            renderPagination();
-            updateInfoBar();
+        // Create attempt on page load
+        window.addEventListener('DOMContentLoaded', async () => {
+            await createAttempt();
+            updateQuestionDisplay();
+            updatePagination();
+            updateCounters();
             startTimer();
+            updateNavButtons();
+        });
 
-            // Add event listeners
-            prevButton.addEventListener('click', goToPreviousQuestion);
-            nextButton.addEventListener('click', goToNextQuestion);
-            finishButton.addEventListener('click', finishQuiz);
+        // Create attempt for the quiz
+        async function createAttempt() {
+            try {
+                const response = await fetch('/QuizAttempt/CreateAttempt', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        quizID: quizId,
+                        studentID: studentId,
+                        subjectID: subjectId
+                    })
+                });
 
-            // Adjust layout
-            adjustLayout();
-        }
-
-        // Render current question
-        function renderQuestion(index) {
-            const question = quizData[index];
-
-            // Update question text and number
-            questionNumberEl.textContent = `Question ${index + 1} of ${totalQuestions}`;
-            questionTextEl.textContent = question.question;
-
-            // Clear existing content
-            questionContentEl.innerHTML = '';
-
-                // Render based on question type
-                if (question.type === "multiple-choice") {
-                    renderMultipleChoice(question);
-                } else if  (question.type === "short-answer") {
-                    renderShortAnswer(question);
+                const data = await response.json();
+                if (data.success) {
+                    attemptId = data.attemptId;
+                    console.log('Attempt created with ID:', attemptId);
+                } else {
+                    alert(`Failed to create attempt: ${data.message}`);
+                    window.location.href = '/Student/Dashboard'; // Redirect to dashboard on failure
                 }
-
-            // Update buttons state
-            prevButton.disabled = index === 0;
-            nextButton.disabled = index === totalQuestions - 1;
-
-            // Update progress bar
-            updateProgressBar();
+            } catch (error) {
+                console.error('Error creating attempt:', error);
+                alert('Failed to connect to the server. Please try again.');
+            }
         }
 
-        // Render multiple choice question
-        function renderMultipleChoice(question) {
-            const optionsList = document.createElement('div');
-            optionsList.className = 'options-list';
+        // Display current question
+        function updateQuestionDisplay() {
+            const question = quizData[currentQuestionIndex];
+            questionNumber.textContent = `Question ${currentQuestionIndex + 1} of ${totalQuestions}`;
+            questionText.textContent = question.question;
+            questionsCounter.textContent = `${currentQuestionIndex + 1} / ${totalQuestions}`;
 
-            question.options.forEach((option, i) => {
-                const isSelected = question.userAnswer === i;
-                const optionMarker = String.fromCharCode(65 + i); // A, B, C, D...
+            // Clear previous content
+            questionContent.innerHTML = '';
 
-                const optionItem = document.createElement('div');
-                optionItem.className = `option-item${isSelected ? ' selected' : ''}`;
-                optionItem.dataset.index = i;
+            if (question.type === 'multiple-choice') {
+                const optionsContainer = document.createElement('div');
+                optionsContainer.className = 'options-container';
 
-                optionItem.innerHTML = `
-                            <div class="option-marker">${optionMarker}</div>
-                            <div class="option-text">${option}</div>
-                        `;
+                const optionLabels = ['A', 'B', 'C', 'D'];
 
-                optionItem.addEventListener('click', () => selectOption(i));
-                optionsList.appendChild(optionItem);
-            });
+                question.options.forEach((option, index) => {
+                    const optionLabel = optionLabels[index];
+                    const isSelected = question.userAnswer === optionLabel;
 
-            questionContentEl.appendChild(optionsList);
-        }
+                    const optionElement = document.createElement('div');
+                    optionElement.className = `option ${isSelected ? 'selected' : ''}`;
+                    optionElement.dataset.value = optionLabel;
 
-        // Render short answer question
-        function renderShortAnswer(question) {
-            const answerArea = document.createElement('div');
-            answerArea.className = 'answer-area';
-
-            answerArea.innerHTML = `
-                        <label for="short-answer">Your Answer:</label>
-                        <textarea id="short-answer" name="short-answer"
-                            placeholder="Type your answer here...">${question.userAnswer}</textarea>
+                    optionElement.innerHTML = `
+                        <div class="option-label">${optionLabel}</div>
+                        <div class="option-text">${option}</div>
                     `;
 
-            questionContentEl.appendChild(answerArea);
+                    optionElement.addEventListener('click', () => selectOption(optionElement, optionLabel));
+                    optionsContainer.appendChild(optionElement);
+                });
 
-            // Add event listener to save answer
-            const textarea = answerArea.querySelector('textarea');
-            textarea.addEventListener('input', (e) => {
-                quizData[currentQuestionIndex].userAnswer = e.target.value;
-                updateProgressBar();
-                renderPagination();
-                updateInfoBar();
+                questionContent.appendChild(optionsContainer);
+            } else if (question.type === 'short-answer') {
+                const textareaContainer = document.createElement('div');
+                textareaContainer.className = 'textarea-container';
+
+                const textarea = document.createElement('textarea');
+                textarea.className = 'short-answer-input';
+                textarea.placeholder = 'Type your answer here...';
+                textarea.value = question.userAnswer || '';
+
+                textarea.addEventListener('input', (e) => {
+                    saveShortAnswer(e.target.value);
+                });
+
+                textareaContainer.appendChild(textarea);
+                questionContent.appendChild(textareaContainer);
+            }
+
+            // Update progress bar
+            const progress = ((currentQuestionIndex + 1) / totalQuestions) * 100;
+            progressFill.style.width = `${progress}%`;
+        }
+
+        // Select option for MCQ
+        async function selectOption(optionElement, optionValue) {
+            // Remove selected class from all options
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
             });
+
+            // Add selected class to clicked option
+            optionElement.classList.add('selected');
+
+            // Update quiz data
+            const currentQuestion = quizData[currentQuestionIndex];
+            currentQuestion.userAnswer = optionValue;
+
+            // Save answer to server
+            await saveMcqAnswer(currentQuestion.id, optionValue);
+
+            // Update counters
+            updateCounters();
+            updatePagination();
         }
 
-        // Select an option for multiple choice questions
-        function selectOption(optionIndex) {
-            // Save user's answer
-            quizData[currentQuestionIndex].userAnswer = optionIndex;
+        // Save MCQ answer to server
+        async function saveMcqAnswer(mcqId, answer) {
+            try {
+                const response = await fetch('/QuizAttempt/SaveMcqAnswer', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        mcqID: mcqId,
+                        studentID: studentId,
+                        answer: answer
+                    })
+                });
 
-            // Update UI
-            document.querySelectorAll('.option-item').forEach((item, i) => {
-                if (i === optionIndex) {
-                    item.classList.add('selected');
-                } else {
-                    item.classList.remove('selected');
+                const data = await response.json();
+                if (!data.success) {
+                    console.error('Failed to save MCQ answer:', data.message);
                 }
-            });
-
-            // Update pagination, progress, and counters
-            renderPagination();
-            updateProgressBar();
-            updateInfoBar();
+            } catch (error) {
+                console.error('Error saving MCQ answer:', error);
+            }
         }
 
-        // Save short answer before navigation
-        function saveShortAnswer() {
-            const question = quizData[currentQuestionIndex];
-            if (question.type === "short-answer") {
-                const textarea = document.getElementById('short-answer');
-                if (textarea) {
-                    question.userAnswer = textarea.value;
+        // Save short answer to server
+        async function saveShortAnswer(answerText) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            currentQuestion.userAnswer = answerText;
+
+            try {
+                const response = await fetch('/QuizAttempt/SaveShqAnswer', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        shqID: currentQuestion.id,
+                        studentID: studentId,
+                        answer: answerText
+                    })
+                });
+
+                const data = await response.json();
+                if (!data.success) {
+                    console.error('Failed to save short answer:', data.message);
                 }
+
+                // Only update if answer has content
+                if (answerText.trim().length > 0) {
+                    updateCounters();
+                    updatePagination();
+                }
+            } catch (error) {
+                console.error('Error saving short answer:', error);
             }
         }
 
-        // Go to next question
-        function goToNextQuestion() {
-            if (currentQuestionIndex < totalQuestions - 1) {
-                saveShortAnswer();
-                currentQuestionIndex++;
-                renderQuestion(currentQuestionIndex);
-                renderPagination();
-                updateInfoBar();
-            }
+        // Update attempted questions counter
+        function updateCounters() {
+            const attemptedQuestions = quizData.filter(q =>
+                (q.type === 'multiple-choice' && q.userAnswer !== null) ||
+                (q.type === 'short-answer' && q.userAnswer && q.userAnswer.trim() !== '')
+            );
+
+            attemptedCounter.textContent = `${attemptedQuestions.length} / ${totalQuestions}`;
         }
 
-        // Go to previous question
-        function goToPreviousQuestion() {
-            if (currentQuestionIndex > 0) {
-                saveShortAnswer();
-                currentQuestionIndex--;
-                renderQuestion(currentQuestionIndex);
-                renderPagination();
-                updateInfoBar();
-            }
-        }
+        // Create and update pagination dots
+        function updatePagination() {
+            questionPagination.innerHTML = '';
 
-        // Go to specific question
-        function goToQuestion(index) {
-            saveShortAnswer();
-            currentQuestionIndex = index;
-            renderQuestion(currentQuestionIndex);
-            renderPagination();
-            updateInfoBar();
-        }
-
-        // Render pagination dots
-        function renderPagination() {
-            paginationContainer.innerHTML = '';
-
-            quizData.forEach((question, i) => {
+            quizData.forEach((question, index) => {
                 const dot = document.createElement('div');
+                dot.className = 'pagination-dot';
 
-                if (i === currentQuestionIndex) {
-                    dot.className = 'pagination-dot active';
-                } else if (isAttempted(question)) {
-                    dot.className = 'pagination-dot attempted';
-                } else {
-                    dot.className = 'pagination-dot';
+                if (index === currentQuestionIndex) {
+                    dot.classList.add('active');
                 }
 
-                // Make dots clickable to jump to questions
-                dot.addEventListener('click', () => goToQuestion(i));
-                paginationContainer.appendChild(dot);
+                if ((question.type === 'multiple-choice' && question.userAnswer !== null) ||
+                    (question.type === 'short-answer' && question.userAnswer && question.userAnswer.trim() !== '')) {
+                    dot.classList.add('answered');
+                }
+
+                dot.addEventListener('click', () => {
+                    currentQuestionIndex = index;
+                    updateQuestionDisplay();
+                    updatePagination();
+                    updateNavButtons();
+                });
+
+                questionPagination.appendChild(dot);
             });
         }
 
-        // Check if question is attempted
-        function isAttempted(question) {
-            if (question.type === "multiple-choice") {
-                return question.userAnswer !== null;
-            } else if (question.type === "short-answer") {
-                return question.userAnswer && question.userAnswer.trim() !== '';
+        // Update navigation buttons state
+        function updateNavButtons() {
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.disabled = currentQuestionIndex === totalQuestions - 1;
+        }
+
+        // Navigate to previous question
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                updateQuestionDisplay();
+                updatePagination();
+                updateNavButtons();
             }
-            return false;
-        }
+        });
 
-        // Update progress bar
-        function updateProgressBar() {
-            const attemptedCount = quizData.filter(q => isAttempted(q)).length;
-            const progressPercentage = (attemptedCount / totalQuestions) * 100;
-            progressFill.style.width = `${progressPercentage}%`;
-        }
+        // Navigate to next question
+        nextBtn.addEventListener('click', () => {
+            if (currentQuestionIndex < totalQuestions - 1) {
+                currentQuestionIndex++;
+                updateQuestionDisplay();
+                updatePagination();
+                updateNavButtons();
+            }
+        });
 
-        // Update info bar counters
-        function updateInfoBar() {
-            questionsCounterEl.textContent = `${currentQuestionIndex + 1} / ${totalQuestions}`;
-
-            const attemptedCount = quizData.filter(q => isAttempted(q)).length;
-            attemptedCounterEl.textContent = `${attemptedCount} / ${totalQuestions}`;
-        }
-
-        // Start timer
+        // Timer functions
         function startTimer() {
-            updateTimerDisplay();
-                
-            timerInterval = setInterval(() => {
-                secondsRemaining--;
-
-                if (secondsRemaining <= 0) {
-                    clearInterval(timerInterval);
-                    finishQuiz();
-                }
-
-                updateTimerDisplay();
-            }, 1000);
+            timerInterval = setInterval(updateTimer, 1000);
+            updateTimer();
         }
 
-        // Update timer display
-        function updateTimerDisplay() {
+        function updateTimer() {
+            if (secondsRemaining <= 0) {
+                clearInterval(timerInterval);
+                handleTimeUp();
+                return;
+            }
+
+            secondsRemaining--;
+
             const minutes = Math.floor(secondsRemaining / 60);
             const seconds = secondsRemaining % 60;
 
             timeRemainingEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-            // Add warning color when less than 5 minutes remaining
-            if (secondsRemaining < 300) {
-                timeRemainingEl.style.color = 'var(--danger-color)';
+            // Change color when time is running low
+            if (secondsRemaining < 60) {
+                timeRemainingEl.classList.add('warning');
+            }
+            if (secondsRemaining < 30) {
+                timeRemainingEl.classList.add('danger');
             }
         }
 
-        // Finish quiz
-        function finishQuiz() {
-            saveShortAnswer();
-            clearInterval(timerInterval);
+        function handleTimeUp() {
+            if (!isSubmitting) {
+                isSubmitting = true;
+                submitQuiz(true);
+                showTimeoutModal();
+            }
+        }
 
-            // Calculate results
-            let correctAnswers = 0;
-            quizData.forEach(question => {
-                if (question.type === "multiple-choice" && question.userAnswer === question.correctAnswer) {
-                    correctAnswers++;
+        // Show timeout modal
+        function showTimeoutModal() {
+            timeoutModal.style.display = 'flex';
+        }
+
+        // Handle timeout modal OK button
+        timeoutOk.addEventListener('click', () => {
+            timeoutModal.style.display = 'none';
+            window.location.href = `/Student/Dashboard`; // Redirect to dashboard
+        });
+
+        // Finish quiz button
+        finishBtn.addEventListener('click', () => {
+            showSubmitModal();
+        });
+
+        // Show submit confirmation modal
+        function showSubmitModal() {
+            const attemptedQuestions = quizData.filter(q =>
+                (q.type === 'multiple-choice' && q.userAnswer !== null) ||
+                (q.type === 'short-answer' && q.userAnswer && q.userAnswer.trim() !== '')
+            );
+
+            totalQuestionsCount.textContent = totalQuestions;
+            attemptedQuestionsCount.textContent = attemptedQuestions.length;
+            unattemptedQuestionsCount.textContent = totalQuestions - attemptedQuestions.length;
+
+            submitModal.style.display = 'flex';
+        }
+
+        // Modal close button
+        closeModal.addEventListener('click', () => {
+            submitModal.style.display = 'none';
+        });
+
+        // Cancel submit button
+        cancelSubmit.addEventListener('click', () => {
+            submitModal.style.display = 'none';
+        });
+
+        // Confirm submit button
+        confirmSubmit.addEventListener('click', async () => {
+            if (!isSubmitting) {
+                isSubmitting = true;
+                confirmSubmit.disabled = true;
+                confirmSubmit.textContent = 'Submitting...';
+
+                await submitQuiz(false);
+            }
+        });
+
+        // Submit quiz to server
+        async function submitQuiz(isTimeout) {
+            try {
+                const response = await fetch('/QuizAttempt/SubmitQuiz', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        quizID: quizId,
+                        studentID: studentId
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    if (!isTimeout) {
+                        alert('Quiz submitted successfully!');
+                        submitModal.style.display = 'none';
+                        window.location.href = `/Student/Dashboard`;
+                    }
+                } else {
+                    if (!isTimeout) {
+                        alert(`Failed to submit quiz: ${data.message}`);
+                        isSubmitting = false;
+                        confirmSubmit.disabled = false;
+                        confirmSubmit.textContent = 'Submit Quiz';
+                    }
                 }
-            });
-
-            alert(`Quiz submitted! You've completed ${quizData.filter(q => isAttempted(q)).length} out of ${totalQuestions} questions.`);
-            // In a real application, you would send the answers to the server here
+            } catch (error) {
+                console.error('Error submitting quiz:', error);
+                if (!isTimeout) {
+                    alert('Failed to connect to the server. Please try again.');
+                    isSubmitting = false;
+                    confirmSubmit.disabled = false;
+                    confirmSubmit.textContent = 'Submit Quiz';
+                }
+            }
         }
 
-        // Adjust layout for small screens
-        function adjustLayout() {
-            const viewportHeight = window.innerHeight;
-            const finishQuizHeight = document.querySelector('.finish-quiz').offsetHeight;
-            const contentWrapper = document.querySelector('.content-wrapper');
+        // Handle keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && !prevBtn.disabled) {
+                prevBtn.click();
+            } else if (e.key === 'ArrowRight' && !nextBtn.disabled) {
+                nextBtn.click();
+            }
+        });
 
-            // Ensure content has enough space considering the fixed finish button
-            contentWrapper.style.paddingBottom = `${finishQuizHeight}px`;
-        }
-
-        // Initialize the quiz when page loads
-        window.addEventListener('DOMContentLoaded', initQuiz);
-
-        // Adjust layout on resize
-        window.addEventListener('resize', adjustLayout);
-
-      
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === submitModal) {
+                submitModal.style.display = 'none';
+            }
+        });
     </script>
 </body>
-
 </html>
-
