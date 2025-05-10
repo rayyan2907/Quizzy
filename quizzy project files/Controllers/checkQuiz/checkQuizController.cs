@@ -92,25 +92,57 @@ namespace Quizzy.Controllers.checkQuiz
         public IActionResult SQCheck(string id)
         {
             Console.WriteLine("this is SQ check page for studentID = " + id);
+
             var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
             var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
             var quiz = HttpContext.Session.GetObject<quiz_model>("quizObj");
-            if (teacher == null || subject == null ||quiz==null)
+
+            if (teacher == null || subject == null || quiz == null)
             {
                 TempData["log"] = "Session not found";
                 return RedirectToAction("index", "login");
             }
 
+            var student = StudentBL.getData(id); // should return a Student object
 
-            Models.Buisness_Models.Student dt1 = StudentBL.getData(id);
-            Console.WriteLine($"we have got student with name ", dt1.first_name, dt1.last_name);
+            if (student == null)
+            {
+                Console.WriteLine("Student object not found!");
+            }
+
+            Console.WriteLine($"we have got student with name {student.first_name} {student.last_name}");
+
             DataTable dt2 = checkQuizBL.AnswersOfStudent(quiz.quizID, id);
 
             ViewBag.subject = subject;
             ViewBag.teacher = teacher;
-            ViewBag.student = dt1;
+            ViewBag.student = student;
             ViewBag.answers = dt2;
+
             return View("checkSQ");
+        }
+
+        [HttpPost]
+        public IActionResult AssignGrades(string studentId, string quizId, Dictionary<string, string> Grades)
+        {
+            foreach (var entry in Grades)
+            {
+                string shqID = entry.Key;
+                string markStr = entry.Value;
+
+                // Ensure mark is a valid decimal
+                if (decimal.TryParse(markStr, out decimal marks))
+                {
+                    checkQuizBL.AssignGradeToShortAnswer(studentId, shqID, quizId, marks);
+                }
+                else
+                {
+                    Console.WriteLine($"Invalid mark '{markStr}' for shqID {shqID}");
+                }
+            }
+
+            TempData["success"] = "Marks assigned successfully.";
+            return RedirectToAction("home", "teacher");
         }
     }
 }

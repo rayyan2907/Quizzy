@@ -1,0 +1,72 @@
+﻿body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f6f8;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 900px;
+    margin: 50px auto;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.question-card {
+    margin-bottom: 30px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px 25px;
+}
+
+.question-label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
+}
+
+.question-text, .answer-text {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 14px;
+    font-size: 15px;
+    color: #222;
+    border-radius: 6px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.grade-select {
+    width: 100px;
+    margin-top: 10px;
+    padding: 8px;
+    font-size: 15px;
+    border-radius: 6px;
+    border: 1px solid #bbb;
+}
+
+.submit-btn {
+    margin-top: 30px;
+    width: 100%;
+    background-color: #28a745;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+    .submit-btn:hover {
+        background-color: #218838;
+    }

@@ -18,7 +18,6 @@ namespace Quizzy.Controllers.quiz
                 TempData["log"] = "Session not found";
 
                 return RedirectToAction("index", "login");
-
             }
 
             string id = HttpContext.Session.GetString("courseID");
