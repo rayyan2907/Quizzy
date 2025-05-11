@@ -14,70 +14,53 @@ namespace Quizzy.Controllers
     public class QuizAttemptController : Controller
     {
         // Load quiz page for student attempt
-        public IActionResult AttemptQuiz(string quizId, string subjectId)
+        public IActionResult AttemptQuiz(string quizId)
         {
-            try
+            Console.WriteLine(quizId);
+           
+            // Get student information from session
+            var stu =  HttpContext.Session.GetObject<Student>("StudentObj");
+            var subject = HttpContext.Session.GetObject<subject_model>("subObj");
+            Console.WriteLine($"sttduent with name {stu.last_name} hs opened quiz {quizId} ");
+                Console.WriteLine($"with sub {subject.name}");
+
+            
+            if (stu == null || subject==null)
             {
-                // Get student information from session
-                var stu =  HttpContext.Session.GetObject<Student>("studentObj");
+                TempData["log"] = "Session not found";
 
-                if (string.IsNullOrEmpty(stu.stuID))
-                {
-                    return RedirectToAction("index", "login");
-                }
-                ;
-                
-                if (string.IsNullOrEmpty(stu.stuID))
-                {
-                    return RedirectToAction("index", "login");
-                }
-
-                // Get quiz details
-                quiz_model quiz = createQuizBL.getQuizObj(quizId);
-                
-                if (quiz == null)
-                {
-                    return NotFound();
-                }
-
-                // Get subject details
-                subject_model subject = subjectBL.getSubfromid(subjectId);
-                
-                if (subject == null)
-                {
-                    return NotFound();
-                }
-                
-                // Get student details
-                Student student = StudentBL.getData(stu.stuID);
-                
-                if (student == null)
-                {
-                    return NotFound();
-                }
-
-                // Get MCQs and SHQs for the quiz
-                DataTable mcqs = AttemptQuizBL.GetQuizMcqs(quizId);
-                DataTable shqs = AttemptQuizBL.GetQuizShqs(quizId);
-
-                // Set ViewBag data
-                ViewBag.stu = student;
-                ViewBag.sub = subject;
-                ViewBag.QuizData = quiz;
-                ViewBag.mcq = mcqs;
-                ViewBag.shq = shqs;
-
-                return View();
+                return RedirectToAction("index", "login");
             }
-            catch (Exception ex)
+            Console.WriteLine($"sttduent with name {stu.last_name} hs opened quiz {quizId} with sub {subject.name}");
+             
+
+            // Get quiz details
+            quiz_model quiz = createQuizBL.getQuizObj(quizId);
+                
+            if (quiz == null)
             {
-                // Log the error
-                Console.WriteLine("Error loading quiz: " + ex.Message);
-                
-                // Redirect to error page or show error message
-                ViewBag.ErrorMessage = "Failed to load quiz. Please try again later.";
-                return View("Error");
+
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
             }
+
+            // Get subject details
+                
+            // Get MCQs and SHQs for the quiz
+            DataTable mcqs = AttemptQuizBL.GetQuizMcqs(quizId);
+            DataTable shqs = AttemptQuizBL.GetQuizShqs(quizId);
+
+            // Set ViewBag data
+            ViewBag.stu = stu;
+            ViewBag.sub = subject;
+            ViewBag.QuizData = quiz;
+            ViewBag.mcq = mcqs;
+            ViewBag.shq = shqs;
+
+            return View();
+            
+           
         }
 
         // API endpoint to create a new attempt

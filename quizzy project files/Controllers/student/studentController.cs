@@ -349,13 +349,17 @@ namespace Quizzy.Controllers.student
 
             subject_model sub = subjectBL.getSubfromid(id);
 
+            HttpContext.Session.SetObject("subObj", sub);
+
             Console.WriteLine($"course id is {id}");
 
             Console.WriteLine($"student with name {stu.first_name} {stu.last_name} is opening the course {sub.name}");
 
-
+            Console.WriteLine("subject obj made");
             ViewBag.stu = stu;
             ViewBag.sub = sub;
+
+            
 
             return View("coursePage");
         }
