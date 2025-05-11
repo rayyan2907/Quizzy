@@ -14,159 +14,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="~/css/mainpage_teacher.css">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f4f6f8;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 50px auto;
-            background: #ffffff;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 35px;
-        }
-
-        .question-card {
-            margin-bottom: 30px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 20px 25px;
-        }
-
-        .question-label {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 6px;
-        }
-
-        .question-text, .answer-text {
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            padding: 14px;
-            font-size: 15px;
-            color: #222;
-            border-radius: 6px;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-
-        .grade-select {
-            width: 100px;
-            margin-top: 10px;
-            padding: 8px;
-            font-size: 15px;
-            border-radius: 6px;
-            border: 1px solid #bbb;
-        }
-
-        .submit-btn {
-            margin-top: 30px;
-            width: 100%;
-            background-color: #28a745;
-            color: #fff;
-            font-size: 16px;
-            font-weight: 600;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-            .submit-btn:hover {
-                background-color: #218838;
-            }
-
-        .navbar {
-            background-color: #343a40;
-            padding: 15px 30px;
-            color: white;
-        }
-
-        .navbar-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .brand-icon {
-            margin-right: 8px;
-        }
-
-        .navbar-brand h2 {
-            display: inline;
-            font-weight: 600;
-            font-size: 22px;
-            color: #fff;
-        }
-
-        .navbar-menu {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .user-welcome {
-            color: #ddd;
-            font-size: 15px;
-        }
-
-        .btn-logout {
-            background-color: #dc3545;
-            padding: 8px 14px;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            transition: background 0.3s ease;
-        }
-
-            .btn-logout:hover {
-                background-color: #c82333;
-            }
-
-        .btn-go-back {
-            display: inline-block;
-            margin: 25px 0 10px 60px;
-            text-decoration: none;
-            font-size: 15px;
-            color: #007bff;
-        }
-
-            .btn-go-back:hover {
-                text-decoration: underline;
-            }
-    </style>
+    <link rel="stylesheet" href="~/css/checkSQ.css"></link>
 </head>
 <body>
+    <!-- Navbar -->
     <nav class="navbar">
         <div class="navbar-container">
             <div class="navbar-brand">
+
                 <i class="fas fa-graduation-cap brand-icon"></i>
                 <h2>Quizzy</h2>
             </div>
             <div class="navbar-menu">
                 <div class="user-welcome">
                     <i class="fas fa-user-circle user-icon"></i>
-                    Welcome, @teacher.first_name @teacher.last_name
+                    <span>Welcome, @teacher.first_name @teacher.last_name</span>
                 </div>
-                <a href="/teacher/logOut" class="btn-logout">
-                    <i class="fas fa-sign-out-alt"></i> Log Out
-                </a>
+                <a href="/teacher/logOut" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Log Out</a>
             </div>
         </div>
     </nav>
-
     <a href="/teacher/home" class="btn-go-back">
         <i class="fas fa-arrow-left"></i> Go Back
     </a>
@@ -192,7 +59,7 @@
                         <div class="question-label" style="margin-top: 15px;">Student's Answer:</div>
                         <div class="answer-text">@answer</div>
 
-                        <div class="question-label" style="margin-top: 15px;">Grade:</div>
+                        <div class="question-label" style="margin-top: 15px;">Marks: </div>
                         <select name="Grades[@shqID]" class="grade-select" required>
                             <option value="">Select</option>
                             <option value="0">0</option>
@@ -206,13 +73,13 @@
             }
             else
             {
-                <p style="text-align: center; font-size: 16px; color: #666;">No short answers found.</p>
+                <p style="text-align: center; font-size: 16px; color: black;">No short answers found.</p>
             }
 
             <input type="hidden" name="studentId" value="@student.stuID" />
             <input type="hidden" name="quizId" value="@ViewBag.quizId" />
 
-            <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> Assign Marks</button>
+            <button type="submit" class="submit-btn" style="background-color: lawngreen;"><i class="fas fa-paper-plane"></i> Assign Marks</button>
         </form>
     </div>
 </body>

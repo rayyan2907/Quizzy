@@ -61,5 +61,14 @@ namespace Quizzy.Models.Data_Layer.quiz
 
             return DatabaseHelper.Instance.GetData(query);
         }
+
+        public static bool AssignGradeToShortAnswer(string studentId, string shqID, string quizId, decimal marks)
+        {
+            string query = $@" INSERT INTO shq_check(shqID, studentID, marks) VALUES ('{shqID}', '{studentId}', {marks})";
+
+            return DatabaseHelper.Instance.Update(query) > 0;
+        }
+
+
     }
 }
