@@ -62,13 +62,13 @@ namespace Quizzy.Models.Data_Layer.quiz
             return DatabaseHelper.Instance.GetData(query);
         }
 
-        public static bool AssignGradeToShortAnswer(string studentId, string shqID, string quizId, decimal marks)
+        public static bool AssignGradeToShortAnswer(string studentId, string shqID, decimal marks)
         {
-            string query = $@" INSERT INTO shq_check(shqID, studentID, marks) VALUES ('{shqID}', '{studentId}', {marks})";
+            string query = $@"INSERT INTO shq_check (shqID, studentID, marks)
+                              VALUES ({shqID}, {studentId}, {marks}) AS new
+                              ON DUPLICATE KEY UPDATE marks = new.marks;";
 
             return DatabaseHelper.Instance.Update(query) > 0;
         }
-
-
     }
 }

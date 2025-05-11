@@ -52,6 +52,8 @@ namespace Quizzy.Controllers.checkQuiz
         [HttpGet]
         public IActionResult showQuizStudents(string id)
         {
+            HttpContext.Session.SetString("quizId", id);
+
             Console.WriteLine("quiz id is " + id);
             var teacher = HttpContext.Session.GetObject<Teacher>("teacherObj");
             var subject = HttpContext.Session.GetObject<subject_model>("subjectObj");
@@ -125,24 +127,32 @@ namespace Quizzy.Controllers.checkQuiz
         [HttpPost]
         public IActionResult AssignGrades(string studentId, string quizId, Dictionary<string, string> Grades)
         {
+            if (quizId == null)
+            {
+                Console.WriteLine("quiz id is null");
+            }
             foreach (var entry in Grades)
             {
                 string shqID = entry.Key;
                 string markStr = entry.Value;
 
-                // Ensure mark is a valid decimal
                 if (decimal.TryParse(markStr, out decimal marks))
                 {
-                    checkQuizBL.AssignGradeToShortAnswer(studentId, shqID, quizId, marks);
+                    checkQuizBL.AssignGradeToShortAnswer(studentId, shqID, marks);
                 }
                 else
                 {
                     Console.WriteLine($"Invalid mark '{markStr}' for shqID {shqID}");
                 }
             }
+            if (quizId == null)
+            {
+                quizId = HttpContext.Session.GetString("quizId");
+            }
 
+            Console.WriteLine("the id of quiz is...................", quizId);
             TempData["success"] = "Marks assigned successfully.";
-            return RedirectToAction("home", "teacher");
+            return RedirectToAction("showQuizStudents", new { id = quizId });
         }
     }
 }
