@@ -25,7 +25,6 @@ namespace Quizzy.Controllers
                 {
                     return RedirectToAction("index", "login");
                 }
-                ;
                 
                 if (string.IsNullOrEmpty(stu.stuID))
                 {
