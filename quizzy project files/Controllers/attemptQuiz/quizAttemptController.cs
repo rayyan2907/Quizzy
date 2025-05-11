@@ -29,7 +29,52 @@ namespace Quizzy.Controllers
             {
                 TempData["log"] = "Session not found";
 
-                return RedirectToAction("index", "login");
+                if (string.IsNullOrEmpty(stu.stuID))
+                {
+                    return RedirectToAction("index", "login");
+                }
+                
+                if (string.IsNullOrEmpty(stu.stuID))
+                {
+                    return RedirectToAction("index", "login");
+                }
+
+                // Get quiz details
+                quiz_model quiz = createQuizBL.getQuizObj(quizId);
+                
+                if (quiz == null)
+                {
+                    return NotFound();
+                }
+
+                // Get subject details
+                subject_model subject = subjectBL.getSubfromid(subjectId);
+                
+                if (subject == null)
+                {
+                    return NotFound();
+                }
+                
+                // Get student details
+                Student student = StudentBL.getData(stu.stuID);
+                
+                if (student == null)
+                {
+                    return NotFound();
+                }
+
+                // Get MCQs and SHQs for the quiz
+                DataTable mcqs = AttemptQuizBL.GetQuizMcqs(quizId);
+                DataTable shqs = AttemptQuizBL.GetQuizShqs(quizId);
+
+                // Set ViewBag data
+                ViewBag.stu = student;
+                ViewBag.sub = subject;
+                ViewBag.QuizData = quiz;
+                ViewBag.mcq = mcqs;
+                ViewBag.shq = shqs;
+
+                return View();
             }
             Console.WriteLine($"sttduent with name {stu.last_name} hs opened quiz {quizId} with sub {subject.name}");
              

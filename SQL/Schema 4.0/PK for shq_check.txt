@@ -1,0 +1,3 @@
+-- Primary key for shq_check to avoid duplicates
+ALTER TABLE shq_check
+ADD CONSTRAINT pk_shq_check PRIMARY KEY (shqID, studentID);

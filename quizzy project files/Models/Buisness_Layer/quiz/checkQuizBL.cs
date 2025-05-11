@@ -20,9 +20,9 @@ namespace Quizzy.Models.Buisness_Layer.quiz
             return checkQuizDL.AnswersOfStudent(quizID, studentId);
         }
 
-        public static bool AssignGradeToShortAnswer(string studentId, string shqID, string quizId, decimal marks)
+        public static bool AssignGradeToShortAnswer(string studentId, string shqID, decimal marks)
         {
-            return checkQuizDL.AssignGradeToShortAnswer(studentId, shqID, quizId, marks);
+            return checkQuizDL.AssignGradeToShortAnswer(studentId, shqID, marks);
         }
     }
 }
