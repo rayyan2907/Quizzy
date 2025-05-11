@@ -2,173 +2,585 @@
     var student = ViewBag.stu as Quizzy.Models.Buisness_Models.Student;
     var sub = ViewBag.sub as Quizzy.Models.Buisness_Models.subject_model;
     var quiz = ViewBag.QuizData as Quizzy.Models.Buisness_Models.quiz_model;
+    var mcqs = ViewBag.mcq as System.Data.DataTable;
+    var shqs = ViewBag.shq as System.Data.DataTable;
 }
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attempt Quiz - Quizzy</title>
-
-    <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="~/css/quizAttempt.css" />
-    <link rel="stylesheet" href="~/css/studentMain.css" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/attemptMcqs.css" />
 </head>
+
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="navbar-container">
-            <div class="navbar-brand">
-                <i class="fas fa-graduation-cap brand-icon"></i>
-                <h2>Quizzy</h2>
-            </div>
-            <div class="navbar-menu">
-                <div class="user-welcome">
-                    <i class="fas fa-user-circle user-icon"></i>
-                    <span>Welcome, @student.first_name @student.last_name</span>
+    <div class="main-wrapper">
+        <div class="content-wrapper">
+            <!-- Navbar -->
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-graduation-cap brand-icon"></i>
+                    Quizzy
+                </a>
+                <div class="student-profile">
+                    <div class="student-name">@student.first_name @student.last_name</div>
                 </div>
-                <a href="/student/logOut" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Submit Quiz</a>
-            </div>
-        </div>
-    </nav>
+            </nav>
 
-   
-
-   
-
-        <!-- TempData Messages -->
-        @if (TempData["Check"] != null)
-        {
-            <div style="color: #07fc03; font-size: 16px; text-align: center;">
-                @TempData["Check"]
-            </div>
-        }
-        @if (TempData["log"] != null)
-        {
-            <div style="color: red; font-size: 16px; text-align: center;">
-                @TempData["log"]
-            </div>
-        }
-
-        <!-- Main Content -->
-        <div class="container">
-            <div class="dashboard-header">
-                <h1 class="dashboard-title">Attempt Quiz</h1>
-            </div>
-
-            <!-- Student Details -->
-            <div class="student-details">
-            <div class="info-label">STUDENT DETAILS: </div>
-
-                <div class="student-info">
-                    <div class="info-item">
-                        <div class="info-label">Student ID</div>
-                        <div class="info-value">@student.addmission_year-@student.dept-@student.roll_num</div>
+            <!-- Quiz Info Bar -->
+            <div class="quiz-info-bar">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-clipboard-list"></i>
                     </div>
-                    <div class="info-item">
-                        <div class="info-label">First Name</div>
-                        <div class="info-value">@student.first_name</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Last Name</div>
-                        <div class="info-value">@student.last_name</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Email</div>
-                        <div class="info-value">@student.email</div>
+                    <div class="info-text">
+                        <div class="info-label">Quiz</div>
+                        <div class="info-value">@quiz.quizName (@sub.code)</div>
                     </div>
                 </div>
-            <div class="info-label">QUIZ DETAILS: </div>
 
-            <div class="student-info">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <div class="info-text">
+                        <div class="info-label">Questions</div>
+                        <div class="info-value" id="questions-counter">1 / @(mcqs.Rows.Count + shqs.Rows.Count)</div>
+                    </div>
+                </div>
 
-                <div class="info-item">
-                    <div class="info-label">Quiz Name</div>
-                    <div class="info-value">@quiz.quizName</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Subject Code</div>
-                    <div class="info-value">@sub.code</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Subject Name</div>
-                    <div class="info-value">@sub.name</div>
-                </div>
-                @if( quiz.attempt==true){
-                <div class="info-item">
-                    <div class="info-label">Attempts</div>
-                    <div class="info-value">Multiple</div>
+                <div class="info-card">
+                    <div class="info-icon progress-icon">
+                        <i class="fas fa-check-circle"></i>
                     </div>
-                }
-                else
-                {
-                    <div class="info-item">
-                        <div class="info-label">Attempts</div>
-                        <div class="info-value">Single</div>
+                    <div class="info-text">
+                        <div class="info-label">Attempted</div>
+                        <div class="info-value" id="attempted-counter">0 / @(mcqs.Rows.Count + shqs.Rows.Count)</div>
                     </div>
-                }
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon timer-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="info-text">
+                        <div class="info-label">Time Remaining</div>
+                        <div class="info-value remaining-time" id="time-remaining">@quiz.given_time:00</div>
+                    </div>
+                </div>
             </div>
-            </div>
-       
-       
 
-
-
-            <!-- Quiz Options -->
-            <div class="quiz-options">
-                <!-- MCQ Quiz Card -->
-                <div class="quiz-card-new">
-                    <div class="quiz-card-header">
-                        <div class="quiz-type">
-                            <div class="quiz-icon">
-                                <i class="fas fa-list-ul"></i>
-                            </div>
-                            <h3 class="quiz-title">Quiz (@sub.code)</h3>
-                        </div>
+            <!-- Main Content -->
+            <div class="container">
+                <div class="question-container">
+                    <div class="question-header">
+                        <div class="question-number" id="question-number">Question 1 of @(mcqs.Rows.Count + shqs.Rows.Count)</div>
+                        <h2 class="question-text" id="question-text">Loading question...</h2>
                     </div>
-                    <div class="quiz-card-body">
-                        <div class="quiz-stats">
-                            <div class="stat-item">
-                                <div class="stat-label">Questions</div>
-                                <div class="stat-value">20</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-label">Time Limit</div>
-                                <div class="stat-value">30 mins</div>
-                            </div>
-                        </div>
-                        <div class="quiz-desc">
-                            The quiz contains short questions and MCQs. Once you have entered the quiz you can not exit without submitting. You need to enter full screen to attempt the quiz.
-                        </div>
+
+                    <div class="question-body">
+                        <!-- Content will be dynamically inserted here -->
+                        <div id="question-content"></div>
+
                         <div class="progress-container">
                             <div class="progress-bar">
-                                <div class="progress-fill" style="width: 40%"></div>
-                            </div>
-                            <div class="progress-text">
-                                <span class="progress-label"><i class="fas fa-check-circle"></i> Progress</span>
-                                <span class="progress-percent">40%</span>
+                                <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
                             </div>
                         </div>
-                        <a href="/quizAttempt/attempt">
-                            <button class="btn btn-primary">
-                            <i class="fas fa-play"></i>
-                            <span>Attempt Quiz</span>
-                        </button>
-                        </a>
                     </div>
                 </div>
-
-                
-                    
             </div>
 
-           
+            <div class="question-footer">
+                <div class="question-pagination" id="question-pagination">
+                    <!-- Pagination dots will be inserted here -->
+                </div>
+
+                <div class="question-navigation">
+                    <button class="btn btn-outline" id="prev-btn" disabled>
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Previous</span>
+                    </button>
+                    <button class="btn btn-primary" id="next-btn">
+                        <span>Next</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
             </div>
-  
+        </div>
+    </div>
+
+    <!-- Finish Quiz Button -->
+    <div class="finish-quiz">
+        <button class="btn btn-danger" id="finish-btn">
+            <i class="fas fa-flag-checkered"></i>
+            <span>Finish Quiz</span>
+        </button>
+    </div>
+
+    <!-- Form for submitting the quiz -->
+    <form id="submit-form" action="/QuizAttempt/SubmitQuiz" method="post" style="display: none;">
+        <input type="hidden" id="quizID-input" name="quizID" value="@quiz.quizID" />
+        <input type="hidden" id="studentID-input" name="studentID" value="@student.stuID" />
+    </form>
+
+    <!-- Form for saving MCQ answers -->
+    <form id="mcq-form" action="/QuizAttempt/SaveMcqAnswer" method="post" style="display: none;">
+        <input type="hidden" id="mcqID-input" name="mcqID" value="" />
+        <input type="hidden" id="mcq-studentID-input" name="studentID" value="@student.stuID" />
+        <input type="hidden" id="mcq-answer-input" name="answer" value="" />
+    </form>
+
+    <!-- Form for saving short answers -->
+    <form id="shq-form" action="/QuizAttempt/SaveShqAnswer" method="post" style="display: none;">
+        <input type="hidden" id="shqID-input" name="shqID" value="" />
+        <input type="hidden" id="shq-studentID-input" name="studentID" value="@student.stuID" />
+        <input type="hidden" id="shq-answer-input" name="answer" value="" />
+    </form>
+
+    <!-- Modal for quiz submission confirmation -->
+    <div class="modal" id="submit-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Submit Quiz</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to submit this quiz?</p>
+                <div class="quiz-summary">
+                    <p><strong>Total Questions:</strong> <span id="total-questions-count">@(mcqs.Rows.Count + shqs.Rows.Count)</span></p>
+                    <p><strong>Attempted Questions:</strong> <span id="attempted-questions-count">0</span></p>
+                    <p><strong>Unattempted Questions:</strong> <span id="unattempted-questions-count">@(mcqs.Rows.Count + shqs.Rows.Count)</span></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancel-submit">Cancel</button>
+                <button class="btn btn-danger" id="confirm-submit">Submit Quiz</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for time's up -->
+    <div class="modal" id="timeout-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Time's Up!</h3>
+            </div>
+            <div class="modal-body">
+                <p>Your quiz time has expired. Your answers have been automatically submitted.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="timeout-ok">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+
+        // Quiz data with questions
+        const quizData = [
+        @if (mcqs != null && mcqs.Rows.Count > 0)
+        {
+            for (int i = 0; i < mcqs.Rows.Count; i++)
+            {
+                var row = mcqs.Rows[i];
+                <text>
+                            {
+                                id: "@row["mcqID"]",
+                                type: "multiple-choice",
+                                question: "@row["statement"]",
+                                options: [
+                                    "@row["option_A"]",
+                                    "@row["option_B"]",
+                                    "@row["option_C"]",
+                                    "@row["option_D"]"
+                                ],
+                                userAnswer: null,
+                                correct_opt: "@row["correct_opt"]"
+                            }@((i < mcqs.Rows.Count - 1 || (shqs != null && shqs.Rows.Count > 0)) ? "," : "")
+                </text>
+            }
+        }
+
+        @if (shqs != null && shqs.Rows.Count > 0)
+        {
+            for (int i = 0; i < shqs.Rows.Count; i++)
+            {
+                var row = shqs.Rows[i];
+                <text>
+                            {
+                                id: "@row["shqID"]",
+                                type: "short-answer",
+                                question: "@row["question"]",
+                                userAnswer: ""
+                            }@(i < shqs.Rows.Count - 1 ? "," : "")
+                </text>
+            }
+        }
+        ];
+
+        // Initialize variables
+        let currentQuestionIndex = 0;
+        let totalQuestions = quizData.length;
+        let timerInterval;
+        let secondsRemaining = @quiz.given_time * 60; // Convert minutes to seconds
+        let isSubmitting = false;
+
+        // DOM elements
+        const questionNumber = document.getElementById('question-number');
+        const questionText = document.getElementById('question-text');
+        const questionContent = document.getElementById('question-content');
+        const progressFill = document.getElementById('progress-fill');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const finishBtn = document.getElementById('finish-btn');
+        const questionsCounter = document.getElementById('questions-counter');
+        const attemptedCounter = document.getElementById('attempted-counter');
+        const timeRemainingEl = document.getElementById('time-remaining');
+        const questionPagination = document.getElementById('question-pagination');
+
+        // Modal elements
+        const submitModal = document.getElementById('submit-modal');
+        const closeModal = document.querySelector('.close-modal');
+        const cancelSubmit = document.getElementById('cancel-submit');
+        const confirmSubmit = document.getElementById('confirm-submit');
+        const totalQuestionsCount = document.getElementById('total-questions-count');
+        const attemptedQuestionsCount = document.getElementById('attempted-questions-count');
+        const unattemptedQuestionsCount = document.getElementById('unattempted-questions-count');
+        const timeoutModal = document.getElementById('timeout-modal');
+        const timeoutOk = document.getElementById('timeout-ok');
+
+        // Form elements
+        const submitForm = document.getElementById('submit-form');
+        const mcqForm = document.getElementById('mcq-form');
+        const shqForm = document.getElementById('shq-form');
+        const mcqIdInput = document.getElementById('mcqID-input');
+        const mcqAnswerInput = document.getElementById('mcq-answer-input');
+        const shqIdInput = document.getElementById('shqID-input');
+        const shqAnswerInput = document.getElementById('shq-answer-input');
+
+       
+
+        // Display current question
+        function updateQuestionDisplay() {
+            const question = quizData[currentQuestionIndex];
+            questionNumber.textContent = `Question ${currentQuestionIndex + 1} of ${totalQuestions}`;
+            questionText.textContent = question.question;
+            questionsCounter.textContent = `${currentQuestionIndex + 1} / ${totalQuestions}`;
+
+            // Clear previous content
+            questionContent.innerHTML = '';
+
+            if (question.type === 'multiple-choice') {
+                const optionsContainer = document.createElement('div');
+                optionsContainer.className = 'options-container';
+
+                const optionLabels = ['A', 'B', 'C', 'D'];
+
+                question.options.forEach((option, index) => {
+                    const optionLabel = optionLabels[index];
+                    const isSelected = question.userAnswer === optionLabel;
+
+                    const optionElement = document.createElement('div');
+                    optionElement.className = `option ${isSelected ? 'selected' : ''}`;
+                    optionElement.dataset.value = optionLabel;
+
+                    optionElement.innerHTML = `
+                        <div class="option-label">${optionLabel}</div>
+                        <div class="option-text">${option}</div>
+                    `;
+
+                    optionElement.addEventListener('click', () => selectOption(optionElement, optionLabel));
+                    optionsContainer.appendChild(optionElement);
+                });
+
+                questionContent.appendChild(optionsContainer);
+            } else if (question.type === 'short-answer') {
+                const textareaContainer = document.createElement('div');
+                textareaContainer.className = 'textarea-container';
+
+                const textarea = document.createElement('textarea');
+                textarea.className = 'short-answer-input';
+                textarea.placeholder = 'Type your answer here...';
+                textarea.value = question.userAnswer || '';
+
+                textarea.addEventListener('input', (e) => {
+                    saveShortAnswer(e.target.value);
+                });
+
+                // Add a save button
+                const saveButton = document.createElement('button');
+                saveButton.className = 'btn btn-primary save-btn';
+                saveButton.textContent = 'Save Answer';
+                saveButton.type = 'button';
+                saveButton.addEventListener('click', () => {
+                    saveShortAnswer(textarea.value, true);
+                });
+
+                textareaContainer.appendChild(textarea);
+                textareaContainer.appendChild(saveButton);
+                questionContent.appendChild(textareaContainer);
+            }
+
+            // Update progress bar
+            const progress = ((currentQuestionIndex + 1) / totalQuestions) * 100;
+            progressFill.style.width = `${progress}%`;
+        }
+
+        // Select option for MCQ
+        function selectOption(optionElement, optionValue) {
+            // Remove selected class from all options
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+
+            // Add selected class to clicked option
+            optionElement.classList.add('selected');
+
+            // Update quiz data
+            const currentQuestion = quizData[currentQuestionIndex];
+            currentQuestion.userAnswer = optionValue;
+
+            // Save answer to server using form submit
+            mcqIdInput.value = currentQuestion.id;
+            mcqAnswerInput.value = optionValue;
+
+            // Submit the form using a non-AJAX approach
+            mcqForm.submit();
+
+            // Update counters
+            updateCounters();
+            updatePagination();
+        }
+
+        // Save short answer
+        function saveShortAnswer(answerText, forceSave = false) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            currentQuestion.userAnswer = answerText;
+
+            // Only save if forcing save or if answer has content
+            if (forceSave || answerText.trim().length > 0) {
+                // Save answer to server using form submit
+                shqIdInput.value = currentQuestion.id;
+                shqAnswerInput.value = answerText;
+
+                if (forceSave) {
+                    // Submit the form for saving
+                    shqForm.submit();
+                }
+
+                // Update counters
+                updateCounters();
+                updatePagination();
+            }
+        }
+
+        // Update attempted questions counter
+        function updateCounters() {
+            const attemptedQuestions = quizData.filter(q =>
+                (q.type === 'multiple-choice' && q.userAnswer !== null) ||
+                (q.type === 'short-answer' && q.userAnswer && q.userAnswer.trim() !== '')
+            );
+
+            attemptedCounter.textContent = `${attemptedQuestions.length} / ${totalQuestions}`;
+
+            // Update modal counters
+            attemptedQuestionsCount.textContent = attemptedQuestions.length;
+            unattemptedQuestionsCount.textContent = totalQuestions - attemptedQuestions.length;
+        }
+
+        // Create and update pagination dots
+        function updatePagination() {
+            questionPagination.innerHTML = '';
+
+            quizData.forEach((question, index) => {
+                const dot = document.createElement('div');
+                dot.className = 'pagination-dot';
+
+                if (index === currentQuestionIndex) {
+                    dot.classList.add('active');
+                }
+
+                if ((question.type === 'multiple-choice' && question.userAnswer !== null) ||
+                    (question.type === 'short-answer' && question.userAnswer && question.userAnswer.trim() !== '')) {
+                    dot.classList.add('answered');
+                }
+
+                dot.addEventListener('click', () => {
+                    currentQuestionIndex = index;
+                    updateQuestionDisplay();
+                    updatePagination();
+                    updateNavButtons();
+                });
+
+                questionPagination.appendChild(dot);
+            });
+        }
+
+        // Update navigation buttons state
+        function updateNavButtons() {
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.disabled = currentQuestionIndex === totalQuestions - 1;
+        }
+
+        // Navigate to previous question
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                updateQuestionDisplay();
+                updatePagination();
+                updateNavButtons();
+            }
+        });
+
+        // Navigate to next question
+        nextBtn.addEventListener('click', () => {
+            if (currentQuestionIndex < totalQuestions - 1) {
+                currentQuestionIndex++;
+                updateQuestionDisplay();
+                updatePagination();
+                updateNavButtons();
+            }
+        });
+
+        // Timer functions
+        function startTimer() {
+            timerInterval = setInterval(updateTimer, 1000);
+            updateTimer();
+        }
+
+        function updateTimer() {
+            if (secondsRemaining <= 0) {
+                clearInterval(timerInterval);
+                handleTimeUp();
+                return;
+            }
+
+            secondsRemaining--;
+
+            const minutes = Math.floor(secondsRemaining / 60);
+            const seconds = secondsRemaining % 60;
+
+            timeRemainingEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+            // Change color when time is running low
+            if (secondsRemaining < 60) {
+                timeRemainingEl.classList.add('warning');
+            }
+            if (secondsRemaining < 30) {
+                timeRemainingEl.classList.add('danger');
+            }
+        }
+
+        function handleTimeUp() {
+            if (!isSubmitting) {
+                isSubmitting = true;
+                submitQuiz();
+                showTimeoutModal();
+            }
+        }
+
+        // Show timeout modal
+        function showTimeoutModal() {
+            timeoutModal.style.display = 'flex';
+        }
+
+        // Handle timeout modal OK button
+        timeoutOk.addEventListener('click', () => {
+            timeoutModal.style.display = 'none';
+            window.location.href = `/Student/Dashboard`; // Redirect to dashboard
+        });
+
+        // Finish quiz button
+        finishBtn.addEventListener('click', () => {
+            showSubmitModal();
+        });
+
+        // Show submit confirmation modal
+        function showSubmitModal() {
+            const attemptedQuestions = quizData.filter(q =>
+                (q.type === 'multiple-choice' && q.userAnswer !== null) ||
+                (q.type === 'short-answer' && q.userAnswer && q.userAnswer.trim() !== '')
+            );
+
+            totalQuestionsCount.textContent = totalQuestions;
+            attemptedQuestionsCount.textContent = attemptedQuestions.length;
+            unattemptedQuestionsCount.textContent = totalQuestions - attemptedQuestions.length;
+
+            submitModal.style.display = 'flex';
+        }
+
+        // Modal close button
+        closeModal.addEventListener('click', () => {
+            submitModal.style.display = 'none';
+        });
+
+        // Cancel submit button
+        cancelSubmit.addEventListener('click', () => {
+            submitModal.style.display = 'none';
+        });
+
+        // Confirm submit button
+        confirmSubmit.addEventListener('click', () => {
+            if (!isSubmitting) {
+                isSubmitting = true;
+                confirmSubmit.disabled = true;
+                confirmSubmit.textContent = 'Submitting...';
+                submitQuiz();
+            }
+        });
+
+        // Submit quiz function
+        function submitQuiz() {
+            // Use the submit form to submit the quiz
+            document.getElementById('quizID-input').value = '@quiz.quizID';
+            document.getElementById('studentID-input').value = '@student.stuID';
+            submitForm.submit();
+        }
+
+        // Event listeners for keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            // Left arrow key - Previous question
+            if (e.key === 'ArrowLeft' && !prevBtn.disabled) {
+                prevBtn.click();
+            }
+            // Right arrow key - Next question
+            else if (e.key === 'ArrowRight' && !nextBtn.disabled) {
+                nextBtn.click();
+            }
+            // Numbers 1-4 for MCQ options (A-D)
+            else if (/^[1-4]$/.test(e.key) && quizData[currentQuestionIndex].type === 'multiple-choice') {
+                const options = document.querySelectorAll('.option');
+                const index = parseInt(e.key) - 1;
+                if (index >= 0 && index < options.length) {
+                    options[index].click();
+                }
+            }
+        });
+
+        // Handle window beforeunload event to warn about losing progress
+        window.addEventListener('beforeunload', function(e) {
+            // Cancel the event if not submitting
+            if (!isSubmitting) {
+                e.preventDefault();
+                // Chrome requires returnValue to be set
+                e.returnValue = 'You have unsaved changes. Are you sure you want to leave?';
+                return e.returnValue;
+            }
+        });
+
+        // If there are any messages in TempData, display them
+        @if (TempData["Message"] != null)
+        {
+            <text>
+                alert('@TempData["Message"]');
+            </text>
+        }
+    </script>
 </body>
 </html>

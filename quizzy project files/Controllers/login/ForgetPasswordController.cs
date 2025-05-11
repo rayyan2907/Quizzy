@@ -46,6 +46,7 @@ namespace Quizzy.Controllers.login
 
             // Send email with OTP
             bool emailSent = SendOTPEmail(model.email, otp);
+            Console.WriteLine("an otp ",otp,"is sent to the email ",model.email," for password change");
 
             if (!emailSent)
             {
@@ -69,7 +70,7 @@ namespace Quizzy.Controllers.login
             string email = model.email;
 
             // Combine OTP digits
-            string submittedOtp = model.otp1 + model.otp2 + model.otp3 + model.otp4;
+            string submittedOtp = model.otp1 + model.otp2 + model.otp3 + model.otp4+model.otp5+model.otp6;
 
             // Validate OTP
             if (!OtpStore.ContainsKey(email) || OtpStore[email] != submittedOtp)
