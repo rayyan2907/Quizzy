@@ -14,12 +14,20 @@ namespace Quizzy.Controllers
     public class QuizAttemptController : Controller
     {
         // Load quiz page for student attempt
-        public IActionResult AttemptQuiz(string quizId, string subjectId)
+        public IActionResult AttemptQuiz(string quizId)
         {
-            try
+            Console.WriteLine(quizId);
+           
+            // Get student information from session
+            var stu =  HttpContext.Session.GetObject<Student>("StudentObj");
+            var subject = HttpContext.Session.GetObject<subject_model>("subObj");
+            Console.WriteLine($"sttduent with name {stu.last_name} hs opened quiz {quizId} ");
+                Console.WriteLine($"with sub {subject.name}");
+
+            
+            if (stu == null || subject==null)
             {
-                // Get student information from session
-                var stu =  HttpContext.Session.GetObject<Student>("studentObj");
+                TempData["log"] = "Session not found";
 
                 if (string.IsNullOrEmpty(stu.stuID))
                 {
@@ -68,15 +76,36 @@ namespace Quizzy.Controllers
 
                 return View();
             }
-            catch (Exception ex)
-            {
-                // Log the error
-                Console.WriteLine("Error loading quiz: " + ex.Message);
+            Console.WriteLine($"sttduent with name {stu.last_name} hs opened quiz {quizId} with sub {subject.name}");
+             
+
+            // Get quiz details
+            quiz_model quiz = createQuizBL.getQuizObj(quizId);
                 
-                // Redirect to error page or show error message
-                ViewBag.ErrorMessage = "Failed to load quiz. Please try again later.";
-                return View("Error");
+            if (quiz == null)
+            {
+
+                TempData["log"] = "Session not found";
+
+                return RedirectToAction("index", "login");
             }
+
+            // Get subject details
+                
+            // Get MCQs and SHQs for the quiz
+            DataTable mcqs = AttemptQuizBL.GetQuizMcqs(quizId);
+            DataTable shqs = AttemptQuizBL.GetQuizShqs(quizId);
+
+            // Set ViewBag data
+            ViewBag.stu = stu;
+            ViewBag.sub = subject;
+            ViewBag.QuizData = quiz;
+            ViewBag.mcq = mcqs;
+            ViewBag.shq = shqs;
+
+            return View();
+            
+           
         }
 
         // API endpoint to create a new attempt
