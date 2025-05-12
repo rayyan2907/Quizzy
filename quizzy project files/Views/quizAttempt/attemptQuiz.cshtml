@@ -565,7 +565,7 @@
 
         // Handle window beforeunload event to warn about losing progress
         window.addEventListener('beforeunload', function(e) {
-            // Cancel the event if not submitting
+            // Cancel the event if not submitting   
             if (!isSubmitting) {
                 e.preventDefault();
                 // Chrome requires returnValue to be set

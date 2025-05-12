@@ -2,6 +2,7 @@
     var student = ViewBag.stu as Quizzy.Models.Buisness_Models.Student;
     var sub = ViewBag.sub as Quizzy.Models.Buisness_Models.subject_model;
     var quiz = ViewBag.QuizData as Quizzy.Models.Buisness_Models.quiz_model;
+    
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -149,7 +150,7 @@
                         <input type="hidden" name="studentID" value="@student.stuID" />
                         <input type="hidden" name="subjectID" value="@sub.subjectID" />
 
-                        <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary">
                             <i class="fas fa-play"></i>
                             <span>Start Quiz</span>
                         </button>
