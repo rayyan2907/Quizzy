@@ -2,173 +2,602 @@
     var student = ViewBag.stu as Quizzy.Models.Buisness_Models.Student;
     var sub = ViewBag.sub as Quizzy.Models.Buisness_Models.subject_model;
     var quiz = ViewBag.QuizData as Quizzy.Models.Buisness_Models.quiz_model;
+    var mcqs = ViewBag.mcq as System.Data.DataTable;
+    var shqs = ViewBag.shq as System.Data.DataTable;
+    bool hasSubmitted = ViewBag.HasSubmitted ?? false;
+
+    // Debug information - this will help troubleshoot
+    if (quiz != null)
+    {
+        Console.WriteLine($"Quiz Model loaded: ID={quiz.quizID}, Name={quiz.quizName}, Time={quiz.given_time}");
+
+        // Fix missing ID in the view if needed
+        if (string.IsNullOrEmpty(quiz.quizID) && Context.Request.Query.ContainsKey("quizId"))
+        {
+            quiz.quizID = Context.Request.Query["quizId"];
+            Console.WriteLine($"Fixed quiz ID in view: {quiz.quizID}");
+        }
+    }
+    else
+    {
+        Console.WriteLine("Quiz model is null");
+    }
 }
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attempt Quiz - Quizzy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/attemptMcqs.css" />
+ 
+    <style>
+        .question-container {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
 
-    <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+        .question-header {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
 
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="~/css/quizAttempt.css" />
-    <link rel="stylesheet" href="~/css/studentMain.css" />
+        .question-number {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
 
+        .question-text {
+            font-size: 18px;
+            color: #333;
+            margin: 0;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+            .option:hover {
+                background-color: #f9f9f9;
+            }
+
+            .option.selected {
+                background-color: #e1f5fe;
+                border-color: #4fc3f7;
+            }
+
+        .option-label {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+
+        .option-text {
+            flex: 1;
+        }
+
+        .textarea-container {
+            margin-top: 15px;
+        }
+
+        .short-answer-input {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 16px;
+            resize: vertical;
+        }
+
+        .save-btn {
+            margin-top: 10px;
+        }
+
+        .submit-quiz-container {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 50px;
+        }
+    </style>
 </head>
+
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="navbar-container">
-            <div class="navbar-brand">
-                <i class="fas fa-graduation-cap brand-icon"></i>
-                <h2>Quizzy</h2>
-            </div>
-            <div class="navbar-menu">
-                <div class="user-welcome">
-                    <i class="fas fa-user-circle user-icon"></i>
-                    <span>Welcome, @student.first_name @student.last_name</span>
+    <div class="main-wrapper">
+        <div class="content-wrapper">
+            <!-- Navbar -->
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-graduation-cap brand-icon"></i>
+                    Quizzy
+                </a>
+                <div class="student-profile">
+                    <div class="student-name">@(student?.first_name) @(student?.last_name)</div>
                 </div>
-                <a href="/student/logOut" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Submit Quiz</a>
+            </nav>
+            @if (hasSubmitted)
+            {
+                <!-- Already submitted message -->
+                <div style="text-align: center; padding: 50px; background-color: #f8f9fa; border-radius: 10px; margin: 30px;">
+                    <i class="fas fa-check-circle" style="font-size: 48px; color: #28a745; margin-bottom: 20px;"></i>
+                    <h2>Quiz Already Submitted</h2>
+                    <p>You have already completed and submitted this quiz.</p>
+                    <a href="/student/main" class="btn btn-primary" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">
+                        <i class="fas fa-arrow-left"></i> Return to Dashboard
+                    </a>
+                </div>
+            }
+            else
+            {
+                <!-- Quiz Info Bar -->
+            <div class="quiz-info-bar">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <div class="info-text">
+                        <div class="info-label">Quiz</div>
+                        <div class="info-value">@(quiz?.quizName) (@(sub?.code))</div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <div class="info-text">
+                        <div class="info-label">Questions</div>
+                        <div class="info-value">@((mcqs?.Rows.Count ?? 0) + (shqs?.Rows.Count ?? 0))</div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon progress-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="info-text">
+                        <div class="info-label">Attempted</div>
+                        <div class="info-value" id="attempted-counter">0 / @((mcqs?.Rows.Count ?? 0) + (shqs?.Rows.Count ?? 0))</div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon timer-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="info-text">
+                        <div class="info-label">Time Remaining</div>
+                        <div class="info-value remaining-time" id="time-remaining">@(quiz?.given_time):00</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="container">
+                <!-- MCQ Questions -->
+                @if (mcqs != null && mcqs.Rows.Count > 0)
+                {
+                    <h2>Multiple Choice Questions</h2>
+
+                    for (int i = 0; i < mcqs.Rows.Count; i++)
+                    {
+                        var row = mcqs.Rows[i];
+                        <div class="question-container" id="mcq-@row["mcqID"]">
+                            <div class="question-header">
+                                <div class="question-number">Question @(i + 1) of @(mcqs.Rows.Count + shqs.Rows.Count)</div>
+                                <h2 class="question-text">@row["statement"]</h2>
+                            </div>
+                            <div class="question-body">
+                                <div class="options-container">
+                                    <div class="option" data-mcqid="@row["mcqID"]" data-option="A" onclick="selectOption(this, 'A', '@row["mcqID"]')">
+                                        <div class="option-label">A</div>
+                                        <div class="option-text">@row["option_A"]</div>
+                                    </div>
+                                    <div class="option" data-mcqid="@row["mcqID"]" data-option="B" onclick="selectOption(this, 'B', '@row["mcqID"]')">
+                                        <div class="option-label">B</div>
+                                        <div class="option-text">@row["option_B"]</div>
+                                    </div>
+                                    <div class="option" data-mcqid="@row["mcqID"]" data-option="C" onclick="selectOption(this, 'C', '@row["mcqID"]')">
+                                        <div class="option-label">C</div>
+                                        <div class="option-text">@row["option_C"]</div>
+                                    </div>
+                                    <div class="option" data-mcqid="@row["mcqID"]" data-option="D" onclick="selectOption(this, 'D', '@row["mcqID"]')">
+                                        <div class="option-label">D</div>
+                                        <div class="option-text">@row["option_D"]</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+                <!-- Short Answer Questions -->
+                @if (shqs != null && shqs.Rows.Count > 0)
+                {
+                    <h2>Short Answer Questions</h2>
+
+                    for (int i = 0; i < shqs.Rows.Count; i++)
+                    {
+                        var row = shqs.Rows[i];
+                        <div class="question-container" id="shq-@row["shqID"]">
+                            <div class="question-header">
+                                <div class="question-number">Question @(mcqs.Rows.Count + i + 1) of @(mcqs.Rows.Count + shqs.Rows.Count)</div>
+                                <h2 class="question-text">@row["question"]</h2>
+                            </div>
+                            <div class="question-body">
+                                <div class="textarea-container">
+                                    <textarea class="short-answer-input" id="shq-input-@row["shqID"]" placeholder="Type your answer here..."></textarea>
+                                    <button class="btn btn-primary save-btn" onclick="saveShortAnswer('@row["shqID"]')">Save Answer</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+                <!-- Submit Quiz Button -->
+                <div class="submit-quiz-container">
+                    <button class="btn btn-danger" id="finish-btn" onclick="showSubmitModal()">
+                        <i class="fas fa-flag-checkered"></i>
+                        <span>Finish Quiz</span>
+                    </button>
+                </div>
+            </div>
+
+    <!-- Form for submitting the quiz -->
+    <form id="submit-form" action="/QuizAttempt/SubmitQuiz" method="post" style="display: none;">
+        <input type="hidden" id="quizID-input" name="quizID" value="@quiz.quizID" />
+        <input type="hidden" id="studentID-input" name="studentID" value="@student.stuID" />
+    </form>
+
+    <!-- Form for saving MCQ answers -->
+    <form id="mcq-form" action="/QuizAttempt/SaveMcqAnswer" method="post" style="display: none;">
+        <input type="hidden" id="mcqID-input" name="mcqID" value="" />
+        <input type="hidden" id="mcq-studentID-input" name="studentID" value="@student.stuID" />
+        <input type="hidden" id="mcq-answer-input" name="answer" value="" />
+    </form>
+
+    <!-- Form for saving short answers -->
+    <form id="shq-form" action="/QuizAttempt/SaveShqAnswer" method="post" style="display: none;">
+        <input type="hidden" id="shqID-input" name="shqID" value="" />
+        <input type="hidden" id="shq-studentID-input" name="studentID" value="@student.stuID" />
+        <input type="hidden" id="shq-answer-input" name="answer" value="" />
+    </form>
+
+    <!-- Modal for quiz submission confirmation -->
+    <div class="modal" id="submit-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+        <div class="modal-content" style="background-color: #fff; border-radius: 8px; width: 90%; max-width: 500px; padding: 20px;">
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">
+                <h3 style="margin: 0;">Submit Quiz</h3>
+                <span class="close-modal" onclick="closeSubmitModal()" style="cursor: pointer; font-size: 24px;">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to submit this quiz?</p>
+                <div class="quiz-summary" style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                    <p><strong>Total Questions:</strong> <span id="total-questions-count">@(mcqs.Rows.Count + shqs.Rows.Count)</span></p>
+                    <p><strong>Attempted Questions:</strong> <span id="attempted-questions-count">0</span></p>
+                    <p><strong>Unattempted Questions:</strong> <span id="unattempted-questions-count">@(mcqs.Rows.Count + shqs.Rows.Count)</span></p>
+                </div>
+            </div>
+            <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+                <button class="btn btn-outline" onclick="closeSubmitModal()" style="background: none; border: 1px solid #ddd; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Cancel</button>
+                <button class="btn btn-danger" onclick="submitQuiz()" style="background-color: #f44336; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Submit Quiz</button>
             </div>
         </div>
-    </nav>
+    </div>
 
-   
-
-   
-
-        <!-- TempData Messages -->
-        @if (TempData["Check"] != null)
-        {
-            <div style="color: #07fc03; font-size: 16px; text-align: center;">
-                @TempData["Check"]
+    <!-- Modal for time's up -->
+    <div class="modal" id="timeout-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+        <div class="modal-content" style="background-color: #fff; border-radius: 8px; width: 90%; max-width: 500px; padding: 20px;">
+            <div class="modal-header" style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">
+                <h3 style="margin: 0; text-align: center;">Time's Up!</h3>
             </div>
+            <div class="modal-body">
+                <p style="text-align: center;">Your quiz time has expired. Your answers have been automatically submitted.</p>
+            </div>
+            <div class="modal-footer" style="display: flex; justify-content: center; margin-top: 20px;">
+                <button class="btn btn-primary" onclick="window.location.href='/Student/Dashboard'" style="background-color: #2196f3; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">OK</button>
+            </div>
+        </div>
+    </div>
+            }
+        </div>
+    </div>
+            
+
+    // Update your script section with these changes
+    <script>
+        @if (hasSubmitted)
+        {
+            <text>
+                    alert("it is already submitted");
+            </text>
         }
+
+        // Display error messages if any
         @if (TempData["log"] != null)
         {
-            <div style="color: red; font-size: 16px; text-align: center;">
-                @TempData["log"]
-            </div>
+            <text>
+                    alert('@Html.Raw(TempData["log"])');
+            </text>
         }
 
-        <!-- Main Content -->
-        <div class="container">
-            <div class="dashboard-header">
-                <h1 class="dashboard-title">Attempt Quiz</h1>
-            </div>
+        @if (TempData["Check"] != null)
+        {
+            <text>
+                    alert('@Html.Raw(TempData["Check"])');
+            </text>
+        }
+        // Track attempted questions
+        let attemptedMcqs = {};
+        let attemptedShqs = {};
+        let secondsRemaining = @quiz.given_time * 60; // Convert minutes to seconds
+        let timerInterval;
+        let isSubmitting = false;
 
-            <!-- Student Details -->
-            <div class="student-details">
-            <div class="info-label">STUDENT DETAILS: </div>
+        // Timer elements
+        const timeRemainingEl = document.getElementById('time-remaining');
+        const attemptedCounter = document.getElementById('attempted-counter');
+        const attemptedQuestionsCount = document.getElementById('attempted-questions-count');
+        const unattemptedQuestionsCount = document.getElementById('unattempted-questions-count');
 
-                <div class="student-info">
-                    <div class="info-item">
-                        <div class="info-label">Student ID</div>
-                        <div class="info-value">@student.addmission_year-@student.dept-@student.roll_num</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">First Name</div>
-                        <div class="info-value">@student.first_name</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Last Name</div>
-                        <div class="info-value">@student.last_name</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Email</div>
-                        <div class="info-value">@student.email</div>
-                    </div>
-                </div>
-            <div class="info-label">QUIZ DETAILS: </div>
+        // Forms
+        const submitForm = document.getElementById('submit-form');
+        const mcqForm = document.getElementById('mcq-form');
+        const shqForm = document.getElementById('shq-form');
 
-            <div class="student-info">
+        // Form inputs
+        const mcqIdInput = document.getElementById('mcqID-input');
+        const mcqAnswerInput = document.getElementById('mcq-answer-input');
+        const shqIdInput = document.getElementById('shqID-input');
+        const shqAnswerInput = document.getElementById('shq-answer-input');
 
-                <div class="info-item">
-                    <div class="info-label">Quiz Name</div>
-                    <div class="info-value">@quiz.quizName</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Subject Code</div>
-                    <div class="info-value">@sub.code</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Subject Name</div>
-                    <div class="info-value">@sub.name</div>
-                </div>
-                @if( quiz.attempt==true){
-                <div class="info-item">
-                    <div class="info-label">Attempts</div>
-                    <div class="info-value">Multiple</div>
-                    </div>
+        // Initialize the quiz when page loads
+        window.onload = function() {
+            startTimer();
+            updateCounters();
+        };
+
+        // Select option for MCQ
+        function selectOption(optionElement, optionValue, mcqId) {
+            // Remove selected class from all options in the same question
+            const options = document.querySelectorAll(`.option[data-mcqid="${mcqId}"]`);
+            options.forEach(opt => {
+                opt.classList.remove('selected');
+            });
+
+            // Add selected class to clicked option
+            optionElement.classList.add('selected');
+
+            // Update tracking
+            attemptedMcqs[mcqId] = optionValue;
+
+            // Save answer to server using AJAX
+            saveMcqAnswerAjax(mcqId, optionValue);
+
+            // Update counters
+            updateCounters();
+        }
+
+        // Save MCQ answer using AJAX
+        function saveMcqAnswerAjax(mcqId, answer) {
+            // Create form data for submission
+            const formData = new FormData();
+            formData.append('mcqID', mcqId);
+            formData.append('studentID', '@student.stuID');
+            formData.append('answer', answer);
+
+            // Use fetch API for AJAX submission
+            fetch('/QuizAttempt/SaveMcqAnswer', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    console.error('Error saving MCQ answer');
                 }
-                else
-                {
-                    <div class="info-item">
-                        <div class="info-label">Attempts</div>
-                        <div class="info-value">Single</div>
-                    </div>
+            })
+            .catch(error => {
+                console.error('Error saving MCQ answer:', error);
+            });
+        }
+
+        // Save short answer
+        function saveShortAnswer(shqId) {
+            const textarea = document.getElementById(`shq-input-${shqId}`);
+            const answerText = textarea.value.trim();
+
+            if (answerText.length > 0) {
+                // Update tracking
+                attemptedShqs[shqId] = answerText;
+
+                // Save answer to server using AJAX
+                saveShqAnswerAjax(shqId, answerText);
+
+                // Update counters
+                updateCounters();
+
+                // Show feedback
+                alert("Answer saved successfully!");
+            } else {
+                alert("Please enter an answer before saving.");
+            }
+        }
+
+        // Save SHQ answer using AJAX
+        function saveShqAnswerAjax(shqId, answer) {
+            // Create form data for submission
+            const formData = new FormData();
+            formData.append('shqID', shqId);
+            formData.append('studentID', '@student.stuID');
+            formData.append('answer', answer);
+
+            // Use fetch API for AJAX submission
+            fetch('/QuizAttempt/SaveShqAnswer', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    console.error('Error saving SHQ answer');
                 }
-            </div>
-            </div>
-       
-       
+            })
+            .catch(error => {
+                console.error('Error saving SHQ answer:', error);
+            });
+        }
 
+        // Update attempted questions counter
+        function updateCounters() {
+            const mcqCount = Object.keys(attemptedMcqs).length;
+            const shqCount = Object.keys(attemptedShqs).length;
+            const totalAttempted = mcqCount + shqCount;
+            const totalQuestions = @((mcqs?.Rows.Count ?? 0) + (shqs?.Rows.Count ?? 0));
 
+            attemptedCounter.textContent = `${totalAttempted} / ${totalQuestions}`;
 
-            <!-- Quiz Options -->
-            <div class="quiz-options">
-                <!-- MCQ Quiz Card -->
-                <div class="quiz-card-new">
-                    <div class="quiz-card-header">
-                        <div class="quiz-type">
-                            <div class="quiz-icon">
-                                <i class="fas fa-list-ul"></i>
-                            </div>
-                            <h3 class="quiz-title">Quiz (@sub.code)</h3>
-                        </div>
-                    </div>
-                    <div class="quiz-card-body">
-                        <div class="quiz-stats">
-                            <div class="stat-item">
-                                <div class="stat-label">Questions</div>
-                                <div class="stat-value">20</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-label">Time Limit</div>
-                                <div class="stat-value">30 mins</div>
-                            </div>
-                        </div>
-                        <div class="quiz-desc">
-                            The quiz contains short questions and MCQs. Once you have entered the quiz you can not exit without submitting. You need to enter full screen to attempt the quiz.
-                        </div>
-                        <div class="progress-container">
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 40%"></div>
-                            </div>
-                            <div class="progress-text">
-                                <span class="progress-label"><i class="fas fa-check-circle"></i> Progress</span>
-                                <span class="progress-percent">40%</span>
-                            </div>
-                        </div>
-                        <a href="/quizAttempt/attempt">
-                            <button class="btn btn-primary">
-                            <i class="fas fa-play"></i>
-                            <span>Attempt Quiz</span>
-                        </button>
-                        </a>
-                    </div>
-                </div>
+            // Update modal counters
+            attemptedQuestionsCount.textContent = totalAttempted;
+            unattemptedQuestionsCount.textContent = totalQuestions - totalAttempted;
+        }
 
-                
-                    
-            </div>
+        // Timer functions
+        function startTimer() {
+            timerInterval = setInterval(updateTimer, 1000);
+            updateTimer();
+        }
 
-           
-            </div>
-  
+        function updateTimer() {
+            if (secondsRemaining <= 0) {
+                clearInterval(timerInterval);
+                handleTimeUp();
+                return;
+            }
+
+            secondsRemaining--;
+
+            const minutes = Math.floor(secondsRemaining / 60);
+            const seconds = secondsRemaining % 60;
+
+            timeRemainingEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+            // Change color when time is running low
+            if (secondsRemaining < 60) {
+                timeRemainingEl.style.color = 'orange';
+            }
+            if (secondsRemaining < 30) {
+                timeRemainingEl.style.color = 'red';
+            }
+        }
+
+        function handleTimeUp() {
+            if (!isSubmitting) {
+                isSubmitting = true;
+                submitQuizAjax();
+                document.getElementById('timeout-modal').style.display = 'flex';
+            }
+        }
+
+        // Show submit confirmation modal
+        function showSubmitModal() {
+            document.getElementById('submit-modal').style.display = 'flex';
+        }
+
+        // Close submit modal
+        function closeSubmitModal() {
+            document.getElementById('submit-modal').style.display = 'none';
+        }
+
+        // Submit quiz function
+        function submitQuiz() {
+            if (!isSubmitting) {
+                isSubmitting = true;
+                submitQuizAjax();
+            }
+        }
+
+        // Submit quiz using AJAX
+                function submitQuizAjax() {
+            // Create form data for submission
+            const formData = new FormData();
+            formData.append('quizID', '@(quiz?.quizID)');
+            formData.append('studentID', '@student.stuID');
+
+            // Use fetch API for AJAX submission
+            fetch('/QuizAttempt/SubmitQuiz', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.removeEventListener('beforeunload', beforeUnloadHandler);
+
+                    // Use the redirect URL from the response
+                    window.location.href = data.redirectUrl || '/student/main';
+                } else {
+                    alert(data.message || 'Failed to submit quiz. Please try again.');
+                    isSubmitting = false;
+                }
+            })
+            .catch(error => {
+                console.error('Error submitting quiz:', error);
+                alert('Quiz processed. Redirecting to dashboard...');
+                window.removeEventListener('beforeunload', beforeUnloadHandler);
+                window.location.href = '/student/main';
+            });
+        }
+
+        // Warning when leaving page
+        function beforeUnloadHandler(e) {
+            if (!isSubmitting) {
+                e.preventDefault();
+                e.returnValue = 'You have unsaved changes. Are you sure you want to leave?';
+                return e.returnValue;
+            }
+        }
+
+        window.addEventListener('beforeunload', beforeUnloadHandler);
+
+        // Display error messages if any
+        @if (TempData["log"] != null)
+        {
+            <text>
+                    alert('@Html.Raw(TempData["log"])');
+            </text>
+        }
+
+        @if (TempData["Check"] != null)
+        {
+            <text>
+                    alert('@Html.Raw(TempData["Check"])');
+            </text>
+        }
+    </script>
 </body>
 </html>

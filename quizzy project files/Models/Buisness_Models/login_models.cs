@@ -46,6 +46,8 @@ namespace Quizzy.Models.Buisness_Models
         public string otp2 { get; set; }
         public string otp3 { get; set; }
         public string otp4 { get; set; }
+        public string otp5 { get; set; }
+        public string otp6 { get; set; }
 
         [Required(ErrorMessage = "New password is required")]
         [MinLength(8, ErrorMessage = "Password must be at least 8 characters long")]

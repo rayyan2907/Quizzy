@@ -1,0 +1,163 @@
+﻿@{
+    var student = ViewBag.stu as Quizzy.Models.Buisness_Models.Student;
+    var sub = ViewBag.sub as Quizzy.Models.Buisness_Models.subject_model;
+    var quiz = ViewBag.QuizData as Quizzy.Models.Buisness_Models.quiz_model;
+    
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Details - Quizzy</title>
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="~/css/quizAttempt.css" />
+    <link rel="stylesheet" href="~/css/studentMain.css" />
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <i class="fas fa-graduation-cap brand-icon"></i>
+                <h2>Quizzy</h2>
+            </div>
+            <div class="navbar-menu">
+                <div class="user-welcome">
+                    <i class="fas fa-user-circle user-icon"></i>
+                    <span>Welcome, @student.first_name @student.last_name</span>
+                </div>
+                <a href="/Student/Dashboard" class="btn-logout"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- TempData Messages -->
+    @if (TempData["Check"] != null)
+    {
+        <div style="color: #07fc03; font-size: 16px; text-align: center;">
+            @TempData["Check"]
+        </div>
+    }
+    @if (TempData["log"] != null)
+    {
+        <div style="color: red; font-size: 16px; text-align: center;">
+            @TempData["log"]
+        </div>
+    }
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">Quiz Details</h1>
+        </div>
+
+        <!-- Student Details -->
+        <div class="student-details">
+            <div class="info-label">STUDENT DETAILS: </div>
+            <div class="student-info">
+                <div class="info-item">
+                    <div class="info-label">Student ID</div>
+                    <div class="info-value">@student.addmission_year-@student.dept-@student.roll_num</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">First Name</div>
+                    <div class="info-value">@student.first_name</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Last Name</div>
+                    <div class="info-value">@student.last_name</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Email</div>
+                    <div class="info-value">@student.email</div>
+                </div>
+            </div>
+            <div class="info-label">QUIZ DETAILS: </div>
+            <div class="student-info">
+                <div class="info-item">
+                    <div class="info-label">Quiz Name</div>
+                    <div class="info-value">@quiz.quizName</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Subject Code</div>
+                    <div class="info-value">@sub.code</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Subject Name</div>
+                    <div class="info-value">@sub.name</div>
+                </div>
+                @if (quiz.attempt == true)
+                {
+                    <div class="info-item">
+                        <div class="info-label">Attempts</div>
+                        <div class="info-value">Multiple</div>
+                    </div>
+                }
+                else
+                {
+                    <div class="info-item">
+                        <div class="info-label">Attempts</div>
+                        <div class="info-value">Single</div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Quiz Options -->
+        <div class="quiz-options">
+            <!-- Quiz Card -->
+            <div class="quiz-card-new">
+                <div class="quiz-card-header">
+                    <div class="quiz-type">
+                        <div class="quiz-icon">
+                            <i class="fas fa-list-ul"></i>
+                        </div>
+                        <h3 class="quiz-title">Quiz (@sub.code)</h3>
+                    </div>
+                </div>
+                <div class="quiz-card-body">
+                    <div class="quiz-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Questions</div>
+                            <div class="stat-value">20</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Time Limit</div>
+                            <div class="stat-value">@quiz.given_time mins</div>
+                        </div>
+                    </div>
+                    <div class="quiz-desc">
+                        The quiz contains short questions and MCQs. Once you have entered the quiz you can not exit without submitting. You need to enter full screen to attempt the quiz.
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-text">
+                            <span class="progress-label"><i class="fas fa-check-circle"></i> Progress</span>
+                            <span class="progress-percent">0%</span>
+                        </div>
+                    </div>
+
+                    <form action="/QuizAttempt/CreateAttempt" method="post">
+                        <input type="hidden" name="quizID" value="@quiz.quizID" />
+                        <input type="hidden" name="studentID" value="@student.stuID" />
+                        <input type="hidden" name="subjectID" value="@sub.subjectID" />
+
+                            <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-play"></i>
+                            <span>Start Quiz</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

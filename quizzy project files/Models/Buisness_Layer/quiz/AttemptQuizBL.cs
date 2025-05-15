@@ -22,7 +22,7 @@ namespace Quizzy.Models.Buisness_Layer.quiz
         }
 
         // Create a new attempt record
-        public static string CreateAttempt(attempt_model attempt)
+        public static bool CreateAttempt(attempt_model attempt)
         {
             try
             {
@@ -38,24 +38,16 @@ namespace Quizzy.Models.Buisness_Layer.quiz
 
                 if (hasAttempted)
                 {
-                    return "You have already attempted this quiz";
+                    Console.WriteLine("Student has already attempted this quiz");
+                    return false;
                 }
 
-                if (AttemptQuizDL.CreateAttempt(attemptDL))
-                {
-                    // Get the attempt ID for the newly created attempt
-                    int attemptId = AttemptQuizDL.GetLatestAttemptId(attemptDL.studentID, attemptDL.quizID);
-                    return attemptId.ToString();
-                }
-                else
-                {
-                    return "Failed to create quiz attempt";
-                }
+                return AttemptQuizDL.CreateAttempt(attemptDL);
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error creating attempt: " + ex.Message);
-                return "Error: " + ex.Message;
+                return false;
             }
         }
 
@@ -99,7 +91,8 @@ namespace Quizzy.Models.Buisness_Layer.quiz
             }
         }
 
-        public static string SubmitQuiz(result_model result)
+        // Submit complete quiz answers and calculate score
+        public static bool SubmitQuiz(result_model result)
         {
             try
             {
@@ -122,51 +115,39 @@ namespace Quizzy.Models.Buisness_Layer.quiz
                     total_marks = totalScore
                 };
 
-                if (AttemptQuizDL.SaveQuizResults(resultDL))
+                // Save results
+                bool resultSaved = AttemptQuizDL.SaveQuizResults(resultDL);
+
+                if (resultSaved)
                 {
                     AttemptQuizDL.MarkQuizAsAttempted(quizId);
-                    return "Quiz submitted successfully";
+                    return true;
                 }
-                else
-                {
-                    return "Failed to submit quiz";
-                }
+
+                return false;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error submitting quiz: " + ex.Message);
-                return "Error: " + ex.Message;
+                return false;
             }
         }
 
-        public static quiz_attempt_view_model LoadQuizForAttempt(string quizId, string studentId, string subjectId)
+        // Check if student has already attempted a quiz
+        public static bool HasStudentAttemptedQuiz(string quizId, string studentId)
         {
-            quiz_attempt_view_model viewModel = new quiz_attempt_view_model();
+            try
+            {
+                int quizIdInt = Convert.ToInt32(quizId);
+                int studentIdInt = Convert.ToInt32(studentId);
 
-            viewModel.Quiz = createQuizBL.getQuizObj(quizId);
-
-            subject_model subject = new subject_model();
-            Student student = new Student();
-            viewModel.Mcqs = GetQuizMcqs(quizId);
-            viewModel.Shqs = GetQuizShqs(quizId);
-
-            return viewModel;
-        }
-
-        public static Dictionary<string, DataTable> GetQuizReview(string quizId, string studentId)
-        {
-            Dictionary<string, DataTable> reviewData = new Dictionary<string, DataTable>();
-
-            int quizIdInt = Convert.ToInt32(quizId);
-            int studentIdInt = Convert.ToInt32(studentId);
-            DataTable mcqReview = AttemptQuizDL.GetMcqAnswers(studentIdInt, quizIdInt);
-
-            DataTable shqReview = AttemptQuizDL.GetShqAnswers(studentIdInt, quizIdInt);
-
-            reviewData.Add("mcqs", mcqReview);
-            reviewData.Add("shqs", shqReview);
-
-            return reviewData;
+                return AttemptQuizDL.HasAttemptedQuiz(studentIdInt, quizIdInt);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error checking quiz attempt: " + ex.Message);
+                return false;
+            }
         }
     }
 }

@@ -1,225 +1,244 @@
-﻿// Quizzy/Controllers/QuizAttemptController.cs
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Quizzy.Models.Buisness_Layer.quiz;
 using Quizzy.Models.Buisness_Models;
 using System;
 using System.Data;
-using System.Collections.Generic;
 using Quizzy.Models.Buisness_Layer.subjects;
 using Quizzy.Models.Buisness_Layer.student;
 using Quizzy.Helpers;
+using DBHelper;
 
 namespace Quizzy.Controllers
 {
     public class QuizAttemptController : Controller
     {
-        // Load quiz page for student attempt
+        private bool CheckIfResultExists(string quizID, string studentID)
+        {
+            try
+            {
+                int quizIdInt = Convert.ToInt32(quizID);
+                int studentIdInt = Convert.ToInt32(studentID);
+
+                string query = $"SELECT COUNT(*) FROM results WHERE quizID = {quizIdInt} AND studentID = {studentIdInt}";
+
+                DataTable dt = DatabaseHelper.Instance.GetData(query);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    int count = Convert.ToInt32(dt.Rows[0][0]);
+                    return count > 0;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error checking if result exists: {ex.Message}");
+                return false;
+            }
+        }
         public IActionResult AttemptQuiz(string quizId)
         {
-            Console.WriteLine(quizId);
-           
-            // Get student information from session
-            var stu =  HttpContext.Session.GetObject<Student>("StudentObj");
+            Console.WriteLine("Attempting quiz with ID: " + quizId);
+
+            var student = HttpContext.Session.GetObject<Student>("StudentObj");
             var subject = HttpContext.Session.GetObject<subject_model>("subObj");
-            Console.WriteLine($"sttduent with name {stu.last_name} hs opened quiz {quizId} ");
-                Console.WriteLine($"with sub {subject.name}");
 
-            
-            if (stu == null || subject==null)
+            if (student == null || subject == null)
             {
                 TempData["log"] = "Session not found";
-
-                if (string.IsNullOrEmpty(stu.stuID))
-                {
-                    return RedirectToAction("index", "login");
-                }
-                
-                if (string.IsNullOrEmpty(stu.stuID))
-                {
-                    return RedirectToAction("index", "login");
-                }
-
-                // Get quiz details
-                quiz_model Quiz = createQuizBL.getQuizObj(quizId);
-                
-                if (Quiz == null)
-                {
-                    return NotFound();
-                }
-
-                // Get subject details
-                subject_model Subject = subjectBL.getSubfromid(subject.subjectID);
-                
-                if (subject == null)
-                {
-                    return NotFound();
-                }
-                
-                // Get student details
-                Student student = StudentBL.getData(stu.stuID);
-                
-                if (student == null)
-                {
-                    return NotFound();
-                }
-
-                // Get MCQs and SHQs for the quiz
-                DataTable Mcqs = AttemptQuizBL.GetQuizMcqs(quizId);
-                DataTable Shqs = AttemptQuizBL.GetQuizShqs(quizId);
-
-                // Set ViewBag data
-                ViewBag.stu = student;
-                ViewBag.sub = Subject;
-                ViewBag.QuizData = Quiz;
-                ViewBag.mcq = Mcqs;
-                ViewBag.shq = Shqs;
-
-                return View();
-            }
-            Console.WriteLine($"sttduent with name {stu.last_name} hs opened quiz {quizId} with sub {subject.name}");
-             
-
-            // Get quiz details
-            quiz_model quiz = createQuizBL.getQuizObj(quizId);
-                
-            if (quiz == null)
-            {
-
-                TempData["log"] = "Session not found";
-
                 return RedirectToAction("index", "login");
             }
 
-            // Get subject details
-                
-            // Get MCQs and SHQs for the quiz
-            DataTable mcqs = AttemptQuizBL.GetQuizMcqs(quizId);
-            DataTable shqs = AttemptQuizBL.GetQuizShqs(quizId);
+            Console.WriteLine($"Student with name {student.first_name} {student.last_name} has opened quiz {quizId}");
+            Console.WriteLine($"Subject: {subject.name}");
 
-            // Set ViewBag data
-            ViewBag.stu = stu;
+            quiz_model quiz = getQuizBL.getQuizdata(quizId);
+
+            if (quiz == null)
+            {
+                TempData["log"] = "Quiz not found";
+                return RedirectToAction("main", "student");
+            }
+
+            if (string.IsNullOrEmpty(quiz.quizID))
+            {
+                quiz.quizID = quizId;
+                Console.WriteLine($"Fixed missing quiz ID, now set to: {quiz.quizID}");
+            }
+
+            bool hasSubmitted = CheckIfResultExists(quizId, student.stuID);
+
+            if (hasSubmitted)
+            {
+                TempData["log"] = "You have already submitted this quiz.";
+                return RedirectToAction("main", "student");
+            }
+
+            Console.WriteLine($"Quiz Model: ID={quiz.quizID}, Name={quiz.quizName}, Time={quiz.given_time}");
+
+            HttpContext.Session.SetObject("QuizObj", quiz);
+
+            DataTable mcqs = createQuizBL.getMcqs(quiz);
+            DataTable shqs = createQuizBL.getShqs(quiz);
+
+            ViewBag.stu = student;
             ViewBag.sub = subject;
             ViewBag.QuizData = quiz;
             ViewBag.mcq = mcqs;
             ViewBag.shq = shqs;
+            ViewBag.HasSubmitted = hasSubmitted;  
 
-            return View();
-            
-           
-        }
-
-        // API endpoint to create a new attempt
-        [HttpPost]
-        public IActionResult CreateAttempt([FromBody] attempt_model model)
-        {
-            try
+            if (!hasSubmitted)
             {
-                string result = AttemptQuizBL.CreateAttempt(model);
-                
-                if (result.StartsWith("Error:") || result == "You have already attempted this quiz" || result == "Failed to create quiz attempt")
+                attempt_model attempt = new attempt_model
                 {
-                    return Json(new { success = false, message = result });
-                }
-                
-                return Json(new { success = true, attemptId = result });
+                    quizID = quizId,
+                    subjectID = subject.subjectID,
+                    studentID = student.stuID
+                };
+
+                Console.WriteLine("Creating attempt record");
+                AttemptQuizBL.CreateAttempt(attempt);
             }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = "Error: " + ex.Message });
-            }
+
+            return View("attemptQuiz");
         }
 
-        // API endpoint to save MCQ answer
         [HttpPost]
-        public IActionResult SaveMcqAnswer([FromBody] mcq_answer_model model)
+        public IActionResult CreateAttempt(attempt_model model)
         {
+            Console.WriteLine($"Creating attempt for quiz ID: {model.quizID}, student ID: {model.studentID}");
+
             try
             {
-                bool success = AttemptQuizBL.SaveMcqAnswer(model);
-                
+
+                bool hasAttempted = AttemptQuizBL.HasStudentAttemptedQuiz(model.quizID, model.studentID);
+
+                if (hasAttempted)
+                {
+                    TempData["log"] = "You have already attempted this quiz";
+                    return RedirectToAction("Dashboard", "Student");
+                }
+
+              
+                bool success = AttemptQuizBL.CreateAttempt(model);
+
                 if (success)
                 {
-                    return Json(new { success = true });
+                  
+                    return RedirectToAction("AttemptQuiz", new { quizId = model.quizID });
                 }
                 else
                 {
-                    return Json(new { success = false, message = "Failed to save answer" });
+                    TempData["log"] = "Failed to create quiz attempt";
+                    return RedirectToAction("Dashboard", "Student");
                 }
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, message = "Error: " + ex.Message });
+                Console.WriteLine("Error creating attempt: " + ex.Message);
+                TempData["log"] = "Error: " + ex.Message;
+                return RedirectToAction("Dashboard", "Student");
             }
         }
 
-        // API endpoint to save Short Question answer
         [HttpPost]
-        public IActionResult SaveShqAnswer([FromBody] shq_answer_model model)
+        public IActionResult SaveMcqAnswer(mcq_answer_model model)
         {
+            Console.WriteLine($"Saving MCQ answer: {model.mcqID}, answer: {model.answer}");
+
             try
             {
-                bool success = AttemptQuizBL.SaveShqAnswer(model);
-                
-                if (success)
+                bool result = AttemptQuizBL.SaveMcqAnswer(model);
+                if (result)
                 {
-                    return Json(new { success = true });
+                    Console.WriteLine("MCQ answer saved successfully");
+                    return RedirectToAction("AttemptQuiz", new { quizId = HttpContext.Session.GetObject<quiz_model>("QuizObj").quizID });
                 }
                 else
                 {
-                    return Json(new { success = false, message = "Failed to save answer" });
+                    TempData["log"] = "Failed to save answer";
+                    return RedirectToAction("AttemptQuiz", new { quizId = HttpContext.Session.GetObject<quiz_model>("QuizObj").quizID });
                 }
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, message = "Error: " + ex.Message });
+                Console.WriteLine("Error saving MCQ answer: " + ex.Message);
+                TempData["log"] = "Error saving answer: " + ex.Message;
+                return RedirectToAction("AttemptQuiz", new { quizId = HttpContext.Session.GetObject<quiz_model>("QuizObj").quizID });
             }
         }
 
-        // API endpoint to submit complete quiz
         [HttpPost]
-        public IActionResult SubmitQuiz([FromBody] result_model model)
+        public IActionResult SaveShqAnswer(shq_answer_model model)
         {
+            Console.WriteLine($"Saving SHQ answer: {model.shqID}");
+
             try
             {
-                string result = AttemptQuizBL.SubmitQuiz(model);
-                
-                if (result == "Quiz submitted successfully")
+                bool result = AttemptQuizBL.SaveShqAnswer(model);
+                if (result)
                 {
-                    return Json(new { success = true, message = result });
+                    Console.WriteLine("SHQ answer saved successfully");
+                    return RedirectToAction("AttemptQuiz", new { quizId = HttpContext.Session.GetObject<quiz_model>("QuizObj").quizID });
                 }
                 else
                 {
-                    return Json(new { success = false, message = result });
+                    TempData["log"] = "Failed to save answer";
+                    return RedirectToAction("AttemptQuiz", new { quizId = HttpContext.Session.GetObject<quiz_model>("QuizObj").quizID });
                 }
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, message = "Error: " + ex.Message });
+                Console.WriteLine("Error saving SHQ answer: " + ex.Message);
+                TempData["log"] = "Error saving answer: " + ex.Message;
+                return RedirectToAction("AttemptQuiz", new { quizId = HttpContext.Session.GetObject<quiz_model>("QuizObj").quizID });
             }
         }
 
-        // Display quiz results after submission
-        public IActionResult QuizResults(string quizId)
+        [HttpPost]
+        public IActionResult SubmitQuiz(string quizID, string studentID)
         {
+            Console.WriteLine($"Submitting quiz: {quizID} for student: {studentID}");
+
             try
             {
-                var student = HttpContext.Session.GetObject<Student>("studentObj");
+                var quiz = HttpContext.Session.GetObject<quiz_model>("QuizObj");
+                var student = HttpContext.Session.GetObject<Student>("StudentObj");
 
-                if (string.IsNullOrEmpty(student.stuID))
+                if (quiz == null || student == null)
                 {
+                    TempData["log"] = "Session not found";
                     return RedirectToAction("index", "login");
                 }
 
-                // Get result details
-                // You'd need to implement a method to get result details
-                // This would typically be a call to a method in your business layer
+            
+                result_model result = new result_model
+                {
+                    quizID = quizID,
+                    studentID = studentID
+                };
 
-                return View();
+               
+                bool success = AttemptQuizBL.SubmitQuiz(result);
+
+                if (success)
+                {
+                    TempData["Check"] = "Quiz submitted successfully";
+                    return RedirectToAction("Dashboard", "Student");
+                }
+                else
+                {
+                    TempData["log"] = "Failed to submit quiz";
+                    return RedirectToAction("AttemptQuiz", new { quizId = quizID });
+                }
             }
             catch (Exception ex)
             {
-                ViewBag.ErrorMessage = "Failed to load quiz results: " + ex.Message;
-                return View("Error");
+                Console.WriteLine("Error submitting quiz: " + ex.Message);
+                TempData["log"] = "Error submitting quiz: " + ex.Message;
+                return RedirectToAction("AttemptQuiz", new { quizId = quizID });
             }
         }
     }
