@@ -123,23 +123,13 @@ namespace Quizzy.Controllers.login
                     {
 
                         HttpContext.Session.SetString("UserId", user.Rows[0]["studentID"].ToString());
-                        Response.Cookies.Append("UserId", user.Rows[0]["studentID"].ToString(), new CookieOptions
-                        {
-                            Expires = DateTimeOffset.Now.AddDays(7),
-                            IsEssential = true
-                        });
-
+                     
                         return RedirectToAction("main", "student");
                     }
                     else if (role == "teacher")
                     {
                         HttpContext.Session.SetString("teacId", user.Rows[0]["teacherID"].ToString());
-                        Response.Cookies.Append("teacId", user.Rows[0]["teacherID"].ToString(), new CookieOptions
-                        {
-                            Expires = DateTimeOffset.Now.AddDays(7),
-                            IsEssential = true
-                        });
-
+                     
                         return RedirectToAction("main", "teacher");
                     }
                 }

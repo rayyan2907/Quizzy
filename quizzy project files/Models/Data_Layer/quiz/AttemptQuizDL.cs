@@ -109,7 +109,7 @@ namespace Quizzy.Models.Data_Layer.quiz
             int rows = DatabaseHelper.Instance.Update(query);
             return rows > 0;
         }
-
+        
         // Calculate and save quiz results
         public static bool SaveQuizResults(resultModel result)
         {

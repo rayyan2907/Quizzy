@@ -42,7 +42,6 @@ namespace Quizzy.Controllers.student
 
             if (string.IsNullOrEmpty(id))
                 {
-                    // You can reload from cookie or redirect to login
                     if (Request.Cookies["UserId"] != null)
                     {
                         id = Request.Cookies["UserId"];
