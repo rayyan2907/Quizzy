@@ -31,12 +31,11 @@ namespace Quizzy.Models.Buisness_Models
         public string first_name { get; set; }
         public string last_name { get; set; }
     }
-
     public class verify_otp
     {
         public string Otp { get; set; }
         public bool isVerified { get; set; }
-    }
+    } 
     public class change_pass
     {
         [Required(ErrorMessage = "Email is required")]
@@ -58,6 +57,4 @@ namespace Quizzy.Models.Buisness_Models
         [Compare("newPassword", ErrorMessage = "The passwords do not match")]
         public string confirmPassword { get; set; }
     }
-
-
 }

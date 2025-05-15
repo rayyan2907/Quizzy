@@ -51,7 +51,6 @@ namespace Quizzy.Models.Buisness_Layer.quiz
             }
         }
 
-        // Save MCQ answer
         public static bool SaveMcqAnswer(mcq_answer_model answer)
         {
             try
@@ -72,7 +71,6 @@ namespace Quizzy.Models.Buisness_Layer.quiz
             }
         }
 
-        // Save Short Question answer
         public static bool SaveShqAnswer(shq_answer_model answer)
         {
             try
@@ -108,7 +106,6 @@ namespace Quizzy.Models.Buisness_Layer.quiz
                 int shqScore = 0;
                 int totalScore = mcqScore + shqScore;
 
-                // Create result record
                 resultModel resultDL = new resultModel
                 {
                     quizID = quizId,
@@ -123,7 +120,6 @@ namespace Quizzy.Models.Buisness_Layer.quiz
 
                 if (resultSaved)
                 {
-                    // Mark the quiz as attempted in the quiz table
                     AttemptQuizDL.MarkQuizAsAttempted(quizId);
                     return true;
                 }

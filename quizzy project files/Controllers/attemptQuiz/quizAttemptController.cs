@@ -16,7 +16,6 @@ namespace Quizzy.Controllers
         {
             try
             {
-              
                 int quizIdInt = Convert.ToInt32(quizID);
                 int studentIdInt = Convert.ToInt32(studentID);
 

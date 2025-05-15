@@ -19,23 +19,18 @@ namespace Quizzy.Controllers.student
 
         public IActionResult availableQuizes()
         {
-
             var stu = HttpContext.Session.GetObject<Student>("StudentObj");
 
             if (stu == null)
             {
                 TempData["log"] = "Session not found";
                 return RedirectToAction("index", "login");
-
             }
 
             DataTable dt = stu_quizBL.getopenquiz();
-
             ViewBag.quiz = dt;
 
-
             Console.WriteLine($"open quizes section has been opened by the student with name {stu.first_name} {stu.last_name} ");
-
 
             ViewBag.stu = stu;
             return View("seeOpenQuiz");
@@ -57,7 +52,6 @@ namespace Quizzy.Controllers.student
                     else
                     {
                         TempData["log"] = "Session not found";
-
                         return RedirectToAction("index", "login");
                     }
                 }
@@ -74,9 +68,7 @@ namespace Quizzy.Controllers.student
             if (stu == null)
             {
                 TempData["log"] = "Session not found";
-
                 return RedirectToAction("index", "login");
-
             }
             Console.WriteLine($"user with name {stu.first_name} {stu.last_name} is loging out");
             HttpContext.Session.Clear();
@@ -103,7 +95,6 @@ namespace Quizzy.Controllers.student
                 TempData["log"] = "Session not found";
 
                 return RedirectToAction("index", "login");
-
             }
             DataTable dt = StudentBL.getStuCourses(stu.stuID);
 
@@ -131,9 +122,6 @@ namespace Quizzy.Controllers.student
             ViewBag.compquiz = completequiz;
             ViewBag.upcomming = upcomm;
             ViewBag.aggregate = agregate;
-
-
-
 
             ViewBag.Enrolled = dt;
             ViewBag.stu = stu;
@@ -171,8 +159,6 @@ namespace Quizzy.Controllers.student
             e.status = false;
             if (StudentBL.CheckIfEnrolled(e))
             {
-
-
                 bool flag = StudentBL.stuEnroll(e);
 
                 if (!flag)
@@ -241,7 +227,6 @@ namespace Quizzy.Controllers.student
                     {
                         TempData["Check"] = "Internet not connected";
                         Console.WriteLine("internet issue");
-
                     }
 
                     //to the teacher
@@ -293,17 +278,14 @@ namespace Quizzy.Controllers.student
                     {
                         TempData["Check"] = "Internet not connected";
                         Console.WriteLine("internet issue");
-
                     }
                     Console.WriteLine("email sent to teacher");
-
                 }
             }
             else
             {
                 TempData["Check"] = "You have already enrolled in this course";
                 return RedirectToAction("availableCourse");
-
             }
             return RedirectToAction("enrolledCourse");
         }
@@ -312,17 +294,8 @@ namespace Quizzy.Controllers.student
         [HttpGet]
         public IActionResult getCourse(string id)
         {
-           
-
-
-
             HttpContext.Session.SetString("courseID",id);
-
-
-
             Console.WriteLine($"course id is{id}");
-
-
             return RedirectToAction("coursePage");
         }
 
@@ -335,7 +308,6 @@ namespace Quizzy.Controllers.student
                 TempData["log"] = "Session not found";
 
                 return RedirectToAction("index", "login");
-
             }
             string id = HttpContext.Session.GetString("courseID");
 
@@ -344,7 +316,6 @@ namespace Quizzy.Controllers.student
                 TempData["log"] = "Session not found";
 
                 return RedirectToAction("index", "login");
-
             }
 
             subject_model sub = subjectBL.getSubfromid(id);
@@ -358,9 +329,6 @@ namespace Quizzy.Controllers.student
             Console.WriteLine("subject obj made");
             ViewBag.stu = stu;
             ViewBag.sub = sub;
-
-            
-
             return View("coursePage");
         }
     }
