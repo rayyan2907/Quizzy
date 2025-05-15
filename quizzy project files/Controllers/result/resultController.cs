@@ -34,7 +34,7 @@ namespace Quizzy.Controllers.result
             Console.WriteLine($"course id is {id}");
             Console.WriteLine($"student with name {stu.first_name} {stu.last_name} is opening the reuslts of the course {sub.name}");
 
-            DataTable dt = stu_quizBL.getresults(sub.subjectID);
+            DataTable dt = stu_quizBL.getresults(sub.subjectID,stu.stuID);
             ViewBag.result = dt;
             ViewBag.stu = stu;
             ViewBag.sub = sub;
