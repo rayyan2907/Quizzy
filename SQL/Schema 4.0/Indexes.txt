@@ -1,0 +1,18 @@
+-- Index for foreign keys in the attempt table
+CREATE INDEX idx_attempt_quiz ON attempt(quizID);
+CREATE INDEX idx_attempt_subject ON attempt(subjectID);
+CREATE INDEX idx_attempt_student ON attempt(studentID);
+
+-- Index for foreign keys in the mcq_answers table
+CREATE INDEX idx_mcq_answers_mcq ON mcq_answers(mcqID);
+CREATE INDEX idx_mcq_answers_student ON mcq_answers(studentID);
+
+-- Index for foreign keys in the shq_answers table
+CREATE INDEX idx_shq_answers_shq ON shq_answers(shqID);
+CREATE INDEX idx_shq_answers_student ON shq_answers(studentID);
+
+-- Index for searching students by email
+CREATE INDEX idx_student_email ON students(email);
+
+-- Index for searching teachers by email
+CREATE INDEX idx_teacher_email ON teachers(email);

@@ -1,0 +1,47 @@
+CREATE VIEW vw_StudentQuizSummary AS
+SELECT 
+    s.studentId, 
+    s.first_name, 
+    s.last_name, 
+    s.roll_num,
+    s.dept,
+    q.quizID, 
+    q.quiz_name,
+    sub.subject_name,
+    sub.subject_code,
+    r.mcq_marks,
+    r.shq_marks,
+    r.total_marks
+FROM 
+    students s
+JOIN results r ON s.studentId = r.studentID
+JOIN quiz q ON r.quizID = q.quizID
+JOIN subjects sub ON q.subjectID = sub.subjectID;
+
+-- 2
+CREATE VIEW vw_TeacherQuizOverview AS
+SELECT 
+    t.teacherId,
+    t.first_name AS teacher_first_name,
+    t.last_name AS teacher_last_name,
+    sub.subjectID,
+    sub.subject_name,
+    sub.subject_code,
+    q.quizID,
+    q.quiz_name,
+    q.isPublic,
+    q.is_asssign,
+    COUNT(DISTINCT a.atemptID) AS total_attempts,
+    AVG(r.total_marks) AS average_score,
+    MAX(r.total_marks) AS highest_score,
+    MIN(r.total_marks) AS lowest_score
+FROM 
+    teachers t
+JOIN subjects sub ON t.teacherId = sub.teacherId
+JOIN quiz q ON sub.subjectID = q.subjectID
+LEFT JOIN attempt a ON q.quizID = a.quizID
+LEFT JOIN results r ON q.quizID = r.quizID AND a.studentID = r.studentID
+GROUP BY
+    t.teacherId, sub.subjectID, q.quizID;
+
+

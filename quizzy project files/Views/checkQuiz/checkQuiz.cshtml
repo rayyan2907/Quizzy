@@ -36,7 +36,7 @@
             </div>
         </div>
     </nav>
-    <a href="/teacher/home" class="btn-go-back">
+    <a href="/checkQuiz/openQuiz" class="btn-go-back">
         <i class="fas fa-arrow-left"></i> Go Back
     </a>
     <div class="content-wrapper">
@@ -62,36 +62,42 @@
         </div>
     }
 
-    <div class="student-assignments">
-        <div class="section-header">
-            <h2>Check Quizzes of the Students</h2>
-        </div>
+    <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h2>Check Quizzes of the Students</h2>
+        <form method="post" asp-controller="checkQuiz" asp-action="saveResults" style="margin-left: auto;">
+            <button type="submit" class="btn-logout" style="background-color: #4CAF50; padding: 8px 16px; font-size: 14px; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 500; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: all 0.2s ease;">
+                <i class="fas fa-paper-plane"></i> Save Results    
+            </button>
+        </form>
+    </div>
 
-        @if (quizAttempts != null && quizAttempts.Rows.Count > 0)
-        {
-            <table class="evaluation-table">
-                <thead>
-                    <tr>
-                        <th>Registration Number</th>
-                        <th>Student Name</th>
-                        <th>MCQs Marks</th>
-                        <th>SQs Marks</th>
-                        <th>Check Quiz</th>
-                        <th>Send Result</th>
-                    </tr>
-                </thead>
+    @if (quizAttempts != null && quizAttempts.Rows.Count > 0)
+    {
+        <table class="evaluation-table">
+            <thead>
+                <tr>
+                    <th>Registration Number</th>
+                    <th>Student Name</th>
+                    <th>MCQs Marks</th>
+                    <th>SQs Marks</th>
+                    <th>Total Marks</th>
+                    <th>Check Quiz</th>
+                </tr>
+            </thead>
 
-                <tbody>
-                    @foreach (System.Data.DataRow row in quizAttempts.Rows)
-                    {
-                        int studentId = Convert.ToInt32( row["studentId"]);
-                        var sqsPending = Convert.ToInt32(row["sqs_pending"]);
+            <tbody>
+                @foreach (System.Data.DataRow row in quizAttempts.Rows)
+                {
+                    int studentId = Convert.ToInt32( row["studentId"]);
+                    var sqsPending = Convert.ToInt32(row["sqs_pending"]);
 
+                    Console.WriteLine($"sqs marks are {row["sqs_marks"]}");
                         <tr>
                             <td>@row["registration_number"]</td>
                             <td>@row["name"]</td>
                             <td>@row["mcqs_marks"]</td>
                             <td>@row["sqs_marks"]</td>
+                            <td>@row["total_marks"]</td>
                             <td>
                                 @if (sqsPending == 1)
                                 {
@@ -101,9 +107,6 @@
                                 {
                                     <a href="/checkQuiz/SQCheck?id=@studentId" class="btn check" style="text-decoration: none;">Recheck</a>
                                 }
-                            </td>
-                            <td>
-                                <a href="/checQuiz/SendResult?id=@studentId" class=" btn send" style=" text-decoration: none;">Send</a>
                             </td>
                         </tr>
                     }
@@ -116,7 +119,7 @@
                 {
                     <p style = "text-align: center; font-size: 16px; color: black;">No student has attempted the quiz yet.</p>
                 }
-            
+                
     </div>
 
     <div class="dashboard-footer">

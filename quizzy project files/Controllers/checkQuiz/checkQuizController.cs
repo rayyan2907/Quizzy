@@ -105,7 +105,7 @@ namespace Quizzy.Controllers.checkQuiz
                 return RedirectToAction("index", "login");
             }
 
-            var student = StudentBL.getData(id); // should return a Student object
+            var student = StudentBL.getData(id); 
 
             if (student == null)
             {
@@ -131,6 +131,7 @@ namespace Quizzy.Controllers.checkQuiz
             {
                 Console.WriteLine("quiz id is null");
             }
+
             foreach (var entry in Grades)
             {
                 string shqID = entry.Key;
@@ -152,6 +153,45 @@ namespace Quizzy.Controllers.checkQuiz
 
             Console.WriteLine("the id of quiz is...................", quizId);
             TempData["success"] = "Marks assigned successfully.";
+            return RedirectToAction("showQuizStudents", new { id = quizId });
+        }
+
+        [HttpPost]
+        public IActionResult saveResults()
+        {
+            string quizId = HttpContext.Session.GetString("quizId");
+
+            if (string.IsNullOrEmpty(quizId))
+            {
+                TempData["error"] = "Quiz ID not found in session.";
+                return RedirectToAction("openQuiz");
+            }
+
+            DataTable resultTable = checkQuizBL.GetFinalResults(quizId);
+
+            bool allSaved = true;
+
+            foreach (DataRow row in resultTable.Rows)
+            {
+                int studentId = Convert.ToInt32(row["studentID"]);
+                int mcqMarks = Convert.ToInt32(row["mcqs_marks"]);
+                int shqMarks = Convert.ToInt32(row["sqs_marks"]);
+                int totalMarks = Convert.ToInt32(row["total_marks"]);
+
+                bool saved = checkQuizBL.SaveOrUpdateResult(studentId, quizId, mcqMarks, shqMarks, totalMarks);
+
+                if (!saved)
+                {
+                    allSaved = false;
+                    break;
+                }
+            }
+
+            if (allSaved)
+                TempData["success"] = "Results saved successfully.";
+            else
+                TempData["error"] = "Some results could not be saved.";
+
             return RedirectToAction("showQuizStudents", new { id = quizId });
         }
     }
