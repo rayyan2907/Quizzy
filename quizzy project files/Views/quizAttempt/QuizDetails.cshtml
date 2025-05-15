@@ -32,7 +32,7 @@
                     <i class="fas fa-user-circle user-icon"></i>
                     <span>Welcome, @student.first_name @student.last_name</span>
                 </div>
-                <a href="/Student/Dashboard" class="btn-logout"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+                <a href="/Student/main" class="btn-logout"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
             </div>
         </div>
     </nav>
@@ -145,16 +145,10 @@
                         </div>
                     </div>
 
-                    <form action="/QuizAttempt/CreateAttempt" method="post">
-                        <input type="hidden" name="quizID" value="@quiz.quizID" />
-                        <input type="hidden" name="studentID" value="@student.stuID" />
-                        <input type="hidden" name="subjectID" value="@sub.subjectID" />
-
-                            <button type="submit" class="btn btn-primary">
+                    <a href="/QuizAttempt/AttemptQuiz?quizId=@quiz.quizID" class="btn btn-primary">
                             <i class="fas fa-play"></i>
                             <span>Start Quiz</span>
-                        </button>
-                    </form>
+                    </a>
                 </div>
             </div>
         </div>

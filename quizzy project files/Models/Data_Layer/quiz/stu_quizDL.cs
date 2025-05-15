@@ -29,7 +29,7 @@ namespace Quizzy.Models.Data_Layer.quiz
 
         public static DataTable getattemptQuizes(string id)
         {
-            string query = $"select q.quiz_name, count(a.quizID) as attempts, sum(mcq_marks)/count(a.quizID) as avg_mmcq, sum(shq_marks)/count(a.quizID) as avg_short, (sum(mcq_marks)+sum(shq_marks))/count(a.quizID) as avg_gained, sum(total_marks)/count(a.quizID) as avg_total from attempt a join quiz q on q.quizID=a.quizID join results r on r.quizID=a.quizID where a.subjectID={id} group by a.quizID";
+            string query = $"select q.quiz_name, count(a.quizID) as attempts, sum(mcq_marks)/count(a.quizID) as avg_mmcq, sum(shq_marks)/count(a.quizID) as avg_short, (sum(mcq_marks)+sum(shq_marks))/count(a.quizID) as avg_gained, sum(total_marks)/count(a.quizID) as avg_total from attempt a join quiz q on q.quizID=a.quizID join results r on r.quizID=a.quizID where a.studentID={id} group by a.quizID";
             return DatabaseHelper.Instance.GetData(query);
         }
     }

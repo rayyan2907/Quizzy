@@ -25,7 +25,7 @@ namespace Quizzy.Models.Data_Layer.quiz
         // Create a new attempt record
         public static bool CreateAttempt(attemptModel attempt)
         {
-            string query = $"INSERT INTO attempt (quizID, subjectID, studentID) VALUES ({attempt.quizID}, {attempt.subjectID}, {attempt.studentID})";
+            string query = $"INSERT INTO attempt (quizID,studentID) VALUES ({attempt.quizID},{attempt.studentID})";
             int rows = DatabaseHelper.Instance.Update(query);
             return rows > 0;
         }
@@ -92,8 +92,14 @@ namespace Quizzy.Models.Data_Layer.quiz
         {
             string query = $"SELECT COUNT(*) FROM attempt WHERE studentID = {studentId} AND quizID = {quizId}";
             DataTable dt = DatabaseHelper.Instance.GetData(query);
-            int count = Convert.ToInt32(dt.Rows[0][0]);
-            return count > 0;
+            if(dt==null || dt.Rows.Count==0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         // Mark a quiz as attempted in the quiz table

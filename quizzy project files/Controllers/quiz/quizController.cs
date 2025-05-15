@@ -67,7 +67,7 @@ namespace Quizzy.Controllers.quiz
             Console.WriteLine($"course id is {id}");
 
             Console.WriteLine($"student with name {stu.first_name} {stu.last_name} is opening the quiz attempts of the course {sub.name}");
-            DataTable dt = stu_quizBL.getattemptquiz(sub.subjectID);
+            DataTable dt = stu_quizBL.getattemptquiz(stu.stuID);
 
             ViewBag.attemptquiz = dt;
 

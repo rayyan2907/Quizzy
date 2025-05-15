@@ -76,8 +76,7 @@
 
                     @foreach (System.Data.DataRow row in quizDt.Rows)
                     {
-                        if (Convert.ToInt32(row["is_asssign"]) == 1)
-                        {
+
                             hasAssignedQuiz = true;
                             string quizName = row["quiz_name"].ToString();
                             int quizId = Convert.ToInt32(row["quizID"]);
@@ -97,12 +96,7 @@
                                 </div>
                             </div>
                         }
-                    }
-
-                    @if (!hasAssignedQuiz)
-                    {
-                        <p class="no-quiz-text">No quizzes are assigned to the students.</p>
-                    }
+                  
                 </div>
             </div>
         }

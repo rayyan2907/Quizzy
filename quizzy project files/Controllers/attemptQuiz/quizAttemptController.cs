@@ -12,31 +12,56 @@ namespace Quizzy.Controllers
 {
     public class QuizAttemptController : Controller
     {
-        private bool CheckIfResultExists(string quizID, string studentID)
+
+        public IActionResult showQuiz(string quizId)
         {
-            try
+            Console.WriteLine("Attempting quiz with ID: " + quizId);
+
+            var student = HttpContext.Session.GetObject<Student>("StudentObj");
+
+            if (student == null)
             {
-                int quizIdInt = Convert.ToInt32(quizID);
-                int studentIdInt = Convert.ToInt32(studentID);
-
-                string query = $"SELECT COUNT(*) FROM results WHERE quizID = {quizIdInt} AND studentID = {studentIdInt}";
-
-                DataTable dt = DatabaseHelper.Instance.GetData(query);
-
-                if (dt != null && dt.Rows.Count > 0)
-                {
-                    int count = Convert.ToInt32(dt.Rows[0][0]);
-                    return count > 0;
-                }
-
-                return false;
+                TempData["log"] = "Session not found";
+                return RedirectToAction("index", "login");
             }
-            catch (Exception ex)
+
+            
+
+
+            Console.WriteLine($"Student with name {student.first_name} {student.last_name} has opened quiz {quizId}");
+
+            quiz_model quiz = getQuizBL.getQuizdata(quizId);
+
+            if (quiz == null)
             {
-                Console.WriteLine($"Error checking if result exists: {ex.Message}");
-                return false;
+                TempData["log"] = "Quiz not found";
+                return RedirectToAction("main", "student");
             }
+
+            subject_model subject = new subject_model();
+           
+
+            subject = subjectBL.getSubfromid(quiz.subID);
+
+            
+            Console.WriteLine($"Subject: {subject.name} id is {quiz.subID}");
+
+
+            Console.WriteLine($"Quiz Model: ID={quiz.quizID}, Name={quiz.quizName}, Time={quiz.given_time}");
+
+            HttpContext.Session.SetObject("QuizObj", quiz);
+
+
+            ViewBag.stu = student;
+            ViewBag.sub = subject;
+            ViewBag.QuizData = quiz;
+
+            return View("QuizDetails");
         }
+
+
+
+       
         public IActionResult AttemptQuiz(string quizId)
         {
             Console.WriteLine("Attempting quiz with ID: " + quizId);
@@ -67,13 +92,6 @@ namespace Quizzy.Controllers
                 Console.WriteLine($"Fixed missing quiz ID, now set to: {quiz.quizID}");
             }
 
-            bool hasSubmitted = CheckIfResultExists(quizId, student.stuID);
-
-            if (hasSubmitted)
-            {
-                TempData["log"] = "You have already submitted this quiz.";
-                return RedirectToAction("main", "student");
-            }
 
             Console.WriteLine($"Quiz Model: ID={quiz.quizID}, Name={quiz.quizName}, Time={quiz.given_time}");
 
@@ -87,20 +105,30 @@ namespace Quizzy.Controllers
             ViewBag.QuizData = quiz;
             ViewBag.mcq = mcqs;
             ViewBag.shq = shqs;
-            ViewBag.HasSubmitted = hasSubmitted;  
+           
 
-            if (!hasSubmitted)
+            bool hasAttempted = AttemptQuizBL.HasStudentAttemptedQuiz(quizId, student.stuID);
+
+            if (hasAttempted)
             {
-                attempt_model attempt = new attempt_model
-                {
-                    quizID = quizId,
-                    subjectID = subject.subjectID,
-                    studentID = student.stuID
-                };
-
-                Console.WriteLine("Creating attempt record");
-                AttemptQuizBL.CreateAttempt(attempt);
+                TempData["log"] = "You have already attempted this quiz";
+                return RedirectToAction("main", "student");
             }
+            Console.WriteLine("no attempt found");
+
+            attempt_model attempt = new attempt_model
+            {
+                quizID = quizId,
+                subjectID = subject.subjectID,
+                studentID = student.stuID
+            };
+            bool flag = AttemptQuizBL.CreateAttempt(attempt);
+            if (!flag)
+            {
+                TempData["log"] = "error in making attempt";
+                return RedirectToAction("main", "student");
+            }
+            Console.WriteLine("Creating attempt record");
 
             return View("attemptQuiz");
         }
@@ -113,18 +141,9 @@ namespace Quizzy.Controllers
             try
             {
 
-                bool hasAttempted = AttemptQuizBL.HasStudentAttemptedQuiz(model.quizID, model.studentID);
+                
 
-                if (hasAttempted)
-                {
-                    TempData["log"] = "You have already attempted this quiz";
-                    return RedirectToAction("Dashboard", "Student");
-                }
-
-              
-                bool success = AttemptQuizBL.CreateAttempt(model);
-
-                if (success)
+                if (true)
                 {
                   
                     return RedirectToAction("AttemptQuiz", new { quizId = model.quizID });
@@ -132,14 +151,14 @@ namespace Quizzy.Controllers
                 else
                 {
                     TempData["log"] = "Failed to create quiz attempt";
-                    return RedirectToAction("Dashboard", "Student");
+                    return RedirectToAction("main", "student");
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error creating attempt: " + ex.Message);
                 TempData["log"] = "Error: " + ex.Message;
-                return RedirectToAction("Dashboard", "Student");
+                return RedirectToAction("main", "student");
             }
         }
 
@@ -226,7 +245,7 @@ namespace Quizzy.Controllers
                 if (success)
                 {
                     TempData["Check"] = "Quiz submitted successfully";
-                    return RedirectToAction("Dashboard", "Student");
+                    return RedirectToAction("main", "student");
                 }
                 else
                 {

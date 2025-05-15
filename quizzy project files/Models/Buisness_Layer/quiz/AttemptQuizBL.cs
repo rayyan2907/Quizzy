@@ -33,14 +33,7 @@ namespace Quizzy.Models.Buisness_Layer.quiz
                     studentID = Convert.ToInt32(attempt.studentID)
                 };
 
-                // Check if student has already attempted this quiz
-                bool hasAttempted = AttemptQuizDL.HasAttemptedQuiz(attemptDL.studentID, attemptDL.quizID);
-
-                if (hasAttempted)
-                {
-                    Console.WriteLine("Student has already attempted this quiz");
-                    return false;
-                }
+              
 
                 return AttemptQuizDL.CreateAttempt(attemptDL);
             }

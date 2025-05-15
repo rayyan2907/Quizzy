@@ -24,7 +24,7 @@ namespace Quizzy.Models.Data_Layer.quiz
             q.subID = dt.Rows[0]["subjectID"].ToString();
             q.isPublic = Convert.ToBoolean( dt.Rows[0]["isPublic"]);
             q.isAssign = Convert.ToBoolean(dt.Rows[0]["is_asssign"]);
-
+            q.quizID = id;
             return q;
 
 
