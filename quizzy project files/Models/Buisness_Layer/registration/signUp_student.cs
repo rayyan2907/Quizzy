@@ -22,9 +22,8 @@ namespace Quizzy.Models.Buisness_Layer.registration
             }
             student.roll_num = roll_number;
 
-            string dateStr = stu.addmission_year;
-            DateTime date = DateTime.Parse(dateStr);
-            int year = date.Year;
+           
+            int year = Convert.ToInt32(stu.addmission_year);
 
             student.email = stu.email;
             student.dept = stu.dept;

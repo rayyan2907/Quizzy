@@ -147,6 +147,10 @@ namespace Quizzy.Controllers.login
             Signup signup = new Signup();
             DataTable dt = signup.check(reg);
 
+
+
+
+
             if (dt == null || dt.Rows.Count == 0)
             {
                 if (reg.password != reg.cnfrm_pwd)
@@ -156,6 +160,11 @@ namespace Quizzy.Controllers.login
                 }
                 else
                 {
+                    if (reg.role == null)
+                    {
+                        TempData["ErrorMessage"] = "Please select a role";
+                        return RedirectToAction("register");
+                    }
                     string generatedOtp = new Random().Next(100000, 999999).ToString();
 
                     HttpContext.Session.SetString("EmailOTP", generatedOtp);
@@ -209,6 +218,8 @@ namespace Quizzy.Controllers.login
                         return RedirectToAction("index");
                     }
 
+
+                    
                     TempData["otp"] = "Please check your spam mail for OTP";
 
                     return RedirectToAction("EnterOtp");
