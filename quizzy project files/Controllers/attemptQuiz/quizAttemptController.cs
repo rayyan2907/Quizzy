@@ -40,15 +40,15 @@ namespace Quizzy.Controllers
                 }
 
                 // Get quiz details
-                quiz_model quiz = createQuizBL.getQuizObj(quizId);
+                quiz_model Quiz = createQuizBL.getQuizObj(quizId);
                 
-                if (quiz == null)
+                if (Quiz == null)
                 {
                     return NotFound();
                 }
 
                 // Get subject details
-                subject_model subject = subjectBL.getSubfromid(subjectId);
+                subject_model Subject = subjectBL.getSubfromid(subject.subjectID);
                 
                 if (subject == null)
                 {
@@ -64,15 +64,15 @@ namespace Quizzy.Controllers
                 }
 
                 // Get MCQs and SHQs for the quiz
-                DataTable mcqs = AttemptQuizBL.GetQuizMcqs(quizId);
-                DataTable shqs = AttemptQuizBL.GetQuizShqs(quizId);
+                DataTable Mcqs = AttemptQuizBL.GetQuizMcqs(quizId);
+                DataTable Shqs = AttemptQuizBL.GetQuizShqs(quizId);
 
                 // Set ViewBag data
                 ViewBag.stu = student;
-                ViewBag.sub = subject;
-                ViewBag.QuizData = quiz;
-                ViewBag.mcq = mcqs;
-                ViewBag.shq = shqs;
+                ViewBag.sub = Subject;
+                ViewBag.QuizData = Quiz;
+                ViewBag.mcq = Mcqs;
+                ViewBag.shq = Shqs;
 
                 return View();
             }

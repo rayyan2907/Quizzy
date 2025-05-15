@@ -25,8 +25,6 @@ namespace Quizzy.Models.Buisness_Layer.quiz
             return createQuizDL.unassignQuiz(id);
         }
 
-
-
         public static string addQuiz(Models.Buisness_Models.quiz_model q)
         {
             int giventime;
@@ -46,7 +44,6 @@ namespace Quizzy.Models.Buisness_Layer.quiz
             quiz.given_time = giventime;
             quiz.attempt = q.attempt;
 
-
             if (createQuizDL.addQuiz(quiz))
             {
                 return "The quiz has been created successfully";
@@ -56,7 +53,6 @@ namespace Quizzy.Models.Buisness_Layer.quiz
                 return "Error in adding quiz";
             }
         }
-
 
         public static string updateQuiz(Models.Buisness_Models.quiz_model q)
         {
@@ -82,7 +78,6 @@ namespace Quizzy.Models.Buisness_Layer.quiz
             quiz.given_time = giventime;
             quiz.attempt = q.attempt;
 
-
             if (createQuizDL.updateQuiz(quiz))
             {
                 return "The quiz has been updated successfully";
@@ -91,8 +86,6 @@ namespace Quizzy.Models.Buisness_Layer.quiz
             {
                 return "Error in updating quiz";
             }
-
-            
         }
         public static bool addMcq(mcq_model m)
         {
@@ -109,7 +102,6 @@ namespace Quizzy.Models.Buisness_Layer.quiz
             mcq.corr_opt= m.corr_opt;
 
             return createQuizDL.addMcq(mcq);
-            
         }
 
         public static bool addShq(shq_model shq)
@@ -120,14 +112,12 @@ namespace Quizzy.Models.Buisness_Layer.quiz
             s.quizID = quizID;
             s.shortQuestion=shq.shortQuestion;
             return createQuizDL.addShq(s);
-
         }
 
         public static quiz_model getQuizObj(string id)
         {
             return createQuizDL.getQuizObj(id);
         }
-
 
         public static DataTable getMcqs(quiz_model q)
         {
@@ -140,7 +130,6 @@ namespace Quizzy.Models.Buisness_Layer.quiz
         }
         public static bool mcqDel(string id)
         {
-            
             return createQuizDL.deleteMcq(id);
         }
 
@@ -148,7 +137,6 @@ namespace Quizzy.Models.Buisness_Layer.quiz
         {
             return createQuizDL.deleteShq(id);
         }
-
 
         public static mcq_model getMCqobj(string id)
         {
@@ -159,7 +147,6 @@ namespace Quizzy.Models.Buisness_Layer.quiz
         {
             return createQuizDL.updateMcq(mq);
         }
-
 
         public static bool updateSHQ(shq_model s)
         {

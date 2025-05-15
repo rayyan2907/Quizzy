@@ -19,7 +19,6 @@ namespace Quizzy.Controllers.result
                 TempData["log"] = "Session not found";
 
                 return RedirectToAction("index", "login");
-
             }
             string id = HttpContext.Session.GetString("courseID");
 
@@ -28,16 +27,12 @@ namespace Quizzy.Controllers.result
                 TempData["log"] = "Session not found";
 
                 return RedirectToAction("index", "login");
-
             }
 
             subject_model sub = subjectBL.getSubfromid(id);
 
             Console.WriteLine($"course id is {id}");
-
             Console.WriteLine($"student with name {stu.first_name} {stu.last_name} is opening the reuslts of the course {sub.name}");
-
-           
 
             DataTable dt = stu_quizBL.getresults(sub.subjectID);
             ViewBag.result = dt;
@@ -45,7 +40,6 @@ namespace Quizzy.Controllers.result
             ViewBag.sub = sub;
             return View("~/Views/student/showResults.cshtml");
         }
-
 
         public IActionResult openQuizResults()
         {

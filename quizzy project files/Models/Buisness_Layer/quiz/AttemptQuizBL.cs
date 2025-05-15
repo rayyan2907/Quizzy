@@ -59,7 +59,6 @@ namespace Quizzy.Models.Buisness_Layer.quiz
             }
         }
 
-        // Save MCQ answer
         public static bool SaveMcqAnswer(mcq_answer_model answer)
         {
             try
@@ -80,7 +79,6 @@ namespace Quizzy.Models.Buisness_Layer.quiz
             }
         }
 
-        // Save Short Question answer
         public static bool SaveShqAnswer(shq_answer_model answer)
         {
             try
@@ -101,7 +99,6 @@ namespace Quizzy.Models.Buisness_Layer.quiz
             }
         }
 
-        // Submit complete quiz answers and calculate score
         public static string SubmitQuiz(result_model result)
         {
             try
@@ -116,7 +113,6 @@ namespace Quizzy.Models.Buisness_Layer.quiz
                 int shqScore = 0;
                 int totalScore = mcqScore + shqScore;
 
-                // Create result record
                 resultModel resultDL = new resultModel
                 {
                     quizID = quizId,
@@ -126,10 +122,8 @@ namespace Quizzy.Models.Buisness_Layer.quiz
                     total_marks = totalScore
                 };
 
-                // Save results
                 if (AttemptQuizDL.SaveQuizResults(resultDL))
                 {
-                    // Mark the quiz as attempted in the quiz table
                     AttemptQuizDL.MarkQuizAsAttempted(quizId);
                     return "Quiz submitted successfully";
                 }
@@ -145,43 +139,28 @@ namespace Quizzy.Models.Buisness_Layer.quiz
             }
         }
 
-        // Load quiz for attempting
         public static quiz_attempt_view_model LoadQuizForAttempt(string quizId, string studentId, string subjectId)
         {
             quiz_attempt_view_model viewModel = new quiz_attempt_view_model();
 
-            // Get quiz details
             viewModel.Quiz = createQuizBL.getQuizObj(quizId);
 
-            // Get subject details
             subject_model subject = new subject_model();
-            // You'll need to implement a method to get subject details
-            // This would typically be in a subject-related business layer class
-
-            // Get student details
             Student student = new Student();
-            // You'll need to implement a method to get student details
-            // This would typically be in a student-related business layer class
-
-            // Get MCQs and SHQs
             viewModel.Mcqs = GetQuizMcqs(quizId);
             viewModel.Shqs = GetQuizShqs(quizId);
 
             return viewModel;
         }
 
-        // Get quiz review data
         public static Dictionary<string, DataTable> GetQuizReview(string quizId, string studentId)
         {
             Dictionary<string, DataTable> reviewData = new Dictionary<string, DataTable>();
 
             int quizIdInt = Convert.ToInt32(quizId);
             int studentIdInt = Convert.ToInt32(studentId);
-
-            // Get MCQ answers with correct answers
             DataTable mcqReview = AttemptQuizDL.GetMcqAnswers(studentIdInt, quizIdInt);
 
-            // Get SHQ answers
             DataTable shqReview = AttemptQuizDL.GetShqAnswers(studentIdInt, quizIdInt);
 
             reviewData.Add("mcqs", mcqReview);

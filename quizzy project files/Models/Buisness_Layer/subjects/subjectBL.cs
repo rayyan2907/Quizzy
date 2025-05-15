@@ -39,5 +39,4 @@ namespace Quizzy.Models.Buisness_Layer.subjects
             return model;
         }
     }
-
 }

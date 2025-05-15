@@ -12,7 +12,7 @@ namespace Quizzy.Controllers.login
 {
     public class LoginController : Controller
     {
-        
+      
         public IActionResult Index()
         {
            
@@ -56,9 +56,6 @@ namespace Quizzy.Controllers.login
                 Console.WriteLine($"no user found with email {model.email}");
                 TempData["log"] = "No user found";
                 return RedirectToAction("index");
-
-
-
             }
             else
             {
@@ -78,12 +75,8 @@ namespace Quizzy.Controllers.login
                     string last_name = user.Rows[0]["last_name"].ToString();
                     string email = user.Rows[0]["email"].ToString();
                     string role = login.getUserRole(model);
-                    
-
-                    
 
                     Console.WriteLine($"User with email {model.email} and name {first_name} {last_name} and role {role} has just log in to the system");
-
 
                     var message = new MimeMessage();
                     message.From.Add(new MailboxAddress("Quizzy - Modern Quiz System", "mrayyan403@gmail.com"));
@@ -136,13 +129,10 @@ namespace Quizzy.Controllers.login
                             IsEssential = true
                         });
 
-
                         return RedirectToAction("main", "student");
-
                     }
                     else if (role == "teacher")
                     {
-
                         HttpContext.Session.SetString("teacId", user.Rows[0]["teacherID"].ToString());
                         Response.Cookies.Append("teacId", user.Rows[0]["teacherID"].ToString(), new CookieOptions
                         {
@@ -150,21 +140,12 @@ namespace Quizzy.Controllers.login
                             IsEssential = true
                         });
 
-
                         return RedirectToAction("main", "teacher");
-
                     }
-                   
-
                 }
 
                 return RedirectToAction("index");
-
             }
-
-
-
-
         }
         [HttpPost]
 
@@ -176,26 +157,18 @@ namespace Quizzy.Controllers.login
             Signup signup = new Signup();
             DataTable dt = signup.check(reg);
 
-
             if (dt == null || dt.Rows.Count == 0)
             {
-
                 if (reg.password != reg.cnfrm_pwd)
                 {
                     TempData["ErrorMessage"] = "Passwords does not match!";
                     return RedirectToAction("register");
-
-
                 }
                 else
                 {
                     string generatedOtp = new Random().Next(100000, 999999).ToString();
 
-                    // Save OTP in session (or a static/global variable temporarily)
                     HttpContext.Session.SetString("EmailOTP", generatedOtp);
-
-                    
-
 
                     Console.WriteLine($"Otp {generatedOtp} has been sent to email {reg.email}");
                     // Send email
@@ -227,9 +200,7 @@ namespace Quizzy.Controllers.login
                                 </div>
                             </body>
                             </html>
-"
-
-                    };
+"                    };
                     try
                     {
                         // (Then use SMTP to send the message)
@@ -251,7 +222,6 @@ namespace Quizzy.Controllers.login
                     TempData["otp"] = "Please check your spam mail for OTP";
 
                     return RedirectToAction("EnterOtp");
-
                 }
             }
             else
@@ -261,12 +231,11 @@ namespace Quizzy.Controllers.login
                 TempData["ErrorMessage"] = $"User already exists as a {dt.Rows[0]["role"].ToString()}";
 
                 return RedirectToAction("register");
-
             }
         }
 
 
-            [HttpPost]
+        [HttpPost]
 
         public IActionResult stuReg(Student stu)
         {
@@ -286,7 +255,6 @@ namespace Quizzy.Controllers.login
                 stu.email = reg.email;
                 stu.password = reg.password;
                 stu.role=reg.role;
-                
             }
             
             signUp_student signUp_Student = new signUp_student();
@@ -345,23 +313,16 @@ namespace Quizzy.Controllers.login
                     return RedirectToAction("register");
 
                 }
-
-
-
             }
             else 
             {
                 TempData["Check"] = msg;
                 return View("student_reg", stu);
-
-
             }
             Console.WriteLine($"New student with name {stu.first_name} {stu.last_name} has signed up");
 
             return RedirectToAction("index");
         }
-
-
 
         [HttpPost]
 
@@ -385,7 +346,6 @@ namespace Quizzy.Controllers.login
                 model.email = reg.email;
                 model.password = reg.password;
                 model.role = reg.role;
-
             }
             string msg = teacher.reg(model);
 
@@ -439,7 +399,6 @@ namespace Quizzy.Controllers.login
                     TempData["log"] = "Internet not connected";
                     Console.WriteLine("internet issue");
                     return RedirectToAction("register");
-
                 }
             }
 
@@ -447,15 +406,11 @@ namespace Quizzy.Controllers.login
             {
                 TempData["Check"] = msg;
                 return View("teacher_reg",model);
-
-
             }
             Console.WriteLine($"A new teacher with name {model.first_name} {model.last_name} has signup");
 
             return RedirectToAction("index");
-            
         }
-
 
         [HttpPost]
         public IActionResult EnterOtp(string otpInput)
@@ -466,15 +421,11 @@ namespace Quizzy.Controllers.login
             Console.WriteLine($"user with email {reg.email} has entered otp {otpInput} and origanal otp is {savedOtp} and the role is {reg.role}");
             if (savedOtp == otpInput)
             {
-                
-                // Success
                 HttpContext.Session.Remove("EmailOTP"); // Clear session after success
                 TempData["Success"] = "Email Verified Successfully";
 
                 if (reg.role == "student")
                 {
-                    
-
                     return RedirectToAction("stuReg");
                 }
                 else if (reg.role == "teacher")
