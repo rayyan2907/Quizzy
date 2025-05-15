@@ -24,5 +24,15 @@ namespace Quizzy.Models.Buisness_Layer.quiz
         {
             return checkQuizDL.AssignGradeToShortAnswer(studentId, shqID, marks);
         }
+
+        public static DataTable GetFinalResults(string id)
+        {
+            return checkQuizDL.GetFinalResults(id);
+        }
+
+        public static bool SaveOrUpdateResult(int studentId, string quizId, int mcqMarks, int shqMarks, int totalMarks)
+        {
+            return checkQuizDL.SaveOrUpdateResult(studentId, quizId, mcqMarks, shqMarks, totalMarks);
+        }
     }
 }

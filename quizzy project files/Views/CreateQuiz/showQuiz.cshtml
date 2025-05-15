@@ -80,7 +80,6 @@
                 <thead>
                     <tr>
                         <th>Quiz Name</th>
-                        <th>Subject</th>
                         <th>Add MCQs / SHQs</th>
                         <th>Update/Delete</th>
                         <th>Actions</th>
@@ -93,7 +92,6 @@
 
                         <tr>
                             <td>@row["quiz_name"]</td>
-                            <td>@row["subject_code"]-@row["subject_name"]</td>
                             <td>
                                 <form method="post" asp-controller="createQuiz" asp-action="showMcq" style="display:inline;">
                                     <input type="hidden" name="id" value="@row["quizID"]" />
