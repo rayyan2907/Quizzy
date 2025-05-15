@@ -77,7 +77,8 @@
                         <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v15c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 17H5V8h14v12z" />
                     </svg>
                 </label>
-                <input type="date" id="date-input" placeholder="Addmission Date" asp-for="addmission_year">
+                <input type="number" id="date-input" placeholder="Admission Year"
+                       asp-for="addmission_year" min="1990" max="2025" step="1">
             </div>
 
             <button type="submit">Register As A Student</button>
