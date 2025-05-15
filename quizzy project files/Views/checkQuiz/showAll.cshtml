@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/mainpage_teacher.css">
-
+   
 </head>
 <body>
 
@@ -65,8 +65,9 @@
     <!-- Student Assignment Section -->
     <div class="student-assignments">
         <div class="section-header">
-            <h2>Students Management</h2>
+            <h2>Quiz Evaluation</h2>
         </div>
+       </div>
 
         @if (quizDt != null && quizDt.Rows.Count > 0)
         {
@@ -79,24 +80,21 @@
                     int quizId = Convert.ToInt32(row["quizID"]);
 
                     <div class="quiz-card">
-                        <div class="quiz-header">
-                            <div>
+                        <div class="quiz-content-wrapper">
+                            <div class="quiz-header">
                                 <h3 class="quiz-title">@quizName</h3>
                                 <div class="quiz-time">
                                     <i class="fas fa-clock"></i> @givenTime minutes
                                 </div>
                             </div>
-                        </div>
-                        <div class="quiz-body">
                             <div class="quiz-action">
-                               
-                                    <a href="/createQuiz/checkQuiz/@quizId" class="quiz-btn">
-                                        Check Quiz <i class="fas fa-arrow-right"></i>
-                                    </a>
-
+                                <a href="/createQuiz/checkQuiz/@quizId" class="quiz-btn">
+                                    Check Quiz <i class="fas fa-arrow-right"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
+
                 }
             </div>
         }
@@ -109,6 +107,7 @@
             <p class="footer-message">Happy Teaching, @teacher.first_name @teacher.last_name!</p>
             <p class="copyright">&copy; 2025 Quizzy. All rights reserved.</p>
         </div>
+       
 </body>
 
 </html>

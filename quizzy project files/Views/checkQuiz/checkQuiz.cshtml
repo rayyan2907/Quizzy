@@ -63,16 +63,19 @@
     }
 
     <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <div class="section-header">
         <h2>Check Quizzes of the Students</h2>
+        </div>
         <form method="post" asp-controller="checkQuiz" asp-action="saveResults" style="margin-left: auto;">
             <button type="submit" class="btn-logout" style="background-color: #4CAF50; padding: 8px 16px; font-size: 14px; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 500; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: all 0.2s ease;">
-                <i class="fas fa-paper-plane"></i> Save Results    
+                <i class="fas fa-paper-plane"></i> Save Results
             </button>
         </form>
-    </div>
-
+    </div> 
     @if (quizAttempts != null && quizAttempts.Rows.Count > 0)
     {
+        <div class="student-assignments">
+
         <table class="evaluation-table">
             <thead>
                 <tr>
@@ -114,12 +117,13 @@
                     </tbody>
 
                     </table>
+                    </div>
                 }
                 else
                 {
                     <p style = "text-align: center; font-size: 16px; color: black;">No student has attempted the quiz yet.</p>
                 }
-                
+                </div>
     </div>
 
     <div class="dashboard-footer">
