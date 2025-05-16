@@ -40,17 +40,24 @@ namespace Quizzy.Models.Buisness_Layer.registration
             {
                 return "Please Fill the data correctly";
             }
+            string errormsg;
 
-            bool isLoginSave = signup.addLogin(login);
+            bool isLoginSave = signup.addLogin(login,out errormsg);
+
 
             if (isLoginSave && isStudentSave)
             {
-                return "Registration Successfull";
+                return "Registration Successful";
+            }
+            else if (!isLoginSave && !string.IsNullOrEmpty(errormsg))
+            {
+                return $"Login Error: {errormsg}";
             }
             else
             {
-                return "Please Fill the data correctly";
+                return "Please fill the data correctly.";
             }
+
         }
     }
 }
