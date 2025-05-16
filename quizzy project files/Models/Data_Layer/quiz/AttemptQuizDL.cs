@@ -90,14 +90,18 @@ namespace Quizzy.Models.Data_Layer.quiz
         // Check if a student has already attempted a quiz
         public static bool HasAttemptedQuiz(int studentId, int quizId)
         {
-            string query = $"SELECT COUNT(*) FROM attempt WHERE studentID = {studentId} AND quizID = {quizId}";
+            string query = $"SELECT * FROM attempt WHERE studentID = {studentId} AND quizID = {quizId}";
+            Console.WriteLine(query);
             DataTable dt = DatabaseHelper.Instance.GetData(query);
+            
             if(dt==null || dt.Rows.Count==0)
             {
                 return false;
             }
             else
+
             {
+                Console.WriteLine(dt.Rows.Count);
                 return true;
             }
         }
@@ -109,7 +113,7 @@ namespace Quizzy.Models.Data_Layer.quiz
             int rows = DatabaseHelper.Instance.Update(query);
             return rows > 0;
         }
-
+        
         // Calculate and save quiz results
         public static bool SaveQuizResults(resultModel result)
         {
