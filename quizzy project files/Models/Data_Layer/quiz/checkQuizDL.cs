@@ -85,13 +85,13 @@ namespace Quizzy.Models.Data_Layer.quiz
 
         public static bool SaveOrUpdateResult(int studentId, string quizId, int mcqMarks, int shqMarks, int totalMarks)
         {
-            string query = $@"INSERT INTO results (studentID, quizID, mcq_marks, shq_marks, total_marks, is_sent)
-                              VALUES ({studentId}, {quizId}, {mcqMarks}, {shqMarks}, {totalMarks}, 0)
+            string query = $@"INSERT INTO results (studentID, quizID, mcq_marks, shq_marks, total_marks)
+                              VALUES ({studentId}, {quizId}, {mcqMarks}, {shqMarks}, {totalMarks})
                               ON DUPLICATE KEY UPDATE 
                                   mcq_marks = {mcqMarks},
                                   shq_marks = {shqMarks},
                                   total_marks = {totalMarks},
-                                  is_sent = 0;";
+                                  ";
 
             return DatabaseHelper.Instance.Update(query) > 0;
         }

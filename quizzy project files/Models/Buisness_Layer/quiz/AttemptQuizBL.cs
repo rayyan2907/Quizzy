@@ -10,7 +10,6 @@ namespace Quizzy.Models.Buisness_Layer.quiz
 {
     public class AttemptQuizBL
     {
-        // Get quiz questions for student attempt
         public static DataTable GetQuizMcqs(string quizId)
         {
             return AttemptQuizDL.GetQuizMcqs(quizId);
@@ -21,7 +20,6 @@ namespace Quizzy.Models.Buisness_Layer.quiz
             return AttemptQuizDL.GetQuizShqs(quizId);
         }
 
-        // Create a new attempt record
         public static bool CreateAttempt(attempt_model attempt)
         {
             try

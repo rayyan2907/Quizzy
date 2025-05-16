@@ -73,7 +73,6 @@ namespace Quizzy.Controllers.teacher
             Console.WriteLine(id);
             if (string.IsNullOrEmpty(id))
             {
-                // You can reload from cookie or redirect to login
                 if (Request.Cookies["teacId"] != null)
                 {
 

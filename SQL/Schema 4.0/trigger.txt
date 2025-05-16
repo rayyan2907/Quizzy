@@ -1,0 +1,8 @@
+CREATE TRIGGER trg_MarkQuizAttempted
+AFTER INSERT ON attempt
+FOR EACH ROW
+BEGIN
+    UPDATE quiz 
+    SET attempt = true 
+    WHERE quizID = NEW.quizID;
+END;

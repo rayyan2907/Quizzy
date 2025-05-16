@@ -22,9 +22,8 @@ namespace Quizzy.Models.Buisness_Layer.registration
             }
             student.roll_num = roll_number;
 
-            string dateStr = stu.addmission_year;
-            DateTime date = DateTime.Parse(dateStr);
-            int year = date.Year;
+           
+            int year = Convert.ToInt32(stu.addmission_year);
 
             student.email = stu.email;
             student.dept = stu.dept;
@@ -41,17 +40,24 @@ namespace Quizzy.Models.Buisness_Layer.registration
             {
                 return "Please Fill the data correctly";
             }
+            string errormsg;
 
-            bool isLoginSave = signup.addLogin(login);
+            bool isLoginSave = signup.addLogin(login,out errormsg);
+
 
             if (isLoginSave && isStudentSave)
             {
-                return "Registration Successfull";
+                return "Registration Successful";
+            }
+            else if (!isLoginSave && !string.IsNullOrEmpty(errormsg))
+            {
+                return $"Login Error: {errormsg}";
             }
             else
             {
-                return "Please Fill the data correctly";
+                return "Please fill the data correctly.";
             }
+
         }
     }
 }
