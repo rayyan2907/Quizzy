@@ -51,7 +51,34 @@ namespace Quizzy.Models.Data_Layer.quiz
 
         public static DataTable GetFinalResults(string quizId)
         {
-            string query = @"SELECT studentID, mcqs_marks, sqs_marks, total_marks";
+            string query = $@"SELECT 
+                                apt.quizID as quizID,
+                                s.studentID as studentID,
+
+                                COUNT(CASE 
+                                         WHEN m.correct_opt = ma.answer 
+                                         THEN 1 
+                                     END) AS mcqs_marks,
+
+                                IFNULL(sq_data.sqs_marks, 0) AS sqs_marks,
+
+                                COUNT(CASE 
+                                         WHEN m.correct_opt = ma.answer 
+                                         THEN 1 
+                                     END) + IFNULL(sq_data.sqs_marks, 0) AS total_marks
+
+                            FROM attempt apt
+                            JOIN students s ON s.studentID = apt.studentID
+                            LEFT JOIN mcq_answers ma ON ma.studentID = s.studentID
+                            LEFT JOIN mcqs m ON m.mcqID = ma.mcqID AND m.quizID = apt.quizID
+                            LEFT JOIN (
+                                SELECT sc.studentID, sq.quizID, SUM(sc.marks) AS sqs_marks
+                                FROM shq_check sc
+                                JOIN short_questions sq ON sq.shqID = sc.shqID
+                                GROUP BY sc.studentID, sq.quizID
+                            ) AS sq_data ON sq_data.studentID = s.studentID AND sq_data.quizID = apt.quizID
+                            WHERE apt.quizID = {quizId}
+                            GROUP BY apt.quizID, s.studentID, sq_data.sqs_marks;";
 
             return DatabaseHelper.Instance.GetData(query);
         }
